@@ -1,0 +1,48 @@
+/* LocalLoop kiosk - global theme. Import once, above the screen components.
+   Every px in the design is expressed as calc(var(--u) * n), so the whole
+   1920x1080 layout scales fluidly with the viewport width. */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+  /* kiosk unit: 1920-wide design */
+  --u: calc(100vw / 1920);
+  /* phone unit: 390-wide design, capped so it stays phone-sized on desktop */
+  --pu: calc(min(100vw, 430px) / 390);
+
+  --ll-bg: #FBFAF5;
+  --ll-surface: #FFFFFF;
+  --ll-ink: #2B2723;
+  --ll-ink-muted: #6B6459;
+  --ll-line: #E9E5DC;
+
+  --ll-events: #F6B963;
+  --ll-transport: #F49B94;
+  --ll-requests: #8FDCF2;
+  --ll-map: #A8D8A0;
+}
+
+/* Cap the scale on very wide displays so type stops growing past the design intent. */
+@media (min-width: 2400px) {
+  :root { --u: calc(2400px / 1920); }
+}
+
+/* Inside a phone-sized container, drive --pu off the container instead. */
+.llPhoneFrame {
+  container-type: inline-size;
+  --pu: calc(100cqw / 390);
+}
+
+/* Below tablet width the kiosk layout is out of its intended medium; keep it
+   legible rather than shrinking text into nothing. */
+@media (max-width: 1000px) {
+  :root { --u: calc(1000px / 1920); }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ll-bg);
+  font-family: Nunito, system-ui, sans-serif;
+  color: var(--ll-ink);
+}

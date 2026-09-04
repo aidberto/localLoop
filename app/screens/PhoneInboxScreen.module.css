@@ -1,0 +1,224 @@
+.screen {
+  width: 100%;
+  max-width: calc(var(--pu) * 390);
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: #FBFAF5;
+  font-family: Nunito,system-ui,sans-serif;
+  color: #2B2723;
+  overflow: hidden;
+}
+
+.row {
+  height: calc(var(--pu) * 56);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 10);
+  padding: 0 calc(var(--pu) * 16);
+  background: #FFFFFF;
+  border-bottom: 1px solid #E9E5DC;
+}
+
+.pill {
+  height: calc(var(--pu) * 44);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 6);
+  padding: 0 calc(var(--pu) * 14);
+  border-radius: 999px;
+  background: #F3F0E9;
+  font-size: calc(var(--pu) * 16);
+  font-weight: 800;
+}
+
+.heading {
+  flex: 1;
+  text-align: center;
+  font-size: calc(var(--pu) * 18);
+  font-weight: 900;
+}
+
+.meta {
+  width: calc(var(--pu) * 72);
+  text-align: right;
+  font-size: calc(var(--pu) * 14);
+  font-weight: 800;
+  color: #16697F;
+}
+
+.col {
+  flex: 1;
+  padding: calc(var(--pu) * 18) calc(var(--pu) * 20) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 10);
+}
+
+.meta2 {
+  font-size: calc(var(--pu) * 14);
+  font-weight: 900;
+  letter-spacing: calc(var(--pu) * 1);
+  color: #6B6459;
+}
+
+.card {
+  background: #FFFFFF;
+  border: 2px solid #2B2723;
+  border-radius: calc(var(--pu) * 16);
+  padding: calc(var(--pu) * 14) calc(var(--pu) * 16);
+  display: flex;
+  gap: calc(var(--pu) * 12);
+  align-items: flex-start;
+}
+
+.heading2 {
+  width: calc(var(--pu) * 40);
+  height: calc(var(--pu) * 40);
+  flex: none;
+  border-radius: calc(var(--pu) * 12);
+  background: #E3F6FC;
+  color: #0C4B5C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 18);
+}
+
+.box {
+  flex: 1;
+}
+
+.text {
+  font-size: calc(var(--pu) * 16);
+  font-weight: 900;
+}
+
+.text2 {
+  font-size: calc(var(--pu) * 15);
+  font-weight: 600;
+  color: #6B6459;
+}
+
+.col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--pu) * 6);
+}
+
+.chip {
+  font-size: calc(var(--pu) * 12);
+  font-weight: 900;
+  background: #2B2723;
+  color: #FFFFFF;
+  padding: calc(var(--pu) * 4) calc(var(--pu) * 10);
+  border-radius: 999px;
+}
+
+.meta3 {
+  font-size: calc(var(--pu) * 13);
+  font-weight: 700;
+  color: #6B6459;
+}
+
+.heading3 {
+  width: calc(var(--pu) * 40);
+  height: calc(var(--pu) * 40);
+  flex: none;
+  border-radius: calc(var(--pu) * 12);
+  background: #FDF0DC;
+  color: #6E4708;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 18);
+}
+
+.meta4 {
+  font-size: calc(var(--pu) * 14);
+  font-weight: 900;
+  letter-spacing: calc(var(--pu) * 1);
+  color: #6B6459;
+  margin-top: calc(var(--pu) * 8);
+}
+
+.card2 {
+  background: #FFFFFF;
+  border: 1px solid #EDE9E0;
+  border-radius: calc(var(--pu) * 16);
+  padding: calc(var(--pu) * 14) calc(var(--pu) * 16);
+  display: flex;
+  gap: calc(var(--pu) * 12);
+  align-items: flex-start;
+}
+
+.heading4 {
+  width: calc(var(--pu) * 40);
+  height: calc(var(--pu) * 40);
+  flex: none;
+  border-radius: calc(var(--pu) * 12);
+  background: #F2F9DF;
+  color: #43590F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 18);
+}
+
+.text3 {
+  font-size: calc(var(--pu) * 16);
+  font-weight: 800;
+  color: #6B6459;
+}
+
+.text4 {
+  font-size: calc(var(--pu) * 15);
+  font-weight: 600;
+  color: #A8A196;
+}
+
+.meta5 {
+  font-size: calc(var(--pu) * 13);
+  font-weight: 700;
+  color: #A8A196;
+}
+
+.heading5 {
+  width: calc(var(--pu) * 40);
+  height: calc(var(--pu) * 40);
+  flex: none;
+  border-radius: calc(var(--pu) * 12);
+  background: #FCE9E7;
+  color: #7C2119;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 18);
+}
+
+.meta6 {
+  font-size: calc(var(--pu) * 13);
+  font-weight: 600;
+  color: #A8A196;
+  text-align: center;
+  margin-top: calc(var(--pu) * 2);
+}
+
+.box2 {
+  flex: none;
+  padding: calc(var(--pu) * 10) calc(var(--pu) * 24) calc(var(--pu) * 24);
+}
+
+.pill2 {
+  height: calc(var(--pu) * 54);
+  border-radius: 999px;
+  border: 2px solid #2B2723;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 18);
+  font-weight: 800;
+}

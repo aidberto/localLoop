@@ -1,0 +1,72 @@
+.shell {
+  height: calc(var(--u) * 96);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 22);
+  padding: 0 calc(var(--u) * 48);
+  background: var(--ll-surface);
+  border-bottom: 1px solid var(--ll-line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 14);
+  cursor: pointer;
+}
+
+.mark {
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 34);
+  border-radius: 50%;
+  border: calc(var(--u) * 8) solid var(--ll-events);
+}
+
+.wordmark {
+  font-size: calc(var(--u) * 30);
+  font-weight: 900;
+  letter-spacing: calc(var(--u) * -0.5);
+}
+
+.divider {
+  width: 1px;
+  height: calc(var(--u) * 36);
+  background: var(--ll-line);
+}
+
+.suburb {
+  font-size: calc(var(--u) * 28);
+  font-weight: 700;
+  color: var(--ll-ink-muted);
+}
+
+.spacer { flex: 1; }
+
+.prompt {
+  font-size: calc(var(--u) * 22);
+  color: var(--ll-ink-muted);
+}
+
+.register {
+  font-size: calc(var(--u) * 22);
+  font-weight: 800;
+  background: var(--ll-ink);
+  color: var(--ll-surface);
+  padding: calc(var(--u) * 12) calc(var(--u) * 26);
+  border-radius: 999px;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.time {
+  font-size: calc(var(--u) * 32);
+  font-weight: 800;
+}
+
+.temp {
+  font-size: calc(var(--u) * 32);
+  font-weight: 600;
+  color: var(--ll-ink-muted);
+}

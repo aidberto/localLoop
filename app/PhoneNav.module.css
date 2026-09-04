@@ -1,0 +1,37 @@
+.nav {
+  flex: none;
+  display: flex;
+  gap: calc(var(--pu) * 4);
+  padding: calc(var(--pu) * 8) calc(var(--pu) * 10) calc(var(--pu) * 12);
+  background: #fff;
+  border-top: 1px solid #e9e5dc;
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--pu) * 5);
+  padding: calc(var(--pu) * 8) 0;
+  border-radius: calc(var(--pu) * 14);
+  cursor: pointer;
+}
+
+.dot {
+  width: calc(var(--pu) * 12);
+  height: calc(var(--pu) * 12);
+  border-radius: 50%;
+}
+
+.label {
+  font-family: Nunito, system-ui, sans-serif;
+  font-size: calc(var(--pu) * 12);
+  font-weight: 800;
+  color: #6b6459;
+}
+
+.active .label {
+  color: #2b2723;
+  font-weight: 900;
+}

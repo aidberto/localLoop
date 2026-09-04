@@ -1,0 +1,206 @@
+.screen {
+  width: 100%;
+  max-width: calc(var(--pu) * 390);
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: #FBFAF5;
+  font-family: Nunito,system-ui,sans-serif;
+  color: #2B2723;
+  overflow: hidden;
+}
+
+.row {
+  height: calc(var(--pu) * 56);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 10);
+  padding: 0 calc(var(--pu) * 16);
+  background: #FFFFFF;
+  border-bottom: 1px solid #E9E5DC;
+}
+
+.pill {
+  height: calc(var(--pu) * 44);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 6);
+  padding: 0 calc(var(--pu) * 14);
+  border-radius: 999px;
+  background: #F3F0E9;
+  font-size: calc(var(--pu) * 16);
+  font-weight: 800;
+}
+
+.heading {
+  flex: 1;
+  text-align: center;
+  font-size: calc(var(--pu) * 18);
+  font-weight: 900;
+}
+
+.box {
+  width: calc(var(--pu) * 72);
+}
+
+.col {
+  flex: 1;
+  padding: calc(var(--pu) * 20) calc(var(--pu) * 28) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 14);
+}
+
+.col2 {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 6);
+}
+
+.text {
+  font-size: calc(var(--pu) * 15);
+  font-weight: 800;
+}
+
+.heading2 {
+  height: calc(var(--pu) * 48);
+  border-radius: calc(var(--pu) * 12);
+  border: 2px solid #E9E5DC;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 17);
+  font-weight: 700;
+}
+
+.meta {
+  font-size: calc(var(--pu) * 13);
+  font-weight: 600;
+  color: #6B6459;
+}
+
+.heading3 {
+  height: calc(var(--pu) * 48);
+  border-radius: calc(var(--pu) * 12);
+  border: 2px solid #E9E5DC;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 17);
+  font-weight: 700;
+}
+
+.box2 {
+  color: #6B6459;
+}
+
+.box3 {
+  font-weight: 600;
+  color: #6B6459;
+}
+
+.heading4 {
+  height: calc(var(--pu) * 48);
+  border-radius: calc(var(--pu) * 12);
+  border: 2px solid #E9E5DC;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 17);
+  font-weight: 600;
+  color: #A8A196;
+}
+
+.row2 {
+  display: flex;
+  gap: calc(var(--pu) * 12);
+}
+
+.col3 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 6);
+}
+
+.heading5 {
+  height: calc(var(--pu) * 48);
+  border-radius: calc(var(--pu) * 12);
+  border: 2px solid #E9E5DC;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 20);
+  font-weight: 900;
+  letter-spacing: calc(var(--pu) * 4);
+}
+
+.heading6 {
+  height: calc(var(--pu) * 48);
+  border-radius: calc(var(--pu) * 12);
+  border: 2px solid #C2453A;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 20);
+  font-weight: 900;
+  letter-spacing: calc(var(--pu) * 4);
+}
+
+.meta2 {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 8);
+  font-size: calc(var(--pu) * 14);
+  font-weight: 700;
+  color: #C2453A;
+  margin-top: calc(var(--pu) * -6);
+}
+
+.avatar {
+  width: calc(var(--pu) * 17);
+  height: calc(var(--pu) * 17);
+  flex: none;
+  border-radius: 50%;
+  background: #C2453A;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 12);
+}
+
+.col4 {
+  flex: none;
+  padding: calc(var(--pu) * 12) calc(var(--pu) * 28) calc(var(--pu) * 36);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 10);
+}
+
+.pill2 {
+  height: calc(var(--pu) * 56);
+  border-radius: 999px;
+  background: #2B2723;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 19);
+  font-weight: 800;
+}
+
+.meta3 {
+  font-size: calc(var(--pu) * 13);
+  font-weight: 600;
+  color: #6B6459;
+  text-align: center;
+}

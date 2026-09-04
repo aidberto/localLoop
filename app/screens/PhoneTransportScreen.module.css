@@ -1,0 +1,232 @@
+.screen {
+  width: 100%;
+  max-width: calc(var(--pu) * 390);
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: #FBFAF5;
+  font-family: Nunito,system-ui,sans-serif;
+  color: #2B2723;
+  overflow: hidden;
+}
+
+.row {
+  height: calc(var(--pu) * 56);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 10);
+  padding: 0 calc(var(--pu) * 16);
+  background: #FFFFFF;
+  border-bottom: 3px solid #F49B94;
+}
+
+.pill {
+  height: calc(var(--pu) * 44);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 6);
+  padding: 0 calc(var(--pu) * 14);
+  border-radius: 999px;
+  background: #F3F0E9;
+  font-size: calc(var(--pu) * 16);
+  font-weight: 800;
+}
+
+.heading {
+  flex: 1;
+  text-align: center;
+  font-size: calc(var(--pu) * 18);
+  font-weight: 900;
+}
+
+.text {
+  width: calc(var(--pu) * 88);
+  text-align: right;
+  font-size: calc(var(--pu) * 15);
+  font-weight: 800;
+  color: #6B6459;
+}
+
+.col {
+  flex: none;
+  padding: calc(var(--pu) * 12) calc(var(--pu) * 20) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 10);
+}
+
+.row2 {
+  display: flex;
+  gap: calc(var(--pu) * 8);
+}
+
+.chip {
+  flex: 1;
+  height: calc(var(--pu) * 42);
+  border-radius: 999px;
+  background: #F49B94;
+  color: #7C2119;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 15);
+  font-weight: 900;
+}
+
+.chip2 {
+  flex: 1;
+  height: calc(var(--pu) * 42);
+  border-radius: 999px;
+  background: #FCE9E7;
+  color: #A03A31;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--pu) * 15);
+  font-weight: 700;
+}
+
+.row3 {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 8);
+}
+
+.text2 {
+  font-size: calc(var(--pu) * 15);
+  font-weight: 900;
+}
+
+.meta {
+  font-size: calc(var(--pu) * 14);
+  font-weight: 700;
+  color: #6B6459;
+}
+
+.box {
+  flex: 1;
+}
+
+.meta2 {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 6);
+  font-size: calc(var(--pu) * 13);
+  font-weight: 800;
+  color: #6B6459;
+}
+
+.avatar {
+  width: calc(var(--pu) * 9);
+  height: calc(var(--pu) * 9);
+  border-radius: 50%;
+  background: #4CAF7D;
+}
+
+.col2 {
+  flex: 1;
+  padding: calc(var(--pu) * 12) calc(var(--pu) * 20) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 10);
+}
+
+.card {
+  background: #FFFFFF;
+  border: 1px solid #EDE9E0;
+  border-radius: calc(var(--pu) * 18);
+  padding: calc(var(--pu) * 14);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pu) * 12);
+}
+
+.heading2 {
+  font-size: calc(var(--pu) * 18);
+  font-weight: 900;
+  background: #FCE9E7;
+  color: #A03A31;
+  padding: calc(var(--pu) * 8) calc(var(--pu) * 10);
+  border-radius: calc(var(--pu) * 11);
+  min-width: calc(var(--pu) * 52);
+  text-align: center;
+}
+
+.box2 {
+  flex: 1;
+  min-width: 0;
+}
+
+.heading3 {
+  font-size: calc(var(--pu) * 17);
+  font-weight: 900;
+}
+
+.meta3 {
+  font-size: calc(var(--pu) * 13);
+  font-weight: 700;
+  color: #6B6459;
+}
+
+.box3 {
+  text-align: right;
+}
+
+.heading4 {
+  font-size: calc(var(--pu) * 19);
+  font-weight: 900;
+  color: #7C2119;
+}
+
+.row4 {
+  display: flex;
+  gap: calc(var(--pu) * 3);
+  justify-content: flex-end;
+  margin-top: calc(var(--pu) * 3);
+}
+
+.avatar2 {
+  width: calc(var(--pu) * 9);
+  height: calc(var(--pu) * 9);
+  border-radius: 50%;
+  background: #A03A31;
+}
+
+.avatar3 {
+  width: calc(var(--pu) * 9);
+  height: calc(var(--pu) * 9);
+  border-radius: 50%;
+  background: #F0DDD9;
+}
+
+.meta4 {
+  background: #FCE9E7;
+  border-radius: calc(var(--pu) * 12);
+  padding: calc(var(--pu) * 10) calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 13);
+  font-weight: 700;
+  color: #7C2119;
+  line-height: 1.4;
+}
+
+.box4 {
+  flex: none;
+  padding: calc(var(--pu) * 12) calc(var(--pu) * 20) calc(var(--pu) * 30);
+}
+
+.pill2 {
+  height: calc(var(--pu) * 50);
+  border-radius: 999px;
+  border: 2px solid #E9E5DC;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--pu) * 8);
+  font-size: calc(var(--pu) * 16);
+  font-weight: 800;
+  color: #6B6459;
+  box-sizing: border-box;
+}
