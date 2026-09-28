@@ -281,7 +281,7 @@
 
 .photo {
   position: relative;
-  height: calc(var(--u) * 300);
+  height: calc(var(--u) * 260);
   border-radius: calc(var(--u) * 20);
   background-size: cover;
   background-position: center;
@@ -320,7 +320,7 @@
   line-height: 1.4;
   color: rgba(251,250,245,0.9);
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

@@ -60,7 +60,7 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
 
   const soonest = [...departures]
     .sort((a, b) => (a.dueAt ?? 0) - (b.dueAt ?? 0))
-    .slice(0, 6)
+    .slice(0, 4)
     .map((d) => ({ ...d, min: Math.max(0, Math.ceil((d.dueAt! - now) / 60000)) }));
 
   return (
