@@ -51,7 +51,8 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
       setScreen((cur) => (cur === 'standby' ? 'home' : cur));
       timer = window.setTimeout(() => setScreen('standby'), IDLE_MS);
     };
-    const inputs = ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'];
+    // Note: no pointermove — passive mouse motion must not wake the kiosk.
+    const inputs = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
     inputs.forEach((e) => window.addEventListener(e, reset, { passive: true }));
     reset();
     return () => {
