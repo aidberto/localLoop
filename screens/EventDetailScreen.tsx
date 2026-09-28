@@ -1,5 +1,6 @@
 import KioskShell from '../KioskShell';
 import PhoneHandoff from '../PhoneHandoff';
+import RouteMap from '../RouteMap';
 import type { KioskScreenProps } from '../types';
 import { events } from '../data';
 import styles from './EventDetailScreen.module.css';
@@ -34,12 +35,9 @@ export default function EventDetailScreen({ onNavigate, selectedId }: KioskScree
             <div className={styles.col4}>
               <div className={styles.heading}>Getting there</div>
               <div className={styles.row4}>
-                <div className={styles.mapPlaceholder2}>map · kiosk → venue</div>
-                <div className={styles.col5}>
-                  <div className={styles.row5}><div className={styles.text5}>422</div><div className={styles.text6}>Bus · 3 min away<div className={styles.text7}>2 stops · get off at Newtown Bridge</div></div></div>
-                  <div className={styles.row5}><div className={styles.text5}>T2</div><div className={styles.text6}>Train · 4 min away<div className={styles.text7}>Newtown Station, Platform 1</div></div></div>
-                  <div className={styles.row5}><div className={styles.text5}>5′</div><div className={styles.text6}>Walk · {event.distanceM} m<div className={styles.text7}>Step-free route available</div></div></div>
-                </div>
+                {event.route
+                  ? <RouteMap stops={event.route} color={event.tint} lineColor="#E4002B" endpointsOnly profile="foot" className={styles.mapPlaceholder2} />
+                  : <div className={styles.mapPlaceholder2}>map · kiosk → venue</div>}
               </div>
             </div>
             <div className={styles.col6}>

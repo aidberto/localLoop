@@ -101,6 +101,19 @@
   color: #6B6459;
 }
 
+.sectionTitle {
+  font-size: calc(var(--pu) * 18);
+  font-weight: 900;
+}
+
+.routeMap {
+  height: calc(var(--pu) * 200);
+  flex: none;
+  border-radius: calc(var(--pu) * 18);
+  overflow: hidden;
+  border: 1px solid #F3E4C8;
+}
+
 .card {
   background: #FFFFFF;
   border: 1px solid #EDE9E0;

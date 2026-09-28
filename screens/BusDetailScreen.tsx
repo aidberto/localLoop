@@ -53,7 +53,7 @@ export default function BusDetailScreen({ onNavigate, selectedId }: KioskScreenP
             </div>
           </div>
           <div className={styles.row3}>
-            <RouteMap stops={route.stops} color={modeColors[mode].bg} className={styles.mapPlaceholder} />
+            <RouteMap stops={route.stops} color={modeColors[mode].bg} profile={mode === 'bus' ? 'driving' : undefined} className={styles.mapPlaceholder} />
             <div className={styles.pin}>
               <div className={styles.pill2}><div className={styles.avatar4}></div>You are here</div>
               <div className={styles.pill2}><div className={styles.avatar5}></div>{label} {route.line} · now</div>

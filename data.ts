@@ -15,6 +15,7 @@ export interface EventItem {
   image: string;       // event photo (Unsplash)
   tags: string[];      // "Free", "Family", … used by filters later
   blurb: string;
+  route?: RouteStop[]; // walking path from the kiosk to the venue, for "getting there"
 }
 
 export interface RequestItem {
@@ -112,6 +113,12 @@ export const events: EventItem[] = [
     tags: ['Free', 'Family'],
     blurb:
       "Forty local stalls of ceramics, prints, plants and street food, with live acoustic sets from 2 pm and a kids' craft corner run by the Newtown library. Dogs on leads welcome.",
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'King St at Church St', time: '2 min', lat: -33.897102, lng: 151.177204 },
+      { name: 'Australia St', time: '4 min', lat: -33.896214, lng: 151.175683 },
+      { name: 'Camperdown Memorial Rest Park — last stop', time: '5 min', lat: -33.895812, lng: 151.174512, last: true },
+    ],
   },
   {
     id: 'open-mic-yard',
@@ -125,6 +132,12 @@ export const events: EventItem[] = [
     tags: ['Free'],
     blurb:
       "Five-minute slots for music, poetry and comedy. Sign-up sheet opens at 19:00 — beginners get the friendliest crowd in the Inner West.",
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'King St opp Camden St', time: '3 min', lat: -33.899920, lng: 151.178125 },
+      { name: 'King St opp Holmwood St', time: '6 min', lat: -33.901907, lng: 151.179022 },
+      { name: 'The Yard, King St — last stop', time: '8 min', lat: -33.903200, lng: 151.179800, last: true },
+    ],
   },
   {
     id: 'garden-bee',
@@ -138,6 +151,12 @@ export const events: EventItem[] = [
     tags: ['Free', 'Family'],
     blurb:
       'Help plant the summer beds and take home seedlings. Morning tea provided by the garden crew — kids and first-timers welcome.',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Wilson St at Station', time: '3 min', lat: -33.898900, lng: 151.177500 },
+      { name: 'Wilson St', time: '7 min', lat: -33.900200, lng: 151.175800 },
+      { name: 'Wilson St gardens — last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
+    ],
   },
 ];
 
