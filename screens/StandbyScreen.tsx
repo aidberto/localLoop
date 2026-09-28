@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { KioskScreenProps } from '../types';
 import {
-  departures,
+  fetchDepartures,
   events,
   formatIn,
   minutesLeft,
@@ -10,6 +10,7 @@ import {
   suburb,
   useClock,
   useWeather,
+  type Departure,
 } from '../data';
 import styles from './StandbyScreen.module.css';
 
@@ -31,6 +32,7 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
   const weather = useWeather();
   const [bg, setBg] = useState(0);
   const [card, setCard] = useState(0);
+  const [departures, setDepartures] = useState<Departure[]>([]);
 
   useEffect(() => {
     const bgId = setInterval(() => setBg((b) => (b + 1) % IMAGES.length), IMAGE_MS);
@@ -41,13 +43,25 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
     };
   }, []);
 
+  // Live departures from the same TfNSW feed as the transport screen.
+  useEffect(() => {
+    let alive = true;
+    const load = async () => {
+      const data = await fetchDepartures();
+      if (alive && data) setDepartures(data);
+    };
+    load();
+    const id = setInterval(load, 30000);
+    return () => { alive = false; clearInterval(id); };
+  }, []);
+
   const event = events[card % events.length];
   const request = requests[card % requests.length];
 
-  const soonest = departures
-    .map((d) => ({ ...d, min: minutesLeft(d.dueInMin, mountedAt, now) }))
-    .sort((a, b) => a.min - b.min)
-    .slice(0, 6);
+  const soonest = [...departures]
+    .sort((a, b) => (a.dueAt ?? 0) - (b.dueAt ?? 0))
+    .slice(0, 6)
+    .map((d) => ({ ...d, min: Math.max(0, Math.ceil((d.dueAt! - now) / 60000)) }));
 
   return (
     <div className={styles.screen} onClick={() => onNavigate('home')}>

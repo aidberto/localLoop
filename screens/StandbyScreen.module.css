@@ -74,7 +74,8 @@
   width: calc(var(--u) * 44);
   height: calc(var(--u) * 44);
   border-radius: 50%;
-  background: linear-gradient(135deg, #F6B963, #A8D8A0);
+  border: calc(var(--u) * 10) solid var(--ll-events);
+  box-sizing: border-box;
 }
 
 .date {

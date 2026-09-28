@@ -42,22 +42,31 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
     setSelectedId(id);
   }, []);
 
-  // After IDLE_MS with no input, show standby. Any input while in standby
-  // returns to home; otherwise input just resets the idle timer.
+  // After IDLE_MS with no input, drop into standby. Standby is only dismissed by
+  // clicking the screen (handled in StandbyScreen); other input just resets the
+  // idle timer. Backspace force-shows standby from anywhere.
   useEffect(() => {
     let timer: number;
     const reset = () => {
       window.clearTimeout(timer);
-      setScreen((cur) => (cur === 'standby' ? 'home' : cur));
       timer = window.setTimeout(() => setScreen('standby'), IDLE_MS);
     };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        setScreen('standby');
+      }
+      reset();
+    };
     // Note: no pointermove — passive mouse motion must not wake the kiosk.
-    const inputs = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
-    inputs.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    const activity = ['pointerdown', 'wheel', 'touchstart'];
+    activity.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    window.addEventListener('keydown', onKey);
     reset();
     return () => {
       window.clearTimeout(timer);
-      inputs.forEach((e) => window.removeEventListener(e, reset));
+      activity.forEach((e) => window.removeEventListener(e, reset));
+      window.removeEventListener('keydown', onKey);
     };
   }, []);
 
