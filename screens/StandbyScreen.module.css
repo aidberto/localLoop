@@ -306,6 +306,10 @@
   font-size: calc(var(--u) * 40);
   font-weight: 900;
   line-height: 1.05;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .featureMeta {
