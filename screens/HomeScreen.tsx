@@ -1,9 +1,51 @@
+import { useEffect, useRef } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import KioskShell from '../KioskShell';
 import type { KioskScreenProps } from '../types';
+import { mapCenter, mapPoints, modeColors, type MapKind } from '../data';
 import styles from './HomeScreen.module.css';
+
+const COLORS: Record<MapKind, string> = {
+  event: '#F6B963',
+  stop: '#F49B94',
+  request: '#8FDCF2',
+  park: '#C9E67E',
+};
 
 /** 1b · Home - 1920×1080 kiosk screen, fluid via --u. */
 export default function HomeScreen({ onNavigate }: KioskScreenProps) {
+  const mapEl = useRef<HTMLDivElement>(null);
+
+  // Non-interactive preview: same tiles + dots as the full Map, no controls.
+  useEffect(() => {
+    if (!mapEl.current) return;
+    const map = L.map(mapEl.current, {
+      zoomControl: false,
+      attributionControl: false,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      keyboard: false,
+      touchZoom: false,
+    }).setView([mapCenter.lat, mapCenter.lng], mapCenter.zoom + 1);
+    L.tileLayer(
+      `https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=${import.meta.env.VITE_MAPTILER_KEY}`,
+      { maxZoom: 19 },
+    ).addTo(map);
+    L.circleMarker([mapCenter.lat, mapCenter.lng], {
+      radius: 6, color: '#FFFFFF', weight: 2, fillColor: '#2B2723', fillOpacity: 1,
+    }).addTo(map);
+    for (const p of mapPoints) {
+      L.circleMarker([p.lat, p.lng], {
+        radius: 5, color: '#FFFFFF', weight: 2, fillColor: COLORS[p.kind], fillOpacity: 1,
+      }).addTo(map);
+    }
+    const sizer = window.setTimeout(() => map.invalidateSize(), 100);
+    return () => { window.clearTimeout(sizer); map.remove(); };
+  }, []);
+
   return (
     <div className={styles.screen} data-screen-label="Home">
       <KioskShell active="home" onNavigate={onNavigate} />
@@ -19,13 +61,13 @@ export default function HomeScreen({ onNavigate }: KioskScreenProps) {
           </div>
           <div className={styles.col4} onClick={() => onNavigate('map')} role="button" tabIndex={0}>
             <div className={styles.row2}><div className={styles.heading2} onClick={() => onNavigate('map')} role="button" tabIndex={0}>Map</div><div className={styles.text5}>Explore →</div></div>
-            <div className={styles.mapPlaceholder}>mini map · you are here</div>
+            <div ref={mapEl} className={styles.mapPlaceholder} />
           </div>
           <div className={styles.col5} onClick={() => onNavigate('transport')} role="button" tabIndex={0}>
             <div className={styles.row2}><div className={styles.heading3} onClick={() => onNavigate('transport')} role="button" tabIndex={0}>Transport</div><div className={styles.text6}>All departures →</div></div>
             <div className={styles.col6}>
-              <div className={styles.row4}><div className={styles.text7}>422</div><div className={styles.text8}>Kogarah · King St</div><div className={styles.text9}>3 min</div></div>
-              <div className={styles.row4}><div className={styles.text7}>T2</div><div className={styles.text8}>City Circle · Platform 1</div><div className={styles.text9}>4 min</div></div>
+              <div className={styles.row4}><div className={styles.text7} style={{ background: modeColors.bus.bg, color: modeColors.bus.fg }}>422</div><div className={styles.text8}>Kogarah · King St</div><div className={styles.text9}>3 min</div></div>
+              <div className={styles.row4}><div className={styles.text7} style={{ background: modeColors.train.bg, color: modeColors.train.fg }}>T2</div><div className={styles.text8}>City Circle · Platform 1</div><div className={styles.text9}>4 min</div></div>
             </div>
           </div>
           <div className={styles.col7} onClick={() => onNavigate('requests')} role="button" tabIndex={0}>

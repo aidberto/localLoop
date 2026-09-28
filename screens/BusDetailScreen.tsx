@@ -1,20 +1,35 @@
+import { useEffect, useState } from 'react';
 import KioskShell from '../KioskShell';
+import RouteMap from '../RouteMap';
 import type { KioskScreenProps } from '../types';
-import { busRoutes, departures, minutesLeft, useClock } from '../data';
+import { busRoutes, fetchDepartures, modeColors, useClock, type Departure } from '../data';
 import styles from './BusDetailScreen.module.css';
 
 const CROWDING = ['seats available', 'some seats', 'standing room only'] as const;
+const MODE_LABEL = { bus: 'Bus', train: 'Train', metro: 'Metro' } as const;
 
-/** 1g · Bus route - 1920×1080 kiosk screen, fluid via --u. */
+/** 1g · Route detail - 1920×1080 kiosk screen, fluid via --u. */
 export default function BusDetailScreen({ onNavigate, selectedId }: KioskScreenProps) {
-  const { now, mountedAt } = useClock();
+  const { now } = useClock();
   const route = (selectedId && busRoutes[selectedId]) || busRoutes['422'];
-  const dep = departures.find((d) => d.routeId === route.id);
-  const min = dep ? minutesLeft(dep.dueInMin, mountedAt, now) : 3;
-  const crowd = dep ? CROWDING[dep.crowding] : CROWDING[0];
+  const mode = route.mode ?? 'bus';
+  const label = MODE_LABEL[mode];
+
+  // Live next departure for this line, matched from the real feed.
+  const [dep, setDep] = useState<Departure | null>(null);
+  useEffect(() => {
+    let alive = true;
+    fetchDepartures().then((data) => {
+      if (alive) setDep(data?.find((d) => d.line === route.line) ?? null);
+    });
+    return () => { alive = false; };
+  }, [route.line]);
+
+  const min = dep?.dueAt != null ? Math.max(0, Math.ceil((dep.dueAt - now) / 60000)) : null;
+  const crowd = dep ? CROWDING[dep.crowding] : null;
 
   return (
-    <div className={styles.screen} data-screen-label="Bus route">
+    <div className={styles.screen} data-screen-label="Route detail">
       <KioskShell active="busDetail" onNavigate={onNavigate} />
       <div className={styles.col}>
         <div className={styles.row}>
@@ -22,7 +37,7 @@ export default function BusDetailScreen({ onNavigate, selectedId }: KioskScreenP
           <div className={styles.heading}>{route.line}</div>
           <div className={styles.heading2}>{route.headsign}</div>
           <div className={styles.box}></div>
-          <div className={styles.heading3}>Arriving in {min} min · {crowd}</div>
+          <div className={styles.heading3}>{min != null ? `Arriving in ${min} min · ${crowd}` : 'Checking live times…'}</div>
         </div>
         <div className={styles.grid}>
           <div className={styles.col2}>
@@ -38,10 +53,10 @@ export default function BusDetailScreen({ onNavigate, selectedId }: KioskScreenP
             </div>
           </div>
           <div className={styles.row3}>
-            <div className={styles.mapPlaceholder}>route map · live bus position</div>
+            <RouteMap stops={route.stops} color={modeColors[mode].bg} className={styles.mapPlaceholder} />
             <div className={styles.pin}>
               <div className={styles.pill2}><div className={styles.avatar4}></div>You are here</div>
-              <div className={styles.pill2}><div className={styles.avatar5}></div>Bus {route.line} · now</div>
+              <div className={styles.pill2}><div className={styles.avatar5}></div>{label} {route.line} · now</div>
             </div>
           </div>
         </div>

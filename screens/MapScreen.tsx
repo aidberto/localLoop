@@ -52,10 +52,10 @@ export default function MapScreen({ onNavigate }: KioskScreenProps) {
       [mapCenter.lat, mapCenter.lng],
       mapCenter.zoom,
     );
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors',
-    }).addTo(map);
+    L.tileLayer(
+      `https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=${import.meta.env.VITE_MAPTILER_KEY}`,
+      { maxZoom: 19, attribution: '© MapTiler © OpenStreetMap contributors' },
+    ).addTo(map);
 
     L.circleMarker([mapCenter.lat, mapCenter.lng], {
       radius: 9,
@@ -128,12 +128,6 @@ export default function MapScreen({ onNavigate }: KioskScreenProps) {
         <div className={styles.pin2}>
           <button type="button" className={styles.card} onClick={() => mapRef.current?.zoomIn()}>+</button>
           <button type="button" className={styles.card} onClick={() => mapRef.current?.zoomOut()}>−</button>
-        </div>
-        <div className={styles.pin4}>
-          <div className={styles.pill6}>Nearby now</div>
-          <div className={styles.pill7}>Food &amp; drink</div>
-          <div className={styles.pill7}>Step-free routes</div>
-          <div className={styles.pill7}>Quiet places</div>
         </div>
       </div>
       <div className={styles.row2}>

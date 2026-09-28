@@ -5,6 +5,7 @@ import {
   events,
   formatIn,
   minutesLeft,
+  modeColors,
   requests,
   suburb,
   useClock,
@@ -16,16 +17,6 @@ import styles from './StandbyScreen.module.css';
 const IMAGES = ['/newtown1.jpg', '/newtown2.jpg', '/newtown3.jpg'];
 const IMAGE_MS = 9000;
 const CARD_MS = 5000;
-
-// Authentic Transport for NSW mode colours for the line pills. The panel itself
-// stays red (the app's transport identity), but red is Sydney's LIGHT RAIL
-// colour — so line pills are never red, they use the real mode palette:
-// train orange, metro teal, bus blue. Keeps Sydneysider mental models intact.
-const MODE_COLORS: Record<string, { bg: string; fg: string }> = {
-  train: { bg: '#F6891F', fg: '#FFFFFF' }, // Sydney Trains orange
-  metro: { bg: '#009B95', fg: '#FFFFFF' }, // Sydney Metro teal
-  bus: { bg: '#00B5EF', fg: '#00131A' }, // Bus blue
-};
 
 const clock = (ms: number) =>
   new Date(ms).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -109,7 +100,7 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
                 <div key={d.id} className={styles.item}>
                   <div
                     className={styles.line}
-                    style={{ background: MODE_COLORS[d.mode].bg, color: MODE_COLORS[d.mode].fg }}
+                    style={{ background: modeColors[d.mode].bg, color: modeColors[d.mode].fg }}
                   >
                     {d.line}
                   </div>
