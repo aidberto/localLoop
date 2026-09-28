@@ -34,7 +34,7 @@ export default function HomeScreen({ onNavigate }: KioskScreenProps) {
   const soonest = [...departures]
     .filter((d) => d.dueAt != null)
     .sort((a, b) => (a.dueAt ?? 0) - (b.dueAt ?? 0))
-    .slice(0, 4)
+    .slice(0, 3)
     .map((d) => ({ ...d, min: Math.max(0, Math.ceil((d.dueAt! - now) / 60000)) }));
 
   // Non-interactive preview: same tiles + dots as the full Map, no controls.
@@ -75,8 +75,8 @@ export default function HomeScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.col2} onClick={() => onNavigate('events')} role="button" tabIndex={0}>
             <div className={styles.row2}><div className={styles.heading} onClick={() => onNavigate('events')} role="button" tabIndex={0}>Events</div><div className={styles.text2}>3 today →</div></div>
             <div className={styles.row3}>
-              <div className={styles.col3}><div className={styles.top}><div className={styles.text3}>Makers Market</div><div className={styles.desc}>Forty local stalls of ceramics, prints, plants and street food, with live acoustic sets from 2 pm.</div></div><div className={styles.text4}>In 2 h 15 m · 350 m</div></div>
-              <div className={styles.col3}><div className={styles.top}><div className={styles.text3}>Open-mic at The Yard</div><div className={styles.desc}>Five-minute slots for music, poetry and comedy. Sign-up opens at 19:00.</div></div><div className={styles.text4}>Tonight 19:30 · Free</div></div>
+              <div className={styles.col3}><div className={styles.thumb} style={{ backgroundImage: 'url(/makersMarket.jpg)' }} /><div className={styles.top}><div className={styles.text3}>Makers Market</div><div className={styles.desc}>Forty local stalls of ceramics, prints, plants and street food, with live acoustic sets from 2 pm.</div></div><div className={styles.text4}>In 2 h 15 m · 350 m</div></div>
+              <div className={styles.col3}><div className={styles.thumb} style={{ backgroundImage: 'url(/open-mic.jpg)' }} /><div className={styles.top}><div className={styles.text3}>Open-mic at The Yard</div><div className={styles.desc}>Five-minute slots for music, poetry and comedy. Sign-up opens at 19:00.</div></div><div className={styles.text4}>Tonight 19:30 · Free</div></div>
             </div>
           </div>
           <div className={styles.col4} onClick={() => onNavigate('map')} role="button" tabIndex={0}>

@@ -36,7 +36,7 @@ export default function EventDetailScreen({ onNavigate, selectedId }: KioskScree
               <div className={styles.heading}>Getting there</div>
               <div className={styles.row4}>
                 {event.route
-                  ? <RouteMap stops={event.route} color={event.tint} lineColor="#E4002B" endpointsOnly profile="foot" className={styles.mapPlaceholder2} />
+                  ? <RouteMap stops={event.route} color={event.tint} lineColor="#C2410C" endpointsOnly profile="foot" className={styles.mapPlaceholder2} />
                   : <div className={styles.mapPlaceholder2}>map · kiosk → venue</div>}
               </div>
             </div>

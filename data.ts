@@ -29,6 +29,7 @@ export interface RequestItem {
   whenLabel: string;   // "Sat 9:00"
   venue: string;
   walkLabel: string;   // "14 min walk · step-free"
+  route?: RouteStop[]; // walking path from the kiosk to the venue, for "getting there"
 }
 
 export type Mode = 'bus' | 'train' | 'metro';
@@ -173,6 +174,12 @@ export const requests: RequestItem[] = [
     whenLabel: 'Sat 9:00',
     venue: 'Fraser Park courts',
     walkLabel: '14 min walk · step-free',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Enmore Rd at Simmons St', time: '5 min', lat: -33.901500, lng: 151.173500 },
+      { name: 'Marrickville Rd', time: '10 min', lat: -33.906000, lng: 151.169000 },
+      { name: 'Fraser Park courts — last stop', time: '14 min', lat: -33.908600, lng: 151.166500, last: true },
+    ],
   },
   {
     id: 'sunday-run',
@@ -185,6 +192,12 @@ export const requests: RequestItem[] = [
     whenLabel: 'Sun 7:30',
     venue: 'Cooks River path',
     walkLabel: '9 min walk · step-free',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Alice St', time: '4 min', lat: -33.901800, lng: 151.181500 },
+      { name: 'Sydenham Rd', time: '7 min', lat: -33.905500, lng: 151.183500 },
+      { name: 'Cooks River path — last stop', time: '9 min', lat: -33.908000, lng: 151.184500, last: true },
+    ],
   },
   {
     id: 'garage-jam',
@@ -197,6 +210,11 @@ export const requests: RequestItem[] = [
     whenLabel: 'Thu 18:30',
     venue: 'Near Newtown Station',
     walkLabel: '4 min walk',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Wilson St', time: '2 min', lat: -33.897200, lng: 151.176800 },
+      { name: 'Holt St — last stop', time: '4 min', lat: -33.896500, lng: 151.175500, last: true },
+    ],
   },
   {
     id: 'mulch-move',
@@ -210,6 +228,12 @@ export const requests: RequestItem[] = [
     whenLabel: 'Sun 10:00',
     venue: 'Wilson St gardens',
     walkLabel: '11 min walk · step-free',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Wilson St at Station', time: '3 min', lat: -33.898900, lng: 151.177500 },
+      { name: 'Wilson St', time: '7 min', lat: -33.900200, lng: 151.175800 },
+      { name: 'Wilson St gardens — last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
+    ],
   },
   {
     id: 'park-chess',
@@ -222,6 +246,12 @@ export const requests: RequestItem[] = [
     whenLabel: 'Sat 14:00',
     venue: 'Camperdown Memorial Rest Park',
     walkLabel: '6 min walk · step-free',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'King St at Church St', time: '2 min', lat: -33.897102, lng: 151.177204 },
+      { name: 'Australia St', time: '4 min', lat: -33.896214, lng: 151.175683 },
+      { name: 'Camperdown Memorial Rest Park — last stop', time: '6 min', lat: -33.895812, lng: 151.174512, last: true },
+    ],
   },
   {
     id: 'dinner-cookup',
@@ -235,6 +265,11 @@ export const requests: RequestItem[] = [
     whenLabel: 'Fri 17:00',
     venue: 'Neighbourhood centre',
     walkLabel: '8 min walk · step-free',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'King St at Egan St', time: '4 min', lat: -33.900500, lng: 151.178800 },
+      { name: 'Neighbourhood centre — last stop', time: '8 min', lat: -33.902800, lng: 151.177000, last: true },
+    ],
   },
 ];
 

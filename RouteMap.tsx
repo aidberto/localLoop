@@ -34,7 +34,10 @@ export default function RouteMap({ stops, color, className, profile, lineColor, 
     ).addTo(map);
 
     const line = L.polyline(pts, { color: lineColor ?? color, weight: 5, opacity: 0.85 }).addTo(map);
-    if (profile) routePath(pts, profile).then((path) => { if (mapRef.current) line.setLatLngs(path); }).catch(() => {});
+    // endpointsOnly: intermediate stops are hidden, so route start→end and let
+    // OSRM pick the optimal path instead of forcing it through hand-placed waypoints.
+    const routePts = endpointsOnly && pts.length > 2 ? [pts[0], pts[pts.length - 1]] : pts;
+    if (profile) routePath(routePts, profile).then((path) => { if (mapRef.current) line.setLatLngs(path); }).catch(() => {});
     stops.forEach((s) => {
       if (endpointsOnly && !s.current && !s.last) return;
       L.circleMarker([s.lat, s.lng], {

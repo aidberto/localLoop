@@ -1,5 +1,6 @@
 import KioskShell from '../KioskShell';
 import PhoneHandoff from '../PhoneHandoff';
+import RouteMap from '../RouteMap';
 import type { KioskScreenProps } from '../types';
 import { requests } from '../data';
 import styles from './RequestDetailScreen.module.css';
@@ -31,7 +32,9 @@ export default function RequestDetailScreen({ onNavigate, selectedId }: KioskScr
           </div>
           <div className={styles.col3}>
             <div className={styles.row5}>
-              <div className={styles.mapPlaceholder}>map · kiosk → {request.venue}</div>
+              {request.route
+                ? <RouteMap stops={request.route} color="#0C4B5C" lineColor="#0C4B5C" endpointsOnly profile="foot" className={styles.mapPlaceholder} />
+                : <div className={styles.mapPlaceholder}>map · kiosk → {request.venue}</div>}
               <div className={styles.pin}>{request.walkLabel}</div>
             </div>
             <div className={styles.col4}>
