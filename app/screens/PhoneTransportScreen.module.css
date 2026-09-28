@@ -127,6 +127,9 @@
 
 .col2 {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: calc(var(--pu) * 12) calc(var(--pu) * 20) 0;
   display: flex;
   flex-direction: column;

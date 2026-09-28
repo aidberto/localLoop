@@ -27,7 +27,7 @@ export default function RequestDetailScreen({ onNavigate, selectedId, largeText,
             <div className={styles.text3}>{request.blurb}</div>
             <div className={styles.box}></div>
             <div className={styles.row4}>
-              <div className={styles.box2}><PhoneHandoff screen="requestDetail" color="#0C4B5C" seed={42} /></div>
+              <div className={styles.box2}><PhoneHandoff screen="requestDetail" selectedId={request.id} color="#0C4B5C" seed={42} /></div>
               <div><div className={styles.heading}>Want in?</div><div className={styles.text4}>Scan the code and register for "{request.title}" in the LocalLoop app - the kiosk never asks for your details.</div></div>
             </div>
           </div>

@@ -11,10 +11,12 @@ import styles from './PhoneHandoff.module.css';
  *  ponytail: click == scan until FakeQr becomes a real, camera-readable code. */
 export default function PhoneHandoff({
   screen,
+  selectedId,
   color,
   seed,
 }: {
   screen: PhoneScreenId;
+  selectedId?: string;
   color?: string;
   seed?: number;
 }) {
@@ -45,7 +47,7 @@ export default function PhoneHandoff({
             <div className={styles.caption}>Scanned ✓ - now on your phone</div>
             <div className={styles.frame} onClick={(e) => e.stopPropagation()}>
               <div className={`${styles.viewport} llPhoneFrame`}>
-                <PhoneApp initialScreen={screen} />
+                <PhoneApp initialScreen={screen} initialSelectedId={selectedId} />
               </div>
             </div>
             <button className={styles.close} onClick={() => setOpen(false)}>

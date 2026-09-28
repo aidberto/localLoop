@@ -159,6 +159,25 @@ export const events: EventItem[] = [
       { name: 'Wilson St gardens — last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
     ],
   },
+  {
+    id: 'vinyl-fair',
+    title: 'Vinyl fair at the Hub',
+    whenLabel: 'Next Sat 10:00 – 15:00 · Newtown Neighbourhood Hub · $2',
+    dueInMin: 2010,
+    venue: 'Newtown Neighbourhood Hub',
+    distanceM: 1100,
+    tint: '#C9B7E8',
+    image: '/newtown3.jpg',
+    tags: ['Music'],
+    blurb:
+      'Crates from 30 sellers, plus coffee and a swap table. Bring your wants list and dig for B-sides — $2 on the door goes to the community centre.',
+    route: [
+      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'King St at Church St', time: '4 min', lat: -33.897102, lng: 151.177204 },
+      { name: 'Australia St', time: '9 min', lat: -33.896214, lng: 151.175683 },
+      { name: 'Newtown Neighbourhood Hub — last stop', time: '13 min', lat: -33.894900, lng: 151.173200, last: true },
+    ],
+  },
 ];
 
 export const requests: RequestItem[] = [

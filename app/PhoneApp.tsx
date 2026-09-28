@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import type { ComponentType } from 'react';
-import type { PhoneScreenId } from './types';
+import type { PhoneScreenId, PhoneScreenProps } from './types';
 import PhoneSplashScreen from './screens/PhoneSplashScreen';
 import PhoneScanKioskScreen from './screens/PhoneScanKioskScreen';
 import PhoneNewMemberScreen from './screens/PhoneNewMemberScreen';
@@ -43,21 +43,27 @@ const SCREENS = {
   requests: PhoneRequestsScreen,
   requestDetail: PhoneRequestDetailScreen,
   newRequest: PhoneNewRequestScreen,
-} satisfies Record<PhoneScreenId, ComponentType<{ onNavigate: (s: PhoneScreenId) => void }>>;
+} satisfies Record<PhoneScreenId, ComponentType<PhoneScreenProps>>;
 
 export interface PhoneAppProps {
   /** Screen to open on first render. */
   initialScreen?: PhoneScreenId;
+  /** Event/request to show when opening straight onto a detail screen. */
+  initialSelectedId?: string;
 }
 
-export default function PhoneApp({ initialScreen = 'splash' }: PhoneAppProps) {
+export default function PhoneApp({ initialScreen = 'splash', initialSelectedId }: PhoneAppProps) {
   const [screen, setScreen] = useState<PhoneScreenId>(initialScreen);
-  const onNavigate = useCallback((next: PhoneScreenId) => setScreen(next), []);
+  const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId);
+  const onNavigate = useCallback((next: PhoneScreenId, id?: string) => {
+    setScreen(next);
+    if (id !== undefined) setSelectedId(id);
+  }, []);
   const Screen = SCREENS[screen];
   return (
     <div className={styles.root}>
       <div className={styles.body}>
-        <Screen onNavigate={onNavigate} />
+        <Screen onNavigate={onNavigate} selectedId={selectedId} />
       </div>
       {!NAV_HIDDEN.includes(screen) && <PhoneNav screen={screen} onNavigate={onNavigate} />}
     </div>

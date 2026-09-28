@@ -1,8 +1,54 @@
+import { useEffect, useState } from 'react';
 import type { PhoneScreenProps } from '../types';
+import { departures as mockDepartures, fetchDepartures, modeColors, useClock, type Departure, type Mode } from '../../data';
 import styles from './PhoneTransportScreen.module.css';
 
-/** 2m · App transport board · 390×844 phone screen, fluid via --pu. */
+const TABS: { mode: Mode; label: string; stop: string; distance: string }[] = [
+  { mode: 'bus', label: 'Buses', stop: 'King St · Stop B', distance: '120 m away' },
+  { mode: 'train', label: 'Trains', stop: 'Newtown Station', distance: '80 m away' },
+];
+
+const CROWDING = ['seats available', 'some seats', 'standing room only'] as const;
+
+/** Three occupancy dots; filled = crowding + 1 (seats → standing only). */
+function Dots({ crowding }: { crowding: 0 | 1 | 2 }) {
+  return (
+    <div className={styles.row4}>
+      {[0, 1, 2].map((i) => (
+        <div key={i} className={i <= crowding ? styles.avatar2 : styles.avatar3} />
+      ))}
+    </div>
+  );
+}
+
+/** 2m · App transport board · 390×844 phone screen, fluid via --pu.
+ *  Same live TfNSW feed as the kiosk (see screens/TransportScreen.tsx). */
 export default function PhoneTransportScreen({ onNavigate }: PhoneScreenProps) {
+  const { now } = useClock();
+  const [departures, setDepartures] = useState<Departure[]>([]);
+  const [status, setStatus] = useState<'loading' | 'live' | 'error'>('loading');
+  const [mode, setMode] = useState<Mode>('bus');
+
+  useEffect(() => {
+    let alive = true;
+    const load = async () => {
+      const data = await fetchDepartures();
+      if (!alive) return;
+      if (data) { setDepartures(data); setStatus('live'); }
+      else { setDepartures(mockDepartures); setStatus('error'); }
+    };
+    load();
+    const id = setInterval(load, 30000); // refresh estimates every 30s
+    return () => { alive = false; clearInterval(id); };
+  }, []);
+
+  // Live rows carry a real timestamp → true countdown; mock rows use dueInMin.
+  const due = (d: Departure) =>
+    d.dueAt != null ? Math.max(0, Math.ceil((d.dueAt - now) / 60000)) : d.dueInMin;
+
+  const tab = TABS.find((t) => t.mode === mode)!;
+  const rows = departures.filter((d) => d.mode === mode).sort((a, b) => due(a) - due(b)).slice(0, 5);
+
   return (
     <div className={styles.screen} data-screen-label="App transport board">
       <div className={styles.row}>
@@ -12,43 +58,39 @@ export default function PhoneTransportScreen({ onNavigate }: PhoneScreenProps) {
       </div>
       <div className={styles.col}>
         <div className={styles.row2}>
-          <div className={styles.chip}>Buses</div>
-          <div className={styles.chip2}>Trains</div>
-          <div className={styles.chip2}>Metro</div>
+          {TABS.map((t) => (
+            <div
+              key={t.mode}
+              className={t.mode === mode ? styles.chip : styles.chip2}
+              onClick={() => setMode(t.mode)}
+              role="button"
+              tabIndex={0}
+            >
+              {t.label}
+            </div>
+          ))}
         </div>
         <div className={styles.row3}>
-          <div className={styles.text2}>King St · Stop B</div>
-          <div className={styles.meta}>· 120 m away</div>
+          <div className={styles.text2}>{tab.stop}</div>
+          <div className={styles.meta}>· {tab.distance}</div>
           <div className={styles.box}></div>
-          <div className={styles.meta2}><div className={styles.avatar}></div>Live · just now</div>
+          <div className={styles.meta2}>
+            <div className={styles.avatar}></div>
+            {status === 'live' ? 'Live · just now' : status === 'loading' ? 'Loading…' : 'Estimated'}
+          </div>
         </div>
       </div>
       <div className={styles.col2}>
-        <div className={styles.card} onClick={() => onNavigate('routeDetail')} role="button" tabIndex={0}>
-          <div className={styles.heading2}>422</div>
-          <div className={styles.box2}><div className={styles.heading3}>Kogarah</div><div className={styles.meta3}>via St Peters · seats available</div></div>
-          <div className={styles.box3}><div className={styles.heading4}>3 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('routeDetail')} role="button" tabIndex={0}>
-          <div className={styles.heading2}>426</div>
-          <div className={styles.box2}><div className={styles.heading3}>Dulwich Hill</div><div className={styles.meta3}>via Marrickville Rd · some seats</div></div>
-          <div className={styles.box3}><div className={styles.heading4}>5 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar3}></div></div></div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('routeDetail')} role="button" tabIndex={0}>
-          <div className={styles.heading2}>428</div>
-          <div className={styles.box2}><div className={styles.heading3}>Canterbury</div><div className={styles.meta3}>via Enmore Rd · seats available</div></div>
-          <div className={styles.box3}><div className={styles.heading4}>8 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('routeDetail')} role="button" tabIndex={0}>
-          <div className={styles.heading2}>423</div>
-          <div className={styles.box2}><div className={styles.heading3}>Kingsgrove</div><div className={styles.meta3}>via King St · standing room only</div></div>
-          <div className={styles.box3}><div className={styles.heading4}>11 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar2}></div></div></div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('routeDetail')} role="button" tabIndex={0}>
-          <div className={styles.heading2}>370</div>
-          <div className={styles.box2}><div className={styles.heading3}>Coogee</div><div className={styles.meta3}>via Alexandria · seats available</div></div>
-          <div className={styles.box3}><div className={styles.heading4}>14 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div>
-        </div>
+        {rows.length === 0 && (
+          <div className={styles.meta3}>{status === 'loading' ? 'Loading live departures…' : 'No departures'}</div>
+        )}
+        {rows.map((d) => (
+          <div key={d.id} className={styles.card} onClick={() => onNavigate('routeDetail')} role="button" tabIndex={0}>
+            <div className={styles.heading2} style={{ background: modeColors[d.mode].bg, color: modeColors[d.mode].fg }}>{d.line}</div>
+            <div className={styles.box2}><div className={styles.heading3}>{d.dest}</div><div className={styles.meta3}>{d.via} · {CROWDING[d.crowding]}</div></div>
+            <div className={styles.box3}><div className={styles.heading4}>{due(d)} min</div><Dots crowding={d.crowding} /></div>
+          </div>
+        ))}
         <div className={styles.meta4}>Dots show how full it is. One dot means seats available, three means standing room only. Tap a service for its live route.</div>
       </div>
       <div className={styles.box4}><div className={styles.pill2}>Change stop 📍</div></div>
