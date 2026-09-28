@@ -1,14 +1,6 @@
-import type { PhoneScreenId, PhoneScreenProps } from '../types';
+import type { PhoneScreenProps } from '../types';
 import { events, requests, suburb } from '../../data';
 import styles from './PhoneHomeScreen.module.css';
-
-/** Compact shortcuts — a phone-native strip, not the kiosk's equal quadrants. */
-const SHORTCUTS: { screen: PhoneScreenId; label: string; icon: string; tint: string }[] = [
-  { screen: 'events', label: 'Events', icon: '🎪', tint: '#F9CE8B' },
-  { screen: 'requests', label: 'Requests', icon: '🙌', tint: '#A9E3F5' },
-  { screen: 'transport', label: 'Transport', icon: '🚌', tint: '#F7ACA5' },
-  { screen: 'map', label: 'Map', icon: '🗺️', tint: '#D9EE9B' },
-];
 
 /** 2e · App home · 390×844 phone screen, fluid via --pu.
  *  Deliberately unlike the kiosk: personal greeting + a "you're going" hero and
@@ -24,9 +16,6 @@ export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
         <div className={styles.hgroup}>
           <div className={styles.hello}>Good afternoon, Sam</div>
           <div className={styles.place}>📍 {suburb}</div>
-        </div>
-        <div className={styles.bell} role="button" tabIndex={0} onClick={() => onNavigate('inbox')} aria-label="Inbox">
-          ✉<span className={styles.dot} />
         </div>
       </div>
 
@@ -44,21 +33,6 @@ export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
             <div className={styles.upChip}>{upNext.walkLabel}</div>
             <div className={styles.upGo}>View →</div>
           </div>
-        </div>
-
-        <div className={styles.shortcuts}>
-          {SHORTCUTS.map((s) => (
-            <div
-              key={s.screen}
-              className={styles.shortcut}
-              onClick={() => onNavigate(s.screen)}
-              role="button"
-              tabIndex={0}
-            >
-              <div className={styles.shortcutIcon} style={{ background: s.tint }}>{s.icon}</div>
-              <div className={styles.shortcutLabel}>{s.label}</div>
-            </div>
-          ))}
         </div>
 
         <div className={styles.feedHead}>

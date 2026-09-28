@@ -49,7 +49,7 @@ export default function MapScreen({ onNavigate, largeText, onLargeText }: KioskS
   // pending invalidateSize so it never fires on a torn-down map (ghost layer).
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
-    const map = L.map(containerRef.current, { zoomControl: false, attributionControl: true }).setView(
+    const map = L.map(containerRef.current, { zoomControl: false, attributionControl: false }).setView(
       [mapCenter.lat, mapCenter.lng],
       mapCenter.zoom,
     );

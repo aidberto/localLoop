@@ -14,9 +14,6 @@ kiosk screens in `react/` — shared `theme.css`, separate screen ids so nothing
         PhoneNewMemberScreen      2c  form + inline validation
         PhoneConfirmationScreen   2d  application sent
         PhoneHomeScreen           2e  home menu
-        PhoneInboxScreen          2f
-        PhoneMessagesScreen       2g
-        PhoneThreadScreen         2h  chat + composer
         PhoneEventsScreen         2i
         PhoneEventDetailScreen    2j
         PhoneNewEventScreen       2k

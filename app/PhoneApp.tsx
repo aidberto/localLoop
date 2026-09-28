@@ -6,9 +6,6 @@ import PhoneScanKioskScreen from './screens/PhoneScanKioskScreen';
 import PhoneNewMemberScreen from './screens/PhoneNewMemberScreen';
 import PhoneConfirmationScreen from './screens/PhoneConfirmationScreen';
 import PhoneHomeScreen from './screens/PhoneHomeScreen';
-import PhoneInboxScreen from './screens/PhoneInboxScreen';
-import PhoneMessagesScreen from './screens/PhoneMessagesScreen';
-import PhoneThreadScreen from './screens/PhoneThreadScreen';
 import PhoneEventsScreen from './screens/PhoneEventsScreen';
 import PhoneEventDetailScreen from './screens/PhoneEventDetailScreen';
 import PhoneNewEventScreen from './screens/PhoneNewEventScreen';
@@ -23,7 +20,7 @@ import styles from './PhoneApp.module.css';
 import '../theme.css';
 
 /** Screens with no bottom nav: the home hub and the pre-login flow. */
-const NAV_HIDDEN: PhoneScreenId[] = ['home', 'splash', 'scanKiosk', 'newMember', 'confirmation'];
+const NAV_HIDDEN: PhoneScreenId[] = ['splash', 'scanKiosk', 'newMember', 'confirmation'];
 
 const SCREENS = {
   splash: PhoneSplashScreen,
@@ -31,9 +28,6 @@ const SCREENS = {
   newMember: PhoneNewMemberScreen,
   confirmation: PhoneConfirmationScreen,
   home: PhoneHomeScreen,
-  inbox: PhoneInboxScreen,
-  messages: PhoneMessagesScreen,
-  thread: PhoneThreadScreen,
   events: PhoneEventsScreen,
   eventDetail: PhoneEventDetailScreen,
   newEvent: PhoneNewEventScreen,

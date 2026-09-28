@@ -9,7 +9,7 @@ import styles from './EventDetailScreen.module.css';
 /** 1e · Event detail - 1920×1080 kiosk screen, fluid via --u. */
 export default function EventDetailScreen({ onNavigate, selectedId, largeText, onLargeText }: KioskScreenProps) {
   const event = events.find((e) => e.id === selectedId) ?? events[0];
-  const similar = events.filter((e) => e.id !== event.id);
+  const similar = events.filter((e) => e.id !== event.id).slice(0, 2);
   return (
     <div className={styles.screen} data-screen-label="Event detail">
       <KioskShell active="eventDetail" onNavigate={onNavigate} />

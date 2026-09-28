@@ -1,4 +1,5 @@
 import type { PhoneScreenProps } from '../types';
+import RouteMap from '../../RouteMap';
 import { requests } from '../../data';
 import styles from './PhoneRequestDetailScreen.module.css';
 
@@ -24,6 +25,12 @@ export default function PhoneRequestDetailScreen({ onNavigate, selectedId }: Pho
           <div className={styles.chip}>{request.walkLabel}</div>
         </div>
         <div className={styles.text2}>{request.blurb}</div>
+        {request.route && (
+          <>
+            <div className={styles.sectionTitle}>Getting there</div>
+            <RouteMap stops={request.route} color="#0C4B5C" lineColor="#0C4B5C" endpointsOnly profile="foot" className={styles.routeMap} />
+          </>
+        )}
         <div className={styles.card}>
           <div className={styles.row4}><div className={styles.text3}>Going</div><div className={styles.meta2}>{request.slotsLabel}</div></div>
           <div className={styles.chip2}><div className={styles.box2}></div></div>
@@ -44,7 +51,6 @@ export default function PhoneRequestDetailScreen({ onNavigate, selectedId }: Pho
       </div>
       <div className={styles.row6}>
         <div className={styles.pill2}>Join · {request.slotsLabel}</div>
-        <div className={styles.pill3}>✉</div>
       </div>
     </div>
   );

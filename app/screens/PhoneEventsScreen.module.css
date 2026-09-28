@@ -152,6 +152,7 @@
 
 .box {
   color: #16697F;
+  font-size: calc(var(--pu) * 12);
 }
 
 .meta3 {
