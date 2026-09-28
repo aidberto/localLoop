@@ -29,7 +29,8 @@ export default function PhoneEventsScreen({ onNavigate }: PhoneScreenProps) {
             <div className={styles.col2}>
               <div className={styles.heading2}>{e.title}</div>
               <div className={styles.meta}>{formatIn(minutesLeft(e.dueInMin, mountedAt, now))} · {e.distanceM} m</div>
-              <div className={styles.meta2}>{e.blurb} <b className={styles.box}>See more</b></div>
+              <div className={styles.meta2}>{e.blurb}</div>
+              <b className={styles.box}>See more</b>
             </div>
           </div>
         ))}
