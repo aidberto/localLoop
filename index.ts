@@ -9,5 +9,7 @@ export { default as RequestsScreen } from './screens/RequestsScreen';
 export { default as RequestDetailScreen } from './screens/RequestDetailScreen';
 export { default as MapScreen } from './screens/MapScreen';
 export { default as RegisterScreen } from './screens/RegisterScreen';
+export { default as StandbyScreen } from './screens/StandbyScreen';
 export type { RegisterScreenProps } from './screens/RegisterScreen';
 export type { ScreenId, KioskScreenProps, KioskShellProps } from './types';
+export * from './data';

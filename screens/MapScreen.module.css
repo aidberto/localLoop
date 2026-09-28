@@ -18,17 +18,17 @@
   position: relative;
 }
 
-.mapPlaceholder {
+.canvas {
   flex: 1;
   border-radius: calc(var(--u) * 26);
-  background: repeating-linear-gradient(45deg,#F2F9DF,#F2F9DF 16px,#FFFFFF 16px,#FFFFFF 32px);
   border: 1px solid #DCEBB4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: ui-monospace,Menlo,monospace;
-  font-size: calc(var(--u) * 20);
-  color: #7C9440;
+  position: relative;
+  overflow: hidden;
+}
+
+.pillOff {
+  opacity: 0.4;
+  filter: grayscale(0.5);
 }
 
 .pin {
@@ -350,3 +350,13 @@
   font-weight: 800;
   color: #6B6459;
 }
+
+/* Legend + zoom controls are real buttons now — strip the UA chrome. */
+.pill, .pill2, .pill3, .pill4, .card {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Keep the overlay panels above Leaflet's tile/marker/control panes. */
+.pin, .pin2, .pin4 { z-index: 1000; }

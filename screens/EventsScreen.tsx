@@ -1,9 +1,11 @@
 import KioskShell from '../KioskShell';
 import type { KioskScreenProps } from '../types';
+import { events, formatIn, minutesLeft, useClock } from '../data';
 import styles from './EventsScreen.module.css';
 
 /** 1d · Events - 1920×1080 kiosk screen, fluid via --u. */
 export default function EventsScreen({ onNavigate }: KioskScreenProps) {
+  const { now, mountedAt } = useClock();
   return (
     <div className={styles.screen} data-screen-label="Events">
       <KioskShell active="events" onNavigate={onNavigate} />
@@ -21,33 +23,31 @@ export default function EventsScreen({ onNavigate }: KioskScreenProps) {
           </div>
         </div>
         <div className={styles.col2}>
-          <div className={styles.row3} onClick={() => onNavigate('eventDetail')} role="button" tabIndex={0}>
-            <div className={styles.mapPlaceholder}>event photo</div>
-            <div className={styles.col3}>
-              <div className={styles.row4}><div className={styles.heading}>Makers Market</div><div className={styles.text}>Starts in 2 h 15 m</div></div>
-              <div className={styles.text2}>Sat 12:00 – 17:00 · Camperdown Memorial Rest Park · Free</div>
-              <div className={styles.text3}>Forty local stalls of ceramics, prints, plants and street food, with live acoustic sets from 2 pm and a kids' craft corner run by the library.</div>
+          {events.map((e) => (
+            <div
+              key={e.id}
+              className={styles.row3}
+              onClick={() => onNavigate('eventDetail', e.id)}
+              role="button"
+              tabIndex={0}
+            >
+              <div className={styles.mapPlaceholder} style={{ background: e.tint }}>
+                event photo
+              </div>
+              <div className={styles.col3}>
+                <div className={styles.row4}>
+                  <div className={styles.heading}>{e.title}</div>
+                  <div className={styles.text}>Starts {formatIn(minutesLeft(e.dueInMin, mountedAt, now)).toLowerCase()}</div>
+                </div>
+                <div className={styles.text2}>{e.whenLabel}</div>
+                <div className={styles.text3}>{e.blurb}</div>
+              </div>
+              <div className={styles.col4}>
+                <div className={styles.pill4}>{e.distanceM} m away</div>
+                <div className={styles.heading2}>→</div>
+              </div>
             </div>
-            <div className={styles.col4}><div className={styles.pill4}>350 m away</div><div className={styles.heading2}>→</div></div>
-          </div>
-          <div className={styles.row3}>
-            <div className={styles.mapPlaceholder}>event photo</div>
-            <div className={styles.col3}>
-              <div className={styles.row4}><div className={styles.heading}>Open-mic night at The Yard</div><div className={styles.text}>Starts in 7 h 30 m</div></div>
-              <div className={styles.text2}>Tonight 19:30 · The Yard, King St · Free entry</div>
-              <div className={styles.text3}>Five-minute slots for music, poetry and comedy. Sign-up sheet opens at 19:00 - beginners get the friendliest crowd in the Inner West.</div>
-            </div>
-            <div className={styles.col4}><div className={styles.pill4}>600 m away</div><div className={styles.heading2}>→</div></div>
-          </div>
-          <div className={styles.row3}>
-            <div className={styles.mapPlaceholder}>event photo</div>
-            <div className={styles.col3}>
-              <div className={styles.row4}><div className={styles.heading}>Community garden working bee</div><div className={styles.text}>Tomorrow 9:00</div></div>
-              <div className={styles.text2}>Sun 9:00 – 12:00 · Wilson St gardens · Free, tools provided</div>
-              <div className={styles.text3}>Help plant the summer beds and take home seedlings. Morning tea provided by the garden crew - kids and first-timers welcome.</div>
-            </div>
-            <div className={styles.col4}><div className={styles.pill4}>850 m away</div><div className={styles.heading2}>→</div></div>
-          </div>
+          ))}
         </div>
       </div>
       <div className={styles.row5}>

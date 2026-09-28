@@ -1,9 +1,30 @@
 import KioskShell from '../KioskShell';
 import type { KioskScreenProps } from '../types';
+import { departures, minutesLeft, useClock, type Departure, type Mode } from '../data';
 import styles from './TransportScreen.module.css';
+
+const COLUMNS: { mode: Mode; heading: string; stop: string }[] = [
+  { mode: 'bus', heading: 'Buses', stop: 'King St · Stop B' },
+  { mode: 'train', heading: 'Trains', stop: 'Newtown Station' },
+  { mode: 'metro', heading: 'Metro', stop: 'Sydenham · M1' },
+];
+
+/** Three occupancy dots; filled = crowding + 1 (seats → standing only). */
+function Dots({ crowding }: { crowding: 0 | 1 | 2 }) {
+  return (
+    <div className={styles.row4}>
+      {[0, 1, 2].map((i) => (
+        <div key={i} className={i <= crowding ? styles.avatar2 : styles.avatar3} />
+      ))}
+    </div>
+  );
+}
 
 /** 1f · Transport - 1920×1080 kiosk screen, fluid via --u. */
 export default function TransportScreen({ onNavigate }: KioskScreenProps) {
+  const { now, mountedAt } = useClock();
+  const due = (d: Departure) => minutesLeft(d.dueInMin, mountedAt, now);
+
   return (
     <div className={styles.screen} data-screen-label="Transport">
       <KioskShell active="transport" onNavigate={onNavigate} />
@@ -15,36 +36,32 @@ export default function TransportScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.text}><div className={styles.avatar}></div>Live · updated just now</div>
         </div>
         <div className={styles.grid}>
-          <div className={styles.col2}>
-            <div className={styles.row2}><div className={styles.heading}>Buses</div><div className={styles.text2}>King St · Stop B</div></div>
-            <div className={styles.col3}>
-              <div className={styles.row3}><div className={styles.text3}>422</div><div className={styles.box3}><div className={styles.text4}>Kogarah</div><div className={styles.meta}>via St Peters</div></div><div className={styles.box4}><div className={styles.heading2}>3 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>426</div><div className={styles.box3}><div className={styles.text4}>Dulwich Hill</div><div className={styles.meta}>via Marrickville Rd</div></div><div className={styles.box4}><div className={styles.heading2}>5 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>428</div><div className={styles.box3}><div className={styles.text4}>Canterbury</div><div className={styles.meta}>via Enmore Rd</div></div><div className={styles.box4}><div className={styles.heading2}>8 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>423</div><div className={styles.box3}><div className={styles.text4}>Kingsgrove</div><div className={styles.meta}>via King St</div></div><div className={styles.box4}><div className={styles.heading2}>11 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar2}></div></div></div></div>
-              <div className={styles.row5}><div className={styles.text3}>370</div><div className={styles.box3}><div className={styles.text4}>Coogee</div><div className={styles.meta}>via Alexandria</div></div><div className={styles.box4}><div className={styles.heading2}>14 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-            </div>
-          </div>
-          <div className={styles.col2}>
-            <div className={styles.row2}><div className={styles.heading}>Trains</div><div className={styles.text2}>Newtown Station</div></div>
-            <div className={styles.col3}>
-              <div className={styles.row3}><div className={styles.text3}>T2</div><div className={styles.box3}><div className={styles.text4}>City Circle</div><div className={styles.meta}>Platform 1</div></div><div className={styles.box4}><div className={styles.heading2}>2 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>T2</div><div className={styles.box3}><div className={styles.text4}>Leppington</div><div className={styles.meta}>Platform 2</div></div><div className={styles.box4}><div className={styles.heading2}>6 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>T2</div><div className={styles.box3}><div className={styles.text4}>City Circle</div><div className={styles.meta}>Platform 1</div></div><div className={styles.box4}><div className={styles.heading2}>12 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>T3</div><div className={styles.box3}><div className={styles.text4}>Lidcombe</div><div className={styles.meta}>Platform 2</div></div><div className={styles.box4}><div className={styles.heading2}>15 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row5}><div className={styles.text3}>T2</div><div className={styles.box3}><div className={styles.text4}>Leppington</div><div className={styles.meta}>Platform 2</div></div><div className={styles.box4}><div className={styles.heading2}>18 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-            </div>
-          </div>
-          <div className={styles.col2}>
-            <div className={styles.row2}><div className={styles.heading}>Metro</div><div className={styles.text2}>Sydenham · M1</div></div>
-            <div className={styles.col3}>
-              <div className={styles.row3}><div className={styles.text3}>M1</div><div className={styles.box3}><div className={styles.text4}>Tallawong</div><div className={styles.meta}>via Central</div></div><div className={styles.box4}><div className={styles.heading2}>4 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>M1</div><div className={styles.box3}><div className={styles.text4}>Tallawong</div><div className={styles.meta}>via Central</div></div><div className={styles.box4}><div className={styles.heading2}>8 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>M1</div><div className={styles.box3}><div className={styles.text4}>Tallawong</div><div className={styles.meta}>via Central</div></div><div className={styles.box4}><div className={styles.heading2}>12 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-              <div className={styles.row3}><div className={styles.text3}>M1</div><div className={styles.box3}><div className={styles.text4}>Tallawong</div><div className={styles.meta}>via Central</div></div><div className={styles.box4}><div className={styles.heading2}>16 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar2}></div><div className={styles.avatar2}></div></div></div></div>
-              <div className={styles.row5}><div className={styles.text3}>M1</div><div className={styles.box3}><div className={styles.text4}>Tallawong</div><div className={styles.meta}>via Central</div></div><div className={styles.box4}><div className={styles.heading2}>20 min</div><div className={styles.row4}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div></div></div>
-            </div>
-          </div>
+          {COLUMNS.map(({ mode, heading, stop }) => {
+            const rows = departures.filter((d) => d.mode === mode).sort((a, b) => due(a) - due(b));
+            return (
+              <div key={mode} className={styles.col2}>
+                <div className={styles.row2}><div className={styles.heading}>{heading}</div><div className={styles.text2}>{stop}</div></div>
+                <div className={styles.col3}>
+                  {rows.map((d, i) => {
+                    const clickable = mode === 'bus' && d.routeId;
+                    return (
+                      <div
+                        key={d.id}
+                        className={i === rows.length - 1 ? styles.row5 : styles.row3}
+                        onClick={clickable ? () => onNavigate('busDetail', d.routeId) : undefined}
+                        role={clickable ? 'button' : undefined}
+                        tabIndex={clickable ? 0 : undefined}
+                      >
+                        <div className={styles.text3}>{d.line}</div>
+                        <div className={styles.box3}><div className={styles.text4}>{d.dest}</div><div className={styles.meta}>{d.via}</div></div>
+                        <div className={styles.box4}><div className={styles.heading2}>{due(d)} min</div><Dots crowding={d.crowding} /></div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className={styles.text5}>Occupancy:
           <div className={styles.row6}><div className={styles.avatar2}></div><div className={styles.avatar3}></div><div className={styles.avatar3}></div></div> seats available

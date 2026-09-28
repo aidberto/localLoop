@@ -1,25 +1,29 @@
 import KioskShell from '../KioskShell';
 import PhoneHandoff from '../PhoneHandoff';
 import type { KioskScreenProps } from '../types';
+import { events } from '../data';
 import styles from './EventDetailScreen.module.css';
 
 /** 1e · Event detail - 1920×1080 kiosk screen, fluid via --u. */
-export default function EventDetailScreen({ onNavigate }: KioskScreenProps) {
+export default function EventDetailScreen({ onNavigate, selectedId }: KioskScreenProps) {
+  const event = events.find((e) => e.id === selectedId) ?? events[0];
+  const similar = events.filter((e) => e.id !== event.id);
   return (
     <div className={styles.screen} data-screen-label="Event detail">
       <KioskShell active="eventDetail" onNavigate={onNavigate} />
       <div className={styles.col}>
-        <div className={styles.row}><div className={styles.pill} onClick={() => onNavigate('events')} role="button" tabIndex={0}>← All events</div><div className={styles.text}>Events · Makers Market</div></div>
+        <div className={styles.row}><div className={styles.pill} onClick={() => onNavigate('events')} role="button" tabIndex={0}>← All events</div><div className={styles.text}>Events · {event.title}</div></div>
         <div className={styles.grid}>
           <div className={styles.col2}>
-            <div className={styles.mapPlaceholder}>event photo</div>
-            <div className={styles.title}>Makers Market</div>
+            <div className={styles.mapPlaceholder} style={{ background: event.tint }}>event photo</div>
+            <div className={styles.title}>{event.title}</div>
             <div className={styles.row2}>
-              <div className={styles.pill2}>Sat 12:00 – 17:00</div>
-              <div className={styles.pill2}>Camperdown Memorial Rest Park</div>
-              <div className={styles.pill2}>Free entry</div>
+              <div className={styles.pill2}>{event.venue}</div>
+              {event.tags.map((t) => (
+                <div key={t} className={styles.pill2}>{t}</div>
+              ))}
             </div>
-            <div className={styles.text2}>Forty local stalls of ceramics, prints, plants and street food. Live acoustic sets from 2 pm, and a kids' craft corner run by the Newtown library. Dogs on leads welcome.</div>
+            <div className={styles.text2}>{event.blurb}</div>
             <div className={styles.box}></div>
             <div className={styles.row3}>
               <div className={styles.box2}><PhoneHandoff screen="eventDetail" color="#2B2723" seed={7} /></div>
@@ -34,16 +38,25 @@ export default function EventDetailScreen({ onNavigate }: KioskScreenProps) {
                 <div className={styles.col5}>
                   <div className={styles.row5}><div className={styles.text5}>422</div><div className={styles.text6}>Bus · 3 min away<div className={styles.text7}>2 stops · get off at Newtown Bridge</div></div></div>
                   <div className={styles.row5}><div className={styles.text5}>T2</div><div className={styles.text6}>Train · 4 min away<div className={styles.text7}>Newtown Station, Platform 1</div></div></div>
-                  <div className={styles.row5}><div className={styles.text5}>5′</div><div className={styles.text6}>Walk · 350 m<div className={styles.text7}>Step-free route available</div></div></div>
+                  <div className={styles.row5}><div className={styles.text5}>5′</div><div className={styles.text6}>Walk · {event.distanceM} m<div className={styles.text7}>Step-free route available</div></div></div>
                 </div>
               </div>
             </div>
             <div className={styles.col6}>
               <div className={styles.heading2}>Similar events</div>
               <div className={styles.row6}>
-                <div className={styles.box3}><div className={styles.text8}>Open-mic at The Yard</div><div className={styles.text9}>Tonight 19:30 · Free</div></div>
-                <div className={styles.box3}><div className={styles.text8}>Garden working bee</div><div className={styles.text9}>Sun 9:00 · Wilson St</div></div>
-                <div className={styles.box3}><div className={styles.text8}>Vinyl fair at the Hub</div><div className={styles.text9}>Next Sat 10:00 · $2</div></div>
+                {similar.map((e) => (
+                  <div
+                    key={e.id}
+                    className={styles.box3}
+                    onClick={() => onNavigate('eventDetail', e.id)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div className={styles.text8}>{e.title}</div>
+                    <div className={styles.text9}>{e.whenLabel}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
