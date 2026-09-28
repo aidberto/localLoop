@@ -1,6 +1,6 @@
 .screen {
   width: 100%;
-  min-height: 100svh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   background: #FBFAF5;
@@ -85,9 +85,12 @@
 
 .col3 {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: calc(var(--u) * 26);
+  padding-right: calc(var(--u) * 8);
 }
 
 .row2 {
@@ -152,18 +155,13 @@
 .mapPlaceholder {
   flex: 1;
   border-radius: calc(var(--u) * 18);
-  background: repeating-linear-gradient(45deg,#FCE9E7,#FCE9E7 14px,#FFFFFF 14px,#FFFFFF 28px);
   border: 1px solid #F0D3CF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: ui-monospace,Menlo,monospace;
-  font-size: calc(var(--u) * 18);
-  color: #B06058;
+  overflow: hidden;
 }
 
 .pin {
   position: absolute;
+  z-index: 1000;
   top: calc(var(--u) * 42);
   left: calc(var(--u) * 44);
   display: flex;

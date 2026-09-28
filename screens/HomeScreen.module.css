@@ -1,6 +1,6 @@
 .screen {
   width: 100%;
-  min-height: 100svh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   background: #FBFAF5;
@@ -11,8 +11,9 @@
 
 .col {
   flex: 1;
+  min-height: 0;
   box-sizing: border-box;
-  padding: calc(var(--u) * 34) calc(var(--u) * 48) calc(var(--u) * 30);
+  padding: calc(var(--u) * 22) calc(var(--u) * 48) calc(var(--u) * 30);
   display: flex;
   flex-direction: column;
   gap: calc(var(--u) * 22);
@@ -37,9 +38,10 @@
 
 .grid {
   flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   gap: calc(var(--u) * 24);
 }
 
@@ -49,6 +51,7 @@
   padding: calc(var(--u) * 26) calc(var(--u) * 30);
   display: flex;
   flex-direction: column;
+  min-height: 0;
   gap: calc(var(--u) * 14);
 }
 
@@ -72,18 +75,29 @@
 
 .row3 {
   flex: 1;
+  min-height: 0;
   display: flex;
   gap: calc(var(--u) * 14);
 }
 
 .col3 {
   flex: 1;
+  min-height: 0;
   background: rgba(255,255,255,0.75);
   border-radius: calc(var(--u) * 16);
   padding: calc(var(--u) * 16) calc(var(--u) * 20);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.thumb {
+  flex: 1;
+  min-height: calc(var(--u) * 90);
+  border-radius: calc(var(--u) * 12);
+  background-size: cover;
+  background-position: center;
+  margin-bottom: calc(var(--u) * 12);
 }
 
 .top {
@@ -138,14 +152,11 @@
 
 .mapPlaceholder {
   flex: 1;
+  min-height: calc(var(--u) * 160);
   border-radius: calc(var(--u) * 16);
-  background: repeating-linear-gradient(45deg,rgba(255,255,255,0.75),rgba(255,255,255,0.75) 14px,rgba(255,255,255,0.45) 14px,rgba(255,255,255,0.45) 28px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: ui-monospace,Menlo,monospace;
-  font-size: calc(var(--u) * 18);
-  color: #55701B;
+  overflow: hidden;
+  background: #E9E5DC;
+  pointer-events: none; /* preview only — clicks fall through to the tile's onNavigate */
 }
 
 .col5 {
@@ -171,6 +182,7 @@
 
 .col6 {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: calc(var(--u) * 10);
@@ -183,7 +195,7 @@
   gap: calc(var(--u) * 14);
   background: rgba(255,255,255,0.75);
   border-radius: calc(var(--u) * 14);
-  padding: calc(var(--u) * 10) calc(var(--u) * 18);
+  padding: calc(var(--u) * 8) calc(var(--u) * 18);
 }
 
 .text7 {
@@ -356,20 +368,7 @@
   color: #6B6459;
 }
 
-.avatar5 {
-  width: calc(var(--u) * 56);
-  height: calc(var(--u) * 56);
-  border-radius: 50%;
-  border: 3px solid #2B2723;
-  background: #2B2723;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(var(--u) * 24);
-  font-weight: 800;
-}
-
+.avatar5,
 .avatar6 {
   width: calc(var(--u) * 56);
   height: calc(var(--u) * 56);
@@ -378,7 +377,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--u) * 31);
   font-weight: 800;
   color: #6B6459;
+  cursor: pointer;
 }
+
+.avatar5 { font-size: calc(var(--u) * 24); }
+.avatar6 { font-size: calc(var(--u) * 31); }
+
+/* Selected text-size option. */
+.sel {
+  border-color: #2B2723;
+  background: #2B2723;
+  color: #FFFFFF;
+}
+
+/* Accessibility large-text mode: collapse each quadrant to just its big title
+   so the primary nav is huge and uncluttered. Global --u scaling is owned by
+   KioskApp's .llLarge wrapper. */
+.large .row3,
+.large .col6,
+.large .mapPlaceholder,
+.large .text2,
+.large .text5,
+.large .text6,
+.large .text10 { display: none; }
+
+.large .col2,
+.large .col4,
+.large .col5,
+.large .col7,
+.large .row2 { justify-content: center; }
+
+.large .heading,
+.large .heading2,
+.large .heading3,
+.large .heading4 { font-size: calc(var(--u) * 76); }

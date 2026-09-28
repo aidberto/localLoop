@@ -4,9 +4,6 @@ export type PhoneScreenId =
   | 'newMember'
   | 'confirmation'
   | 'home'
-  | 'inbox'
-  | 'messages'
-  | 'thread'
   | 'events'
   | 'eventDetail'
   | 'newEvent'
@@ -18,6 +15,8 @@ export type PhoneScreenId =
   | 'newRequest';
 
 export interface PhoneScreenProps {
-  /** Navigate to another phone screen. */
-  onNavigate: (screen: PhoneScreenId) => void;
+  /** Navigate to another phone screen, optionally selecting an event/request. */
+  onNavigate: (screen: PhoneScreenId, selectedId?: string) => void;
+  /** Which event/request to show on detail screens (from the kiosk handoff). */
+  selectedId?: string;
 }

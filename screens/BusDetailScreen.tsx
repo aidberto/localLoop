@@ -1,39 +1,63 @@
+import { useEffect, useState } from 'react';
 import KioskShell from '../KioskShell';
+import RouteMap from '../RouteMap';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
+import { busRoutes, fetchDepartures, modeColors, useClock, type Departure } from '../data';
 import styles from './BusDetailScreen.module.css';
 
-/** 1g · Bus route - 1920×1080 kiosk screen, fluid via --u. */
-export default function BusDetailScreen({ onNavigate }: KioskScreenProps) {
+const CROWDING = ['seats available', 'some seats', 'standing room only'] as const;
+const MODE_LABEL = { bus: 'Bus', train: 'Train', metro: 'Metro' } as const;
+
+/** 1g · Route detail - 1920×1080 kiosk screen, fluid via --u. */
+export default function BusDetailScreen({ onNavigate, selectedId, largeText, onLargeText }: KioskScreenProps) {
+  const { now } = useClock();
+  const route = (selectedId && busRoutes[selectedId]) || busRoutes['422'];
+  const mode = route.mode ?? 'bus';
+  const label = MODE_LABEL[mode];
+
+  // Live next departure for this line, matched from the real feed.
+  const [dep, setDep] = useState<Departure | null>(null);
+  useEffect(() => {
+    let alive = true;
+    fetchDepartures().then((data) => {
+      if (alive) setDep(data?.find((d) => d.line === route.line) ?? null);
+    });
+    return () => { alive = false; };
+  }, [route.line]);
+
+  const min = dep?.dueAt != null ? Math.max(0, Math.ceil((dep.dueAt - now) / 60000)) : null;
+  const crowd = dep ? CROWDING[dep.crowding] : null;
+
   return (
-    <div className={styles.screen} data-screen-label="Bus route">
+    <div className={styles.screen} data-screen-label="Route detail">
       <KioskShell active="busDetail" onNavigate={onNavigate} />
       <div className={styles.col}>
         <div className={styles.row}>
           <div className={styles.pill} onClick={() => onNavigate('transport')} role="button" tabIndex={0}>← All transport</div>
-          <div className={styles.heading}>422</div>
-          <div className={styles.heading2}>Kogarah via St Peters</div>
+          <div className={styles.heading}>{route.line}</div>
+          <div className={styles.heading2}>{route.headsign}</div>
           <div className={styles.box}></div>
-          <div className={styles.heading3}>Arriving in 3 min · seats available</div>
+          <div className={styles.heading3}>{min != null ? `Arriving in ${min} min · ${crowd}` : 'Checking live times…'}</div>
         </div>
         <div className={styles.grid}>
           <div className={styles.col2}>
             <div className={styles.heading4}>Stops from here</div>
             <div className={styles.col3}>
-              <div className={styles.row2}><div className={styles.avatar}></div><div className={styles.text}>King St, Stop B - you are here</div><div className={styles.text2}>12:03</div></div>
-              <div className={styles.row2}><div className={styles.avatar2}></div><div className={styles.text3}>Newtown Bridge</div><div className={styles.text2}>12:05</div></div>
-              <div className={styles.row2}><div className={styles.avatar2}></div><div className={styles.text3}>St Peters Station</div><div className={styles.text2}>12:09</div></div>
-              <div className={styles.row2}><div className={styles.avatar2}></div><div className={styles.text3}>Sydenham Station</div><div className={styles.text2}>12:13</div></div>
-              <div className={styles.row2}><div className={styles.avatar2}></div><div className={styles.text3}>Tempe Shops</div><div className={styles.text2}>12:17</div></div>
-              <div className={styles.row2}><div className={styles.avatar2}></div><div className={styles.text3}>Wolli Creek</div><div className={styles.text2}>12:22</div></div>
-              <div className={styles.row2}><div className={styles.avatar2}></div><div className={styles.text3}>Rockdale Plaza</div><div className={styles.text2}>12:28</div></div>
-              <div className={styles.row2}><div className={styles.avatar3}></div><div className={styles.text}>Kogarah - last stop</div><div className={styles.text2}>12:34</div></div>
+              {route.stops.map((s) => (
+                <div key={s.name} className={styles.row2}>
+                  <div className={s.current ? styles.avatar : s.last ? styles.avatar3 : styles.avatar2}></div>
+                  <div className={s.current || s.last ? styles.text : styles.text3}>{s.name}</div>
+                  <div className={styles.text2}>{s.time}</div>
+                </div>
+              ))}
             </div>
           </div>
           <div className={styles.row3}>
-            <div className={styles.mapPlaceholder}>route map · live bus position</div>
+            <RouteMap stops={route.stops} color={modeColors[mode].bg} profile={mode === 'bus' ? 'driving' : undefined} className={styles.mapPlaceholder} />
             <div className={styles.pin}>
               <div className={styles.pill2}><div className={styles.avatar4}></div>You are here</div>
-              <div className={styles.pill2}><div className={styles.avatar5}></div>Bus 422 · now</div>
+              <div className={styles.pill2}><div className={styles.avatar5}></div>{label} {route.line} · now</div>
             </div>
           </div>
         </div>
@@ -48,7 +72,7 @@ export default function BusDetailScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill7} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar9}></div>Requests</div>
         </div>
         <div className={styles.box}></div>
-        <div className={styles.row6}><div className={styles.text4}>Text size</div><div className={styles.avatar10}>A</div><div className={styles.avatar11}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

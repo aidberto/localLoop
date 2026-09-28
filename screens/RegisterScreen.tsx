@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import PhoneHandoff from '../PhoneHandoff';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import styles from './RegisterScreen.module.css';
 
@@ -19,6 +20,8 @@ const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, 
 /** 1k · Register QR - scanning it hands off to the app's registry flow (2c). */
 export default function RegisterScreen({
   onNavigate,
+  largeText,
+  onLargeText,
   kioskId = 'Kiosk NW-04 · King St library',
   signupUrl = 'localloop.au/nw04',
   refreshSeconds = 300,
@@ -80,7 +83,7 @@ export default function RegisterScreen({
           <div className={styles.pill6} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar6}></div>Requests</div>
         </div>
         <div className={styles.box2}></div>
-        <div className={styles.row6}><div className={styles.text5}>Text size</div><div className={styles.avatar7}>A</div><div className={styles.avatar8}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

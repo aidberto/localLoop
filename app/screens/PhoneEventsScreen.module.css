@@ -144,10 +144,15 @@
   font-size: calc(var(--pu) * 14);
   font-weight: 600;
   color: #6B6459;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .box {
   color: #16697F;
+  font-size: calc(var(--pu) * 12);
 }
 
 .meta3 {

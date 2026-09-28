@@ -7,11 +7,18 @@ export type ScreenId =
   | 'requests'
   | 'requestDetail'
   | 'map'
-  | 'register';
+  | 'register'
+  | 'standby';
 
 export interface KioskScreenProps {
-  /** Navigate to another kiosk screen. */
-  onNavigate: (screen: ScreenId) => void;
+  /** Navigate to another kiosk screen, optionally selecting an item by id. */
+  onNavigate: (screen: ScreenId, selectedId?: string) => void;
+  /** Id of the item chosen on the previous screen (for detail screens). */
+  selectedId?: string;
+  /** Accessibility large-text mode (global, owned by KioskApp). */
+  largeText?: boolean;
+  /** Toggle large-text mode. */
+  onLargeText?: (value: boolean) => void;
 }
 
 export interface KioskShellProps {

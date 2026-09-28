@@ -4,9 +4,6 @@ export { default as PhoneScanKioskScreen } from './screens/PhoneScanKioskScreen'
 export { default as PhoneNewMemberScreen } from './screens/PhoneNewMemberScreen';
 export { default as PhoneConfirmationScreen } from './screens/PhoneConfirmationScreen';
 export { default as PhoneHomeScreen } from './screens/PhoneHomeScreen';
-export { default as PhoneInboxScreen } from './screens/PhoneInboxScreen';
-export { default as PhoneMessagesScreen } from './screens/PhoneMessagesScreen';
-export { default as PhoneThreadScreen } from './screens/PhoneThreadScreen';
 export { default as PhoneEventsScreen } from './screens/PhoneEventsScreen';
 export { default as PhoneEventDetailScreen } from './screens/PhoneEventDetailScreen';
 export { default as PhoneNewEventScreen } from './screens/PhoneNewEventScreen';
