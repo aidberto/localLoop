@@ -85,6 +85,13 @@
   text-shadow: 0 2px 14px rgba(0,0,0,0.4);
 }
 
+.timeCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--u) * 12);
+}
+
 .clock {
   font-size: calc(var(--u) * 130);
   line-height: 0.9;
@@ -92,6 +99,30 @@
   letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
   text-shadow: 0 4px 30px rgba(0,0,0,0.45);
+}
+
+.weather {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 14);
+  text-shadow: 0 2px 14px rgba(0,0,0,0.4);
+}
+
+.weatherIcon {
+  font-size: calc(var(--u) * 44);
+  line-height: 1;
+}
+
+.weatherTemp {
+  font-size: calc(var(--u) * 44);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.weatherLabel {
+  font-size: calc(var(--u) * 28);
+  font-weight: 700;
+  color: rgba(251,250,245,0.82);
 }
 
 .grid {
@@ -120,10 +151,15 @@
   flex: 1.25;
 }
 
+/* Category accents — match the app theme (events orange, transport red, requests blue). */
+.panelEvents { --accent: var(--ll-events); }
+.panelTransport { --accent: var(--ll-transport); }
+.panelRequests { --accent: var(--ll-requests); }
+
 .panelTitle {
   font-size: calc(var(--u) * 28);
   font-weight: 900;
-  color: #C9E67E;
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -152,12 +188,12 @@
   flex: none;
 }
 
+/* Line pill colour is set inline per Transport for NSW mode (see MODE_COLORS). */
 .line {
   min-width: calc(var(--u) * 70);
   text-align: center;
   font-size: calc(var(--u) * 28);
   font-weight: 900;
-  background: rgba(255,255,255,0.14);
   border-radius: calc(var(--u) * 12);
   padding: calc(var(--u) * 6) calc(var(--u) * 12);
   flex: none;
@@ -168,7 +204,7 @@
   font-weight: 900;
   letter-spacing: 0.06em;
   color: #171B14;
-  background: #C9E67E;
+  background: var(--accent);
   border-radius: 999px;
   padding: calc(var(--u) * 6) calc(var(--u) * 14);
   flex: none;
@@ -199,7 +235,7 @@
 .badge {
   font-size: calc(var(--u) * 26);
   font-weight: 900;
-  color: #F6B963;
+  color: var(--accent);
   white-space: nowrap;
   flex: none;
 }
@@ -262,7 +298,7 @@
   font-size: calc(var(--u) * 24);
   font-weight: 900;
   color: #171B14;
-  background: #F6B963;
+  background: var(--accent);
   border-radius: 999px;
   padding: calc(var(--u) * 8) calc(var(--u) * 20);
   box-shadow: 0 4px 14px rgba(0,0,0,0.3);

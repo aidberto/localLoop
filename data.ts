@@ -318,6 +318,51 @@ export function useClock(ms = 1000): { now: number; mountedAt: number } {
   return { now, mountedAt };
 }
 
+// WMO weather codes → glanceable icon + word. Grouped, not exhaustive.
+// https://open-meteo.com/en/docs (weather_code)
+function describeWeather(code: number): { icon: string; label: string } {
+  if (code === 0) return { icon: '☀️', label: 'Clear' };
+  if (code <= 2) return { icon: '🌤️', label: 'Partly sunny' };
+  if (code === 3) return { icon: '☁️', label: 'Cloudy' };
+  if (code <= 48) return { icon: '🌫️', label: 'Fog' };
+  if (code <= 57) return { icon: '🌦️', label: 'Drizzle' };
+  if (code <= 67) return { icon: '🌧️', label: 'Rain' };
+  if (code <= 77) return { icon: '🌨️', label: 'Snow' };
+  if (code <= 82) return { icon: '🌧️', label: 'Showers' };
+  if (code <= 86) return { icon: '🌨️', label: 'Snow showers' };
+  return { icon: '⛈️', label: 'Storm' }; // 95–99
+}
+
+export interface Weather {
+  tempC: number;
+  icon: string;
+  label: string;
+}
+
+/** Live Newtown weather from Open-Meteo (no API key). Fetches once, then hourly.
+ *  Returns null until the first response lands. */
+export function useWeather(): Weather | null {
+  const [weather, setWeather] = useState<Weather | null>(null);
+  useEffect(() => {
+    const url =
+      `https://api.open-meteo.com/v1/forecast?latitude=${mapCenter.lat}&longitude=${mapCenter.lng}` +
+      `&current=temperature_2m,weather_code&timezone=Australia/Sydney`;
+    const load = () =>
+      fetch(url)
+        .then((r) => r.json())
+        .then((d) => {
+          const c = d?.current;
+          if (typeof c?.temperature_2m !== 'number') return;
+          setWeather({ tempC: Math.round(c.temperature_2m), ...describeWeather(c.weather_code) });
+        })
+        .catch(() => {}); // ponytail: kiosk keeps its last value on a flaky network
+    load();
+    const id = setInterval(load, 3600000);
+    return () => clearInterval(id);
+  }, []);
+  return weather;
+}
+
 /** Self-check: unique ids and every map target resolves to real data. */
 export function demo(): void {
   const ids = [...events, ...requests, ...departures].map((x) => x.id);

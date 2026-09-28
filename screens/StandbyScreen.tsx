@@ -8,6 +8,7 @@ import {
   requests,
   suburb,
   useClock,
+  useWeather,
 } from '../data';
 import styles from './StandbyScreen.module.css';
 
@@ -15,6 +16,16 @@ import styles from './StandbyScreen.module.css';
 const IMAGES = ['/newtown1.jpg', '/newtown2.jpg', '/newtown3.jpg'];
 const IMAGE_MS = 9000;
 const CARD_MS = 5000;
+
+// Authentic Transport for NSW mode colours for the line pills. The panel itself
+// stays red (the app's transport identity), but red is Sydney's LIGHT RAIL
+// colour — so line pills are never red, they use the real mode palette:
+// train orange, metro teal, bus blue. Keeps Sydneysider mental models intact.
+const MODE_COLORS: Record<string, { bg: string; fg: string }> = {
+  train: { bg: '#F6891F', fg: '#FFFFFF' }, // Sydney Trains orange
+  metro: { bg: '#009B95', fg: '#FFFFFF' }, // Sydney Metro teal
+  bus: { bg: '#00B5EF', fg: '#00131A' }, // Bus blue
+};
 
 const clock = (ms: number) =>
   new Date(ms).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -26,6 +37,7 @@ const dateLabel = (ms: number) =>
  *  returns the kiosk to home (handled in KioskApp). */
 export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
   const { now, mountedAt } = useClock();
+  const weather = useWeather();
   const [bg, setBg] = useState(0);
   const [card, setCard] = useState(0);
 
@@ -65,11 +77,20 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
             <div className={styles.brand}><div className={styles.mark} />LocalLoop {suburb}</div>
             <div className={styles.date}>{dateLabel(now)}</div>
           </div>
-          <div className={styles.clock}>{clock(now)}</div>
+          <div className={styles.timeCol}>
+            <div className={styles.clock}>{clock(now)}</div>
+            {weather && (
+              <div className={styles.weather}>
+                <span className={styles.weatherIcon}>{weather.icon}</span>
+                <span className={styles.weatherTemp}>{weather.tempC}°</span>
+                <span className={styles.weatherLabel}>{weather.label}</span>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className={styles.grid}>
-          <div className={`${styles.panel} ${styles.panelWide}`}>
+          <div className={`${styles.panel} ${styles.panelWide} ${styles.panelEvents}`}>
             <div className={styles.panelTitle}>Happening in {suburb}</div>
             <div key={event.id} className={styles.feature}>
               <div className={styles.photo} style={{ backgroundImage: `url(${event.image})`, backgroundColor: event.tint }}>
@@ -81,12 +102,17 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
             </div>
           </div>
 
-          <div className={styles.panel}>
+          <div className={`${styles.panel} ${styles.panelTransport}`}>
             <div className={styles.panelTitle}>Live departures</div>
             <div className={styles.list}>
               {soonest.map((d) => (
                 <div key={d.id} className={styles.item}>
-                  <div className={styles.line}>{d.line}</div>
+                  <div
+                    className={styles.line}
+                    style={{ background: MODE_COLORS[d.mode].bg, color: MODE_COLORS[d.mode].fg }}
+                  >
+                    {d.line}
+                  </div>
                   <div className={styles.itemMain}>
                     <div className={styles.itemTitle}>{d.dest}</div>
                     <div className={styles.itemMeta}>{d.via}</div>
@@ -97,7 +123,7 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
             </div>
           </div>
 
-          <div className={styles.panel}>
+          <div className={`${styles.panel} ${styles.panelRequests}`}>
             <div className={styles.panelTitle}>On the board</div>
             <div key={request.id} className={styles.feature}>
               <div className={styles.chip}>{request.category}</div>
