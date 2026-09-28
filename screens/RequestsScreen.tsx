@@ -1,10 +1,33 @@
+import { useMemo, useState } from 'react';
 import KioskShell from '../KioskShell';
 import type { KioskScreenProps } from '../types';
 import { requests } from '../data';
 import styles from './RequestsScreen.module.css';
 
+// ponytail: filter pills map a label to the categories it matches; "full" = no open spots.
+const FILTERS: { label: string; cats: string[] }[] = [
+  { label: 'Sport & fitness', cats: ['SPORT', 'RUN'] },
+  { label: 'Music', cats: ['MUSIC'] },
+  { label: 'Garden', cats: ['GARDEN'] },
+  { label: 'Games', cats: ['GAMES'] },
+  { label: 'Food', cats: ['FOOD'] },
+];
+const hasOpenSpots = (label: string) => !/full|waitlist/i.test(label);
+
 /** 1h · Requests - 1920×1080 kiosk screen, fluid via --u. */
 export default function RequestsScreen({ onNavigate }: KioskScreenProps) {
+  const [active, setActive] = useState<string | null>(null);
+  const [openOnly, setOpenOnly] = useState(false);
+
+  const shown = useMemo(() => {
+    const cats = FILTERS.find((f) => f.label === active)?.cats;
+    return requests.filter(
+      (r) =>
+        (!cats || cats.includes(r.category)) &&
+        (!openOnly || hasOpenSpots(r.slotsLabel)),
+    );
+  }, [active, openOnly]);
+
   return (
     <div className={styles.screen} data-screen-label="Requests">
       <KioskShell active="requests" onNavigate={onNavigate} />
@@ -17,18 +40,38 @@ export default function RequestsScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill}>Post via the app</div>
         </div>
         <div className={styles.row2}>
-          <div className={styles.pill2}>All · {requests.length}</div>
-          <div className={styles.pill3}>Sport &amp; fitness</div>
-          <div className={styles.pill3}>Music</div>
-          <div className={styles.pill3}>Garden</div>
-          <div className={styles.pill3}>Games</div>
-          <div className={styles.pill3}>Food</div>
-          <div className={styles.pill3}>Open spots only</div>
+          <div
+            className={active === null ? styles.pill2 : styles.pill3}
+            onClick={() => setActive(null)}
+            role="button"
+            tabIndex={0}
+          >
+            All · {requests.length}
+          </div>
+          {FILTERS.map((f) => (
+            <div
+              key={f.label}
+              className={active === f.label ? styles.pill2 : styles.pill3}
+              onClick={() => setActive(active === f.label ? null : f.label)}
+              role="button"
+              tabIndex={0}
+            >
+              {f.label}
+            </div>
+          ))}
+          <div
+            className={openOnly ? styles.pill2 : styles.pill3}
+            onClick={() => setOpenOnly((v) => !v)}
+            role="button"
+            tabIndex={0}
+          >
+            Open spots only
+          </div>
           <div className={styles.box2}></div>
           <div className={styles.pill4}>Sort · Newest ↓</div>
         </div>
         <div className={styles.grid}>
-          {requests.map((r) => (
+          {shown.map((r) => (
             <div
               key={r.id}
               className={styles.card}

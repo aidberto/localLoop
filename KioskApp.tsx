@@ -27,7 +27,7 @@ const SCREENS = {
 } satisfies Record<ScreenId, ComponentType<KioskScreenProps>>;
 
 /** Idle window before the kiosk drops into standby. */
-const IDLE_MS = 20000;
+const IDLE_MS = 60000;
 
 export interface KioskAppProps {
   /** Screen to open on first render. */

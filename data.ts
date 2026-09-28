@@ -109,7 +109,7 @@ export const events: EventItem[] = [
     venue: 'Camperdown Memorial Rest Park',
     distanceM: 350,
     tint: '#F6B963',
-    image: 'https://images.unsplash.com/photo-1524350876685-274059332603?auto=format&fit=crop&w=900&q=80',
+    image: '/makersMarket.jpg',
     tags: ['Free', 'Family'],
     blurb:
       "Forty local stalls of ceramics, prints, plants and street food, with live acoustic sets from 2 pm and a kids' craft corner run by the Newtown library. Dogs on leads welcome.",
@@ -128,7 +128,7 @@ export const events: EventItem[] = [
     venue: 'The Yard, King St',
     distanceM: 600,
     tint: '#F49B94',
-    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=80',
+    image: '/open-mic.jpg',
     tags: ['Free'],
     blurb:
       "Five-minute slots for music, poetry and comedy. Sign-up sheet opens at 19:00 — beginners get the friendliest crowd in the Inner West.",
@@ -147,7 +147,7 @@ export const events: EventItem[] = [
     venue: 'Wilson St gardens',
     distanceM: 850,
     tint: '#A8D8A0',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=900&q=80',
+    image: '/CommunityGarden.jpeg',
     tags: ['Free', 'Family'],
     blurb:
       'Help plant the summer beds and take home seedlings. Morning tea provided by the garden crew — kids and first-timers welcome.',

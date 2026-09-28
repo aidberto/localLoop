@@ -31,9 +31,10 @@ export default function EventsScreen({ onNavigate }: KioskScreenProps) {
               role="button"
               tabIndex={0}
             >
-              <div className={styles.mapPlaceholder} style={{ background: e.tint }}>
-                event photo
-              </div>
+              <div
+                className={styles.mapPlaceholder}
+                style={{ backgroundColor: e.tint, backgroundImage: `url(${e.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              />
               <div className={styles.col3}>
                 <div className={styles.row4}>
                   <div className={styles.heading}>{e.title}</div>

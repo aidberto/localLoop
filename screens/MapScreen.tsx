@@ -20,7 +20,7 @@ const LAYERS: { kind: MapKind; label: string; pill: string; dot: string }[] = [
   { kind: 'park', label: 'Parks & toilets', pill: styles.pill4, dot: styles.avatar4 },
 ];
 
-/** Teardrop pin as a divIcon so bundling never breaks the marker image. */
+/** Teardrop pin as a divIcon so bundling never breaks the marker image.   */
 function pinIcon(kind: MapKind, label: string) {
   const color = COLORS[kind];
   return L.divIcon({
