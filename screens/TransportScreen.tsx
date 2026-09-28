@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import KioskShell from '../KioskShell';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { busRoutes, fetchDepartures, modeColors, useClock, type Departure, type Mode } from '../data';
 import styles from './TransportScreen.module.css';
@@ -21,7 +22,7 @@ function Dots({ crowding }: { crowding: 0 | 1 | 2 }) {
 }
 
 /** 1f · Transport - 1920×1080 kiosk screen, fluid via --u. */
-export default function TransportScreen({ onNavigate }: KioskScreenProps) {
+export default function TransportScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
   const { now } = useClock();
   const [departures, setDepartures] = useState<Departure[]>([]);
   const [status, setStatus] = useState<'loading' | 'live' | 'error'>('loading');
@@ -98,7 +99,7 @@ export default function TransportScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill5} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar7}></div>Requests</div>
         </div>
         <div className={styles.box2}></div>
-        <div className={styles.row10}><div className={styles.text6}>Text size</div><div className={styles.avatar8}>A</div><div className={styles.avatar9}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

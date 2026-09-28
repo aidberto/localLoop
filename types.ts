@@ -15,6 +15,10 @@ export interface KioskScreenProps {
   onNavigate: (screen: ScreenId, selectedId?: string) => void;
   /** Id of the item chosen on the previous screen (for detail screens). */
   selectedId?: string;
+  /** Accessibility large-text mode (global, owned by KioskApp). */
+  largeText?: boolean;
+  /** Toggle large-text mode. */
+  onLargeText?: (value: boolean) => void;
 }
 
 export interface KioskShellProps {

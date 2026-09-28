@@ -37,6 +37,7 @@ export interface KioskAppProps {
 export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
   const [screen, setScreen] = useState<ScreenId>(initialScreen);
   const [selectedId, setSelectedId] = useState<string | undefined>();
+  const [largeText, setLargeText] = useState(false);
   const onNavigate = useCallback((next: ScreenId, id?: string) => {
     setScreen(next);
     setSelectedId(id);
@@ -71,5 +72,14 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
   }, []);
 
   const Screen = SCREENS[screen];
-  return <Screen onNavigate={onNavigate} selectedId={selectedId} />;
+  return (
+    <div className={largeText ? 'llLarge' : undefined}>
+      <Screen
+        onNavigate={onNavigate}
+        selectedId={selectedId}
+        largeText={largeText}
+        onLargeText={setLargeText}
+      />
+    </div>
+  );
 }

@@ -368,20 +368,7 @@
   color: #6B6459;
 }
 
-.avatar5 {
-  width: calc(var(--u) * 56);
-  height: calc(var(--u) * 56);
-  border-radius: 50%;
-  border: 3px solid #2B2723;
-  background: #2B2723;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(var(--u) * 24);
-  font-weight: 800;
-}
-
+.avatar5,
 .avatar6 {
   width: calc(var(--u) * 56);
   height: calc(var(--u) * 56);
@@ -390,7 +377,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--u) * 31);
   font-weight: 800;
   color: #6B6459;
+  cursor: pointer;
 }
+
+.avatar5 { font-size: calc(var(--u) * 24); }
+.avatar6 { font-size: calc(var(--u) * 31); }
+
+/* Selected text-size option. */
+.sel {
+  border-color: #2B2723;
+  background: #2B2723;
+  color: #FFFFFF;
+}
+
+/* Accessibility large-text mode: collapse each quadrant to just its big title
+   so the primary nav is huge and uncluttered. Global --u scaling is owned by
+   KioskApp's .llLarge wrapper. */
+.large .row3,
+.large .col6,
+.large .mapPlaceholder,
+.large .text2,
+.large .text5,
+.large .text6,
+.large .text10 { display: none; }
+
+.large .col2,
+.large .col4,
+.large .col5,
+.large .col7,
+.large .row2 { justify-content: center; }
+
+.large .heading,
+.large .heading2,
+.large .heading3,
+.large .heading4 { font-size: calc(var(--u) * 76); }

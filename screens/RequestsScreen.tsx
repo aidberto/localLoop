@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import KioskShell from '../KioskShell';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { requests } from '../data';
 import styles from './RequestsScreen.module.css';
@@ -15,7 +16,7 @@ const FILTERS: { label: string; cats: string[] }[] = [
 const hasOpenSpots = (label: string) => !/full|waitlist/i.test(label);
 
 /** 1h · Requests - 1920×1080 kiosk screen, fluid via --u. */
-export default function RequestsScreen({ onNavigate }: KioskScreenProps) {
+export default function RequestsScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
   const [active, setActive] = useState<string | null>(null);
   const [openOnly, setOpenOnly] = useState(false);
 
@@ -97,7 +98,7 @@ export default function RequestsScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill9} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar4}></div>Requests</div>
         </div>
         <div className={styles.box2}></div>
-        <div className={styles.row2}><div className={styles.text6}>Text size</div><div className={styles.avatar5}>A</div><div className={styles.avatar6}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

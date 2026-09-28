@@ -1,10 +1,11 @@
 import KioskShell from '../KioskShell';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { events, formatIn, minutesLeft, useClock } from '../data';
 import styles from './EventsScreen.module.css';
 
 /** 1d · Events - 1920×1080 kiosk screen, fluid via --u. */
-export default function EventsScreen({ onNavigate }: KioskScreenProps) {
+export default function EventsScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
   const { now, mountedAt } = useClock();
   return (
     <div className={styles.screen} data-screen-label="Events">
@@ -61,7 +62,7 @@ export default function EventsScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill9} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar4}></div>Requests</div>
         </div>
         <div className={styles.box2}></div>
-        <div className={styles.row7}><div className={styles.text4}>Text size</div><div className={styles.avatar5}>A</div><div className={styles.avatar6}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

@@ -21,9 +21,21 @@
   --ll-map: #A8D8A0;
 }
 
+/* Accessibility large-text mode: scale the whole kiosk up via the unit every
+   dimension is built on. Applied on a wrapper by KioskApp, so it's global. */
+.llLarge { --u: calc(100vw / 1920 * 1.15); }
+
+/* Larger text makes content taller than the viewport. Lock each screen to the
+   viewport height so the bottom nav stays pinned, and let the middle content
+   region scroll instead of spilling below the nav. Small mode is untouched. */
+.llLarge, .llLarge > * { height: 100svh; overflow: hidden; }
+.llLarge > * > * { min-height: 0; }
+.llLarge > * > *:not(:first-child):not(:last-child) { overflow-y: auto; }
+
 /* Cap the scale on very wide displays so type stops growing past the design intent. */
 @media (min-width: 2400px) {
   :root { --u: calc(2400px / 1920); }
+  .llLarge { --u: calc(2400px / 1920 * 1.15); }
 }
 
 /* Inside a phone-sized container, drive --pu off the container instead. */
@@ -36,6 +48,7 @@
    legible rather than shrinking text into nothing. */
 @media (max-width: 1000px) {
   :root { --u: calc(1000px / 1920); }
+  .llLarge { --u: calc(1000px / 1920 * 1.15); }
 }
 
 * { box-sizing: border-box; }

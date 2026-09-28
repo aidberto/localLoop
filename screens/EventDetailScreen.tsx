@@ -1,12 +1,13 @@
 import KioskShell from '../KioskShell';
 import PhoneHandoff from '../PhoneHandoff';
 import RouteMap from '../RouteMap';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { events } from '../data';
 import styles from './EventDetailScreen.module.css';
 
 /** 1e · Event detail - 1920×1080 kiosk screen, fluid via --u. */
-export default function EventDetailScreen({ onNavigate, selectedId }: KioskScreenProps) {
+export default function EventDetailScreen({ onNavigate, selectedId, largeText, onLargeText }: KioskScreenProps) {
   const event = events.find((e) => e.id === selectedId) ?? events[0];
   const similar = events.filter((e) => e.id !== event.id);
   return (
@@ -70,7 +71,7 @@ export default function EventDetailScreen({ onNavigate, selectedId }: KioskScree
           <div className={styles.pill7} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar4}></div>Requests</div>
         </div>
         <div className={styles.box}></div>
-        <div className={styles.row9}><div className={styles.text10}>Text size</div><div className={styles.avatar5}>A</div><div className={styles.avatar6}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import KioskShell from '../KioskShell';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { fetchDepartures, mapCenter, mapPoints, modeColors, useClock, type Departure, type MapKind } from '../data';
 import styles from './HomeScreen.module.css';
@@ -14,7 +15,7 @@ const COLORS: Record<MapKind, string> = {
 };
 
 /** 1b · Home - 1920×1080 kiosk screen, fluid via --u. */
-export default function HomeScreen({ onNavigate }: KioskScreenProps) {
+export default function HomeScreen({ onNavigate, largeText = false, onLargeText }: KioskScreenProps) {
   const mapEl = useRef<HTMLDivElement>(null);
   const { now } = useClock();
   const [departures, setDepartures] = useState<Departure[]>([]);
@@ -67,7 +68,7 @@ export default function HomeScreen({ onNavigate }: KioskScreenProps) {
   }, []);
 
   return (
-    <div className={styles.screen} data-screen-label="Home">
+    <div className={`${styles.screen}${largeText ? ` ${styles.large}` : ''}`} data-screen-label="Home">
       <KioskShell active="home" onNavigate={onNavigate} />
       <div className={styles.col}>
         <div className={styles.row}><div className={styles.title}>What's going on in Newtown?</div><div className={styles.text}>Live right now - tap any tile for more.</div></div>
@@ -114,7 +115,7 @@ export default function HomeScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill5} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar4}></div>Requests</div>
         </div>
         <div className={styles.box}></div>
-        <div className={styles.row7}><div className={styles.text13}>Text size</div><div className={styles.avatar5}>A</div><div className={styles.avatar6}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

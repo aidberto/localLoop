@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import KioskShell from '../KioskShell';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { mapCenter, mapPoints, type MapKind } from '../data';
 import styles from './MapScreen.module.css';
@@ -36,7 +37,7 @@ function pinIcon(kind: MapKind, label: string) {
 }
 
 /** 1j · Map - OpenStreetMap with data pins, working layer filters + zoom. */
-export default function MapScreen({ onNavigate }: KioskScreenProps) {
+export default function MapScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
   const [active, setActive] = useState<Set<MapKind>>(
     () => new Set<MapKind>(['event', 'stop', 'request', 'park']),
   );
@@ -140,7 +141,7 @@ export default function MapScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.pill12} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar9}></div>Requests</div>
         </div>
         <div className={styles.box}></div>
-        <div className={styles.row4}><div className={styles.text2}>Text size</div><div className={styles.avatar10}>A</div><div className={styles.avatar11}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );

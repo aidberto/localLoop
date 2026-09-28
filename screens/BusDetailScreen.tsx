@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import KioskShell from '../KioskShell';
 import RouteMap from '../RouteMap';
+import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
 import { busRoutes, fetchDepartures, modeColors, useClock, type Departure } from '../data';
 import styles from './BusDetailScreen.module.css';
@@ -9,7 +10,7 @@ const CROWDING = ['seats available', 'some seats', 'standing room only'] as cons
 const MODE_LABEL = { bus: 'Bus', train: 'Train', metro: 'Metro' } as const;
 
 /** 1g · Route detail - 1920×1080 kiosk screen, fluid via --u. */
-export default function BusDetailScreen({ onNavigate, selectedId }: KioskScreenProps) {
+export default function BusDetailScreen({ onNavigate, selectedId, largeText, onLargeText }: KioskScreenProps) {
   const { now } = useClock();
   const route = (selectedId && busRoutes[selectedId]) || busRoutes['422'];
   const mode = route.mode ?? 'bus';
@@ -71,7 +72,7 @@ export default function BusDetailScreen({ onNavigate, selectedId }: KioskScreenP
           <div className={styles.pill7} onClick={() => onNavigate('requests')} role="button" tabIndex={0}><div className={styles.avatar9}></div>Requests</div>
         </div>
         <div className={styles.box}></div>
-        <div className={styles.row6}><div className={styles.text4}>Text size</div><div className={styles.avatar10}>A</div><div className={styles.avatar11}>A</div></div>
+        <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
     </div>
   );
