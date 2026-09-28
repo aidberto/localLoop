@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import KioskShell from '../KioskShell';
 import type { KioskScreenProps } from '../types';
-import { mapCenter, mapPoints, modeColors, type MapKind } from '../data';
+import { fetchDepartures, mapCenter, mapPoints, modeColors, useClock, type Departure, type MapKind } from '../data';
 import styles from './HomeScreen.module.css';
 
 const COLORS: Record<MapKind, string> = {
@@ -16,6 +16,26 @@ const COLORS: Record<MapKind, string> = {
 /** 1b · Home - 1920×1080 kiosk screen, fluid via --u. */
 export default function HomeScreen({ onNavigate }: KioskScreenProps) {
   const mapEl = useRef<HTMLDivElement>(null);
+  const { now } = useClock();
+  const [departures, setDepartures] = useState<Departure[]>([]);
+
+  // Live departures from the same TfNSW feed as the transport screen.
+  useEffect(() => {
+    let alive = true;
+    const load = async () => {
+      const data = await fetchDepartures();
+      if (alive && data) setDepartures(data);
+    };
+    load();
+    const id = setInterval(load, 30000);
+    return () => { alive = false; clearInterval(id); };
+  }, []);
+
+  const soonest = [...departures]
+    .filter((d) => d.dueAt != null)
+    .sort((a, b) => (a.dueAt ?? 0) - (b.dueAt ?? 0))
+    .slice(0, 4)
+    .map((d) => ({ ...d, min: Math.max(0, Math.ceil((d.dueAt! - now) / 60000)) }));
 
   // Non-interactive preview: same tiles + dots as the full Map, no controls.
   useEffect(() => {
@@ -66,8 +86,13 @@ export default function HomeScreen({ onNavigate }: KioskScreenProps) {
           <div className={styles.col5} onClick={() => onNavigate('transport')} role="button" tabIndex={0}>
             <div className={styles.row2}><div className={styles.heading3} onClick={() => onNavigate('transport')} role="button" tabIndex={0}>Transport</div><div className={styles.text6}>All departures →</div></div>
             <div className={styles.col6}>
-              <div className={styles.row4}><div className={styles.text7} style={{ background: modeColors.bus.bg, color: modeColors.bus.fg }}>422</div><div className={styles.text8}>Kogarah · King St</div><div className={styles.text9}>3 min</div></div>
-              <div className={styles.row4}><div className={styles.text7} style={{ background: modeColors.train.bg, color: modeColors.train.fg }}>T2</div><div className={styles.text8}>City Circle · Platform 1</div><div className={styles.text9}>4 min</div></div>
+              {soonest.map((d) => (
+                <div key={d.id} className={styles.row4}>
+                  <div className={styles.text7} style={{ background: modeColors[d.mode].bg, color: modeColors[d.mode].fg }}>{d.line}</div>
+                  <div className={styles.text8}>{d.dest} · {d.via}</div>
+                  <div className={styles.text9}>{d.min} min</div>
+                </div>
+              ))}
             </div>
           </div>
           <div className={styles.col7} onClick={() => onNavigate('requests')} role="button" tabIndex={0}>
