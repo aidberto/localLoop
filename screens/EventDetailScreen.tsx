@@ -17,7 +17,7 @@ export default function EventDetailScreen({ onNavigate, selectedId, largeText, o
         <div className={styles.row}><div className={styles.pill} onClick={() => onNavigate('events')} role="button" tabIndex={0}>← All events</div><div className={styles.text}>Events · {event.title}</div></div>
         <div className={styles.grid}>
           <div className={styles.col2}>
-            <div className={styles.mapPlaceholder} style={{ background: event.tint }}>event photo</div>
+            <div className={styles.mapPlaceholder} style={{ backgroundColor: event.tint, backgroundImage: `url(${event.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
             <div className={styles.title}>{event.title}</div>
             <div className={styles.row2}>
               <div className={styles.pill2}>{event.venue}</div>
