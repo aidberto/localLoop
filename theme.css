@@ -30,6 +30,21 @@
    spilling below the nav (or below the fold). Applies in every mode; large text
    just makes overflow more likely. */
 .llFrame, .llFrame > * { height: 100svh; overflow: hidden; }
+
+/* Smooth screen-to-screen transition: each navigation mounts a fresh screen
+   root (keyed in KioskApp), so this mount animation fires on every switch.
+   Only the middle content region animates — the header and footer nav are the
+   first/last children and stay put across screens. */
+.llFrame > * > *:not(:first-child):not(:last-child) {
+  animation: llScreenIn 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes llScreenIn {
+  from { opacity: 0; transform: translateY(calc(var(--u) * 12)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .llFrame > * > *:not(:first-child):not(:last-child) { animation: none; }
+}
 .llFrame > * > * { min-height: 0; }
 .llFrame > * > *:not(:first-child):not(:last-child) { overflow-y: auto; }
 

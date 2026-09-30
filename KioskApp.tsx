@@ -75,6 +75,7 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
   return (
     <div className={largeText ? 'llFrame llLarge' : 'llFrame'}>
       <Screen
+        key={`${screen}:${selectedId ?? ''}`}
         onNavigate={onNavigate}
         selectedId={selectedId}
         largeText={largeText}

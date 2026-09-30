@@ -14,7 +14,7 @@ export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
       <div className={styles.header}>
         <div className={styles.avatar}>S</div>
         <div className={styles.hgroup}>
-          <div className={styles.hello}>Good afternoon, Sam</div>
+          <div className={styles.hello}>Good afternoon, Five Man</div>
           <div className={styles.place}>📍 {suburb}</div>
         </div>
       </div>

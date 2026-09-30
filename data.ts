@@ -679,10 +679,14 @@ export interface Weather {
   label: string;
 }
 
+// Last fetched weather, cached at module scope so a KioskShell remount (screen
+// change) starts from the known value instead of flashing back to "—°".
+let cachedWeather: Weather | null = null;
+
 /** Live Newtown weather from Open-Meteo (no API key). Fetches once, then hourly.
  *  Returns null until the first response lands. */
 export function useWeather(): Weather | null {
-  const [weather, setWeather] = useState<Weather | null>(null);
+  const [weather, setWeather] = useState<Weather | null>(cachedWeather);
   useEffect(() => {
     const url =
       `https://api.open-meteo.com/v1/forecast?latitude=${mapCenter.lat}&longitude=${mapCenter.lng}` +
@@ -693,7 +697,8 @@ export function useWeather(): Weather | null {
         .then((d) => {
           const c = d?.current;
           if (typeof c?.temperature_2m !== 'number') return;
-          setWeather({ tempC: Math.round(c.temperature_2m), ...describeWeather(c.weather_code) });
+          cachedWeather = { tempC: Math.round(c.temperature_2m), ...describeWeather(c.weather_code) };
+          setWeather(cachedWeather);
         })
         .catch(() => {}); // ponytail: kiosk keeps its last value on a flaky network
     load();
