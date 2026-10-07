@@ -33,7 +33,7 @@
 
 /* Smooth screen-to-screen transition: each navigation mounts a fresh screen
    root (keyed in KioskApp), so this mount animation fires on every switch.
-   Only the middle content region animates — the header and footer nav are the
+   Only the middle content region animates - the header and footer nav are the
    first/last children and stay put across screens. */
 .llFrame > * > *:not(:first-child):not(:last-child) {
   animation: llScreenIn 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;

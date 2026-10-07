@@ -1,4 +1,4 @@
-# LocalLoop kiosk — React screens
+# LocalLoop kiosk - React screens
 
 Eight kiosk screens converted from the mid-fi mockups. React + TypeScript, CSS Modules,
 no runtime dependencies beyond React.

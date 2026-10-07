@@ -26,7 +26,7 @@ export default function RouteMap({ stops, color, className, profile, lineColor, 
   useEffect(() => {
     if (!ref.current || mapRef.current) return;
     const pts = stops.map((s) => [s.lat, s.lng] as [number, number]);
-    // ponytail: attribution off — mid-fi mock, not a shipped tile product.
+    // ponytail: attribution off - mid-fi mock, not a shipped tile product.
     const map = L.map(ref.current, { zoomControl: false, attributionControl: false });
     L.tileLayer(
       `https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=${import.meta.env.VITE_MAPTILER_KEY}`,
@@ -48,7 +48,7 @@ export default function RouteMap({ stops, color, className, profile, lineColor, 
         fillOpacity: 1,
       })
         .addTo(map)
-        .bindTooltip(s.name.replace(' — you are here', '').replace(' — last stop', ''), { direction: 'top', offset: [0, -6] });
+        .bindTooltip(s.name.replace(' - you are here', '').replace(' - last stop', ''), { direction: 'top', offset: [0, -6] });
     });
 
     map.fitBounds(L.latLngBounds(pts), { padding: [40, 40] });

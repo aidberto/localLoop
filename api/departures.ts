@@ -6,7 +6,7 @@
 
 const BASE = 'https://api.transport.nsw.gov.au/v1/tp/departure_mon';
 
-// Newtown Station only — buses + trains that actually call at Newtown.
+// Newtown Station only - buses + trains that actually call at Newtown.
 // (Sydenham/metro is a different suburb, so it's excluded.) class 1 = train, 5 = bus.
 const STOPS = ['204210'];
 

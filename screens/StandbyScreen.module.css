@@ -149,7 +149,7 @@
   flex: 1.25;
 }
 
-/* Category accents — match the app theme (events orange, transport red, requests blue). */
+/* Category accents - match the app theme (events orange, transport red, requests blue). */
 .panelEvents { --accent: var(--ll-events); }
 .panelTransport { --accent: var(--ll-transport); }
 .panelRequests { --accent: var(--ll-requests); }

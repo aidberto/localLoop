@@ -3,7 +3,7 @@ import { events, formatIn, minutesLeft, useClock } from '../../data';
 import styles from './PhoneEventsScreen.module.css';
 
 /** 2i · App events list · 390×844 phone screen, fluid via --pu.
- *  Data-driven from the shared `events` feed — same source as the kiosk. */
+ *  Data-driven from the shared `events` feed - same source as the kiosk. */
 export default function PhoneEventsScreen({ onNavigate }: PhoneScreenProps) {
   const { now, mountedAt } = useClock();
   return (

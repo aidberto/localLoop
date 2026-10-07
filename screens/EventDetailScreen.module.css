@@ -116,8 +116,8 @@
 
 .box2 {
   box-sizing: border-box;
-  width: calc(var(--u) * 104);
-  height: calc(var(--u) * 104);
+  width: calc(var(--u) * 180);
+  height: calc(var(--u) * 180);
   flex: none;
   border: 6px solid #2B2723;
   border-radius: calc(var(--u) * 10);

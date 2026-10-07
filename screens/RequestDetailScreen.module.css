@@ -123,8 +123,8 @@
 
 .box2 {
   box-sizing: border-box;
-  width: calc(var(--u) * 116);
-  height: calc(var(--u) * 116);
+  width: calc(var(--u) * 180);
+  height: calc(var(--u) * 180);
   flex: none;
   border: 6px solid #0C4B5C;
   border-radius: calc(var(--u) * 10);

@@ -351,7 +351,7 @@
   color: #6B6459;
 }
 
-/* Legend + zoom controls are real buttons now — strip the UA chrome. */
+/* Legend + zoom controls are real buttons now - strip the UA chrome. */
 .pill, .pill2, .pill3, .pill4, .card {
   border: 0;
   font-family: inherit;

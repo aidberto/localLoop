@@ -63,7 +63,7 @@
   gap: calc(var(--pu) * 18);
 }
 
-/* ---- "up next" hero: dark, personal — the opposite of the light kiosk ---- */
+/* ---- "up next" hero: dark, personal - the opposite of the light kiosk ---- */
 .upNext {
   background: #2B2723;
   color: #FBFAF5;
