@@ -8,6 +8,7 @@ export type ScreenId =
   | 'requestDetail'
   | 'map'
   | 'register'
+  | 'addEvent'
   | 'standby';
 
 export interface KioskScreenProps {

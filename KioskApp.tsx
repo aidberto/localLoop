@@ -10,6 +10,7 @@ import RequestsScreen from './screens/RequestsScreen';
 import RequestDetailScreen from './screens/RequestDetailScreen';
 import MapScreen from './screens/MapScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import AddEventScreen from './screens/AddEventScreen';
 import StandbyScreen from './screens/StandbyScreen';
 import './theme.css';
 
@@ -23,6 +24,7 @@ const SCREENS = {
   requestDetail: RequestDetailScreen,
   map: MapScreen,
   register: RegisterScreen,
+  addEvent: AddEventScreen,
   standby: StandbyScreen,
 } satisfies Record<ScreenId, ComponentType<KioskScreenProps>>;
 

@@ -15,6 +15,7 @@ export default function EventsScreen({ onNavigate, largeText, onLargeText }: Kio
           <div className={styles.box}></div>
           <div className={styles.title}>Events in Newtown</div>
           <div className={styles.box2}></div>
+          <div className={styles.pill} onClick={() => onNavigate('addEvent')} role="button" tabIndex={0}>+ Host an event</div>
           <div className={styles.row2}>
             <div className={styles.pill}>Today</div>
             <div className={styles.pill2}>This week</div>
