@@ -54,12 +54,6 @@
   .llLarge { --u: calc(2400px / 1920 * 1.15); }
 }
 
-/* Inside a phone-sized container, drive --pu off the container instead. */
-.llPhoneFrame {
-  container-type: inline-size;
-  --pu: calc(100cqw / 390);
-}
-
 /* Below tablet width the kiosk layout is out of its intended medium; keep it
    legible rather than shrinking text into nothing. */
 @media (max-width: 1000px) {

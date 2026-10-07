@@ -1,18 +1,21 @@
-export type PhoneScreenId =
-  | 'splash'
-  | 'scanKiosk'
-  | 'newMember'
-  | 'confirmation'
-  | 'home'
-  | 'events'
-  | 'eventDetail'
-  | 'newEvent'
-  | 'map'
-  | 'transport'
-  | 'routeDetail'
-  | 'requests'
-  | 'requestDetail'
-  | 'newRequest';
+export const PHONE_SCREEN_IDS = [
+  'splash',
+  'scanKiosk',
+  'newMember',
+  'confirmation',
+  'home',
+  'events',
+  'eventDetail',
+  'newEvent',
+  'map',
+  'transport',
+  'routeDetail',
+  'requests',
+  'requestDetail',
+  'newRequest',
+] as const;
+
+export type PhoneScreenId = (typeof PHONE_SCREEN_IDS)[number];
 
 export interface PhoneScreenProps {
   /** Navigate to another phone screen, optionally selecting an event/request. */
