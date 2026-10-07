@@ -61,7 +61,7 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
       }
       reset();
     };
-    // Note: no pointermove — passive mouse motion must not wake the kiosk.
+    // Note: no pointermove - passive mouse motion must not wake the kiosk.
     const activity = ['pointerdown', 'wheel', 'touchstart'];
     activity.forEach((e) => window.addEventListener(e, reset, { passive: true }));
     window.addEventListener('keydown', onKey);

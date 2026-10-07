@@ -24,8 +24,8 @@ const clock = (ms: number) =>
 const dateLabel = (ms: number) =>
   new Date(ms).toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' });
 
-/** Idle standby / screensaver. One glanceable page — events, live transport and
- *  the community board at once — over rotating outdoor photography. Any input
+/** Idle standby / screensaver. One glanceable page - events, live transport and
+ *  the community board at once - over rotating outdoor photography. Any input
  *  returns the kiosk to home (handled in KioskApp). */
 export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
   const { now, mountedAt } = useClock();

@@ -1,8 +1,8 @@
-# LocalLoop companion app — React screens
+# LocalLoop companion app - React screens
 
 Seventeen phone screens (2a–2q) converted from the mid-fi mockups. React + TypeScript,
 CSS Modules, no runtime dependencies beyond React. Drops into the same project as the
-kiosk screens in `react/` — shared `theme.css`, separate screen ids so nothing clashes.
+kiosk screens in `react/` - shared `theme.css`, separate screen ids so nothing clashes.
 
     react/app/
       PhoneApp.tsx       screen state + navigation
@@ -40,7 +40,7 @@ Single screen, your own routing:
 Authored at 390×844. Dimensions are `calc(var(--pu) * n)`; `theme.css` sets
 `--pu: calc(min(100vw, 430px) / 390)`, so screens fill a phone viewport and stay
 phone-sized on desktop. To render one inside an arbitrary-width container (a device
-frame, a side-by-side gallery), add `className="llPhoneFrame"` to that container —
+frame, a side-by-side gallery), add `className="llPhoneFrame"` to that container -
 it re-bases `--pu` on container width via container queries.
 
 Screens are `min-height: 100svh`, centred, `max-width: calc(var(--pu) * 390)`.

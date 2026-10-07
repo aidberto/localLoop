@@ -1,4 +1,4 @@
-/* LocalLoop kiosk — mock data. Single source of truth for every screen.
+/* LocalLoop kiosk - mock data. Single source of truth for every screen.
    Everything here is fake but shaped like a real feed; swap for an API later.
    ponytail: rolling mock clock (see minutesLeft), no backend. */
 import { useEffect, useRef, useState } from 'react';
@@ -8,7 +8,7 @@ export interface EventItem {
   id: string;
   title: string;
   whenLabel: string;   // human line shown on cards ("Sat 12:00 – 17:00 · … · Free")
-  dueInMin: number;    // minutes until it starts, from first load — drives "starts in"
+  dueInMin: number;    // minutes until it starts, from first load - drives "starts in"
   venue: string;
   distanceM: number;
   tint: string;        // photo placeholder colour
@@ -35,7 +35,7 @@ export interface RequestItem {
 export type Mode = 'bus' | 'train' | 'metro';
 
 // Authentic Transport for NSW mode colours for line pills. Red is Sydney's
-// LIGHT RAIL colour, so line pills never use red — train orange, metro teal,
+// LIGHT RAIL colour, so line pills never use red - train orange, metro teal,
 // bus blue keep Sydneysider mental models intact.
 export const modeColors: Record<Mode, { bg: string; fg: string }> = {
   train: { bg: '#F6891F', fg: '#FFFFFF' }, // Sydney Trains orange
@@ -115,10 +115,10 @@ export const events: EventItem[] = [
     blurb:
       "Forty local stalls of ceramics, prints, plants and street food, with live acoustic sets from 2 pm and a kids' craft corner run by the Newtown library. Dogs on leads welcome.",
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St at Church St', time: '2 min', lat: -33.897102, lng: 151.177204 },
       { name: 'Australia St', time: '4 min', lat: -33.896214, lng: 151.175683 },
-      { name: 'Camperdown Memorial Rest Park — last stop', time: '5 min', lat: -33.895812, lng: 151.174512, last: true },
+      { name: 'Camperdown Memorial Rest Park - last stop', time: '5 min', lat: -33.895812, lng: 151.174512, last: true },
     ],
   },
   {
@@ -132,12 +132,12 @@ export const events: EventItem[] = [
     image: '/open-mic.jpg',
     tags: ['Free'],
     blurb:
-      "Five-minute slots for music, poetry and comedy. Sign-up sheet opens at 19:00 — beginners get the friendliest crowd in the Inner West.",
+      "Five-minute slots for music, poetry and comedy. Sign-up sheet opens at 19:00 - beginners get the friendliest crowd in the Inner West.",
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St opp Camden St', time: '3 min', lat: -33.899920, lng: 151.178125 },
       { name: 'King St opp Holmwood St', time: '6 min', lat: -33.901907, lng: 151.179022 },
-      { name: 'The Yard, King St — last stop', time: '8 min', lat: -33.903200, lng: 151.179800, last: true },
+      { name: 'The Yard, King St - last stop', time: '8 min', lat: -33.903200, lng: 151.179800, last: true },
     ],
   },
   {
@@ -151,12 +151,12 @@ export const events: EventItem[] = [
     image: '/CommunityGarden.jpeg',
     tags: ['Free', 'Family'],
     blurb:
-      'Help plant the summer beds and take home seedlings. Morning tea provided by the garden crew — kids and first-timers welcome.',
+      'Help plant the summer beds and take home seedlings. Morning tea provided by the garden crew - kids and first-timers welcome.',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'Wilson St at Station', time: '3 min', lat: -33.898900, lng: 151.177500 },
       { name: 'Wilson St', time: '7 min', lat: -33.900200, lng: 151.175800 },
-      { name: 'Wilson St gardens — last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
+      { name: 'Wilson St gardens - last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
     ],
   },
   {
@@ -170,12 +170,12 @@ export const events: EventItem[] = [
     image: '/vinylFair.jpg',
     tags: ['Music'],
     blurb:
-      'Crates from 30 sellers, plus coffee and a swap table. Bring your wants list and dig for B-sides — $2 on the door goes to the community centre.',
+      'Crates from 30 sellers, plus coffee and a swap table. Bring your wants list and dig for B-sides - $2 on the door goes to the community centre.',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St at Church St', time: '4 min', lat: -33.897102, lng: 151.177204 },
       { name: 'Australia St', time: '9 min', lat: -33.896214, lng: 151.175683 },
-      { name: 'Newtown Neighbourhood Hub — last stop', time: '13 min', lat: -33.894900, lng: 151.173200, last: true },
+      { name: 'Newtown Neighbourhood Hub - last stop', time: '13 min', lat: -33.894900, lng: 151.173200, last: true },
     ],
   },
   {
@@ -189,11 +189,11 @@ export const events: EventItem[] = [
     image: '/storytime.jpg',
     tags: ['Free', 'Family'],
     blurb:
-      'Rhymes, picture books and a craft table for under-5s and their grown-ups. Free and no booking needed — arrive a few minutes early for a spot on the mat.',
+      'Rhymes, picture books and a craft table for under-5s and their grown-ups. Free and no booking needed - arrive a few minutes early for a spot on the mat.',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St at Brown St', time: '2 min', lat: -33.897600, lng: 151.176800 },
-      { name: 'Newtown Library — last stop', time: '4 min', lat: -33.897800, lng: 151.175100, last: true },
+      { name: 'Newtown Library - last stop', time: '4 min', lat: -33.897800, lng: 151.175100, last: true },
     ],
   },
   {
@@ -209,9 +209,9 @@ export const events: EventItem[] = [
     blurb:
       'Bring a rug and a jumper for a free open-air screening under the fig trees. Food trucks from 6:30 pm, film starts at dusk. Cancelled only if it rains.',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'Australia St', time: '3 min', lat: -33.896214, lng: 151.175683 },
-      { name: 'Camperdown park lawn — last stop', time: '6 min', lat: -33.895200, lng: 151.177900, last: true },
+      { name: 'Camperdown park lawn - last stop', time: '6 min', lat: -33.895200, lng: 151.177900, last: true },
     ],
   },
 ];
@@ -230,10 +230,10 @@ export const requests: RequestItem[] = [
     venue: 'Fraser Park courts',
     walkLabel: '14 min walk · step-free',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'Enmore Rd at Simmons St', time: '5 min', lat: -33.901500, lng: 151.173500 },
       { name: 'Marrickville Rd', time: '10 min', lat: -33.906000, lng: 151.169000 },
-      { name: 'Fraser Park courts — last stop', time: '14 min', lat: -33.908600, lng: 151.166500, last: true },
+      { name: 'Fraser Park courts - last stop', time: '14 min', lat: -33.908600, lng: 151.166500, last: true },
     ],
   },
   {
@@ -248,10 +248,10 @@ export const requests: RequestItem[] = [
     venue: 'Cooks River path',
     walkLabel: '9 min walk · step-free',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'Alice St', time: '4 min', lat: -33.901800, lng: 151.181500 },
       { name: 'Sydenham Rd', time: '7 min', lat: -33.905500, lng: 151.183500 },
-      { name: 'Cooks River path — last stop', time: '9 min', lat: -33.908000, lng: 151.184500, last: true },
+      { name: 'Cooks River path - last stop', time: '9 min', lat: -33.908000, lng: 151.184500, last: true },
     ],
   },
   {
@@ -266,9 +266,9 @@ export const requests: RequestItem[] = [
     venue: 'Near Newtown Station',
     walkLabel: '4 min walk',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'Wilson St', time: '2 min', lat: -33.897200, lng: 151.176800 },
-      { name: 'Holt St — last stop', time: '4 min', lat: -33.896500, lng: 151.175500, last: true },
+      { name: 'Holt St - last stop', time: '4 min', lat: -33.896500, lng: 151.175500, last: true },
     ],
   },
   {
@@ -284,10 +284,10 @@ export const requests: RequestItem[] = [
     venue: 'Wilson St gardens',
     walkLabel: '11 min walk · step-free',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'Wilson St at Station', time: '3 min', lat: -33.898900, lng: 151.177500 },
       { name: 'Wilson St', time: '7 min', lat: -33.900200, lng: 151.175800 },
-      { name: 'Wilson St gardens — last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
+      { name: 'Wilson St gardens - last stop', time: '11 min', lat: -33.901600, lng: 151.174300, last: true },
     ],
   },
   {
@@ -302,10 +302,10 @@ export const requests: RequestItem[] = [
     venue: 'Camperdown Memorial Rest Park',
     walkLabel: '6 min walk · step-free',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St at Church St', time: '2 min', lat: -33.897102, lng: 151.177204 },
       { name: 'Australia St', time: '4 min', lat: -33.896214, lng: 151.175683 },
-      { name: 'Camperdown Memorial Rest Park — last stop', time: '6 min', lat: -33.895812, lng: 151.174512, last: true },
+      { name: 'Camperdown Memorial Rest Park - last stop', time: '6 min', lat: -33.895812, lng: 151.174512, last: true },
     ],
   },
   {
@@ -321,9 +321,9 @@ export const requests: RequestItem[] = [
     venue: 'Neighbourhood centre',
     walkLabel: '8 min walk · step-free',
     route: [
-      { name: 'Newtown Station — you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St at Egan St', time: '4 min', lat: -33.900500, lng: 151.178800 },
-      { name: 'Neighbourhood centre — last stop', time: '8 min', lat: -33.902800, lng: 151.177000, last: true },
+      { name: 'Neighbourhood centre - last stop', time: '8 min', lat: -33.902800, lng: 151.177000, last: true },
     ],
   },
 ];
@@ -356,7 +356,7 @@ export const busRoutes: Record<string, BusRoute> = {
   '370': {
     id: '370', line: '370', headsign: 'Coogee via Alexandria',
     stops: [
-      { name: 'Newtown Station — you are here', time: '12:01', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: '12:01', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St opp Holt St', time: '12:02', lat: -33.89992, lng: 151.178125 },
       { name: 'King St opp Camden St', time: '12:03', lat: -33.901907, lng: 151.179022 },
       { name: 'King St opp Holmwood St', time: '12:03', lat: -33.903817, lng: 151.180109 },
@@ -385,13 +385,13 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Coogee Bay Rd after Belmore Rd', time: '12:40', lat: -33.918084, lng: 151.242581 },
       { name: 'Coogee Bay Rd at St Luke St', time: '12:42', lat: -33.91891, lng: 151.245799 },
       { name: 'Coogee Bay Rd at Melody St', time: '12:44', lat: -33.919669, lng: 151.24937 },
-      { name: 'St Brigid\'s Primary School — last stop', time: '12:46', lat: -33.920179, lng: 151.252854, last: true },
+      { name: 'St Brigid\'s Primary School - last stop', time: '12:46', lat: -33.920179, lng: 151.252854, last: true },
     ],
   },
   '422': {
     id: '422', line: '422', headsign: 'Kogarah via St Peters',
     stops: [
-      { name: 'Newtown Station — you are here', time: '12:17', lat: -33.898132, lng: 151.178491, current: true },
+      { name: 'Newtown Station - you are here', time: '12:17', lat: -33.898132, lng: 151.178491, current: true },
       { name: 'King St opp Holt St', time: '12:18', lat: -33.89992, lng: 151.178125 },
       { name: 'King St opp Camden St', time: '12:19', lat: -33.901907, lng: 151.179022 },
       { name: 'King St opp Holmwood St', time: '12:20', lat: -33.903817, lng: 151.180109 },
@@ -420,13 +420,13 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Princes Hwy after Rockdale Plaza Dr', time: '12:46', lat: -33.957832, lng: 151.138033 },
       { name: 'Princes Hwy opp Harrow Rd', time: '12:47', lat: -33.959263, lng: 151.138081 },
       { name: 'Regent St opp Kogarah High School', time: '12:48', lat: -33.96147, lng: 151.135398 },
-      { name: 'Kogarah Station — last stop', time: '12:49', lat: -33.962664, lng: 151.133401, last: true },
+      { name: 'Kogarah Station - last stop', time: '12:49', lat: -33.962664, lng: 151.133401, last: true },
     ],
   },
   '423': {
     id: '423', line: '423', headsign: 'Kingsgrove via King St',
     stops: [
-      { name: 'Newtown Station — you are here', time: '12:01', lat: -33.897448, lng: 151.17902, current: true },
+      { name: 'Newtown Station - you are here', time: '12:01', lat: -33.897448, lng: 151.17902, current: true },
       { name: 'Enmore Theatre', time: '12:03', lat: -33.898789, lng: 151.174817 },
       { name: 'Enmore Rd at Edgeware Rd', time: '12:04', lat: -33.899346, lng: 151.171409 },
       { name: 'Enmore Rd opp Newington Rd', time: '12:05', lat: -33.902369, lng: 151.169406 },
@@ -458,13 +458,13 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Clemton Park Shops', time: '12:30', lat: -33.927673, lng: 151.109636 },
       { name: 'William St before Hilltop St', time: '12:32', lat: -33.928439, lng: 151.104755 },
       { name: 'William St at Shackel Ave', time: '12:33', lat: -33.929261, lng: 151.099303 },
-      { name: 'Kingsgrove Rd opp Kingsgrove North High School — last stop', time: '12:34', lat: -33.932601, lng: 151.099388, last: true },
+      { name: 'Kingsgrove Rd opp Kingsgrove North High School - last stop', time: '12:34', lat: -33.932601, lng: 151.099388, last: true },
     ],
   },
   '426': {
     id: '426', line: '426', headsign: 'Dulwich Hill via Marrickville Rd',
     stops: [
-      { name: 'Newtown Station — you are here', time: '12:16', lat: -33.897448, lng: 151.17902, current: true },
+      { name: 'Newtown Station - you are here', time: '12:16', lat: -33.897448, lng: 151.17902, current: true },
       { name: 'Enmore Theatre', time: '12:18', lat: -33.898789, lng: 151.174817 },
       { name: 'Enmore Rd at Edgeware Rd', time: '12:19', lat: -33.899346, lng: 151.171409 },
       { name: 'Enmore Rd opp Newington Rd', time: '12:20', lat: -33.902369, lng: 151.169406 },
@@ -480,13 +480,13 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Marrickville Rd at Robert St', time: '12:30', lat: -33.90792, lng: 151.149685 },
       { name: 'Marrickville Rd at Darley St', time: '12:31', lat: -33.906981, lng: 151.146538 },
       { name: 'Marrickville Rd opp Fairfowl St', time: '12:32', lat: -33.905072, lng: 151.14409 },
-      { name: 'Dulwich Hill Shops — last stop', time: '12:33', lat: -33.903688, lng: 151.14264, last: true },
+      { name: 'Dulwich Hill Shops - last stop', time: '12:33', lat: -33.903688, lng: 151.14264, last: true },
     ],
   },
   '428': {
     id: '428', line: '428', headsign: 'Canterbury via Enmore Rd',
     stops: [
-      { name: 'Newtown Station — you are here', time: '12:14', lat: -33.897448, lng: 151.17902, current: true },
+      { name: 'Newtown Station - you are here', time: '12:14', lat: -33.897448, lng: 151.17902, current: true },
       { name: 'Enmore Theatre', time: '12:16', lat: -33.898789, lng: 151.174817 },
       { name: 'Enmore Rd at Edgeware Rd', time: '12:17', lat: -33.899346, lng: 151.171409 },
       { name: 'Enmore Rd opp Newington Rd', time: '12:18', lat: -33.902369, lng: 151.169406 },
@@ -508,25 +508,25 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Canterbury-Hurlstone Park RSL Club', time: '12:33', lat: -33.905936, lng: 151.127491 },
       { name: 'Canterbury Rd at Dunkeld Ave', time: '12:34', lat: -33.908118, lng: 151.125305 },
       { name: 'Canterbury Rd at Church St', time: '12:35', lat: -33.909664, lng: 151.123013 },
-      { name: 'Canterbury Station — last stop', time: '12:36', lat: -33.911839, lng: 151.118882, last: true },
+      { name: 'Canterbury Station - last stop', time: '12:36', lat: -33.911839, lng: 151.118882, last: true },
     ],
   },
   'T2': {
     id: 'T2', line: 'T2', headsign: 'City Circle via Town Hall', mode: 'train',
     stops: [
-      { name: 'Newtown — you are here', time: '12:07', lat: -33.897879, lng: 151.179851, current: true },
+      { name: 'Newtown - you are here', time: '12:07', lat: -33.897879, lng: 151.179851, current: true },
       { name: 'Macdonaldtown', time: '12:08', lat: -33.89691, lng: 151.185811 },
       { name: 'Redfern', time: '12:11', lat: -33.892112, lng: 151.19839 },
       { name: 'Central', time: '12:14', lat: -33.884001, lng: 151.206893 },
       { name: 'Town Hall', time: '12:18', lat: -33.873616, lng: 151.206772 },
       { name: 'Wynyard', time: '12:21', lat: -33.865881, lng: 151.205852 },
-      { name: 'Circular Quay — last stop', time: '12:23', lat: -33.86126, lng: 151.210312, last: true },
+      { name: 'Circular Quay - last stop', time: '12:23', lat: -33.86126, lng: 151.210312, last: true },
     ],
   },
   'T3': {
     id: 'T3', line: 'T3', headsign: 'Liverpool via Regents Park', mode: 'train',
     stops: [
-      { name: 'Newtown — you are here', time: '12:23', lat: -33.897942, lng: 151.179854, current: true },
+      { name: 'Newtown - you are here', time: '12:23', lat: -33.897942, lng: 151.179854, current: true },
       { name: 'Stanmore', time: '', lat: -33.894631, lng: 151.164037 },
       { name: 'Petersham', time: '', lat: -33.893899, lng: 151.155574 },
       { name: 'Lewisham', time: '', lat: -33.89338, lng: 151.147467 },
@@ -547,35 +547,35 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Carramar', time: '13:05', lat: -33.8845, lng: 150.960899 },
       { name: 'Cabramatta', time: '13:08', lat: -33.894911, lng: 150.938884 },
       { name: 'Warwick Farm', time: '13:11', lat: -33.913178, lng: 150.935165 },
-      { name: 'Liverpool — last stop', time: '13:14', lat: -33.92479, lng: 150.927387, last: true },
+      { name: 'Liverpool - last stop', time: '13:14', lat: -33.92479, lng: 150.927387, last: true },
     ],
   },
   'T4': {
     id: 'T4', line: 'T4', headsign: 'Bondi Junction via Central', mode: 'train',
     stops: [
-      { name: 'Central — you are here', time: '12:09', lat: -33.885155, lng: 151.206874, current: true },
+      { name: 'Central - you are here', time: '12:09', lat: -33.885155, lng: 151.206874, current: true },
       { name: 'Town Hall', time: '12:12', lat: -33.87372, lng: 151.206896 },
       { name: 'Martin Place', time: '12:14', lat: -33.867803, lng: 151.211822 },
       { name: 'Kings Cross', time: '12:16', lat: -33.874254, lng: 151.221828 },
       { name: 'Edgecliff', time: '12:19', lat: -33.879282, lng: 151.236497 },
-      { name: 'Bondi Junction — last stop', time: '12:22', lat: -33.891274, lng: 151.24824, last: true },
+      { name: 'Bondi Junction - last stop', time: '12:22', lat: -33.891274, lng: 151.24824, last: true },
     ],
   },
   'T8': {
     id: 'T8', line: 'T8', headsign: 'City Circle via Airport', mode: 'train',
     stops: [
-      { name: 'Wolli Creek — you are here', time: '12:00', lat: -33.928514, lng: 151.154285, current: true },
+      { name: 'Wolli Creek - you are here', time: '12:00', lat: -33.928514, lng: 151.154285, current: true },
       { name: 'International Airport', time: '12:03', lat: -33.934927, lng: 151.165806 },
       { name: 'Domestic Airport', time: '12:05', lat: -33.933605, lng: 151.180864 },
       { name: 'Mascot', time: '12:08', lat: -33.923162, lng: 151.187227 },
       { name: 'Green Square', time: '12:12', lat: -33.906053, lng: 151.202532 },
-      { name: 'Central — last stop', time: '12:16', lat: -33.884179, lng: 151.207215, last: true },
+      { name: 'Central - last stop', time: '12:16', lat: -33.884179, lng: 151.207215, last: true },
     ],
   },
   'M1': {
     id: 'M1', line: 'M1', headsign: 'Tallawong', mode: 'metro',
     stops: [
-      { name: 'Sydenham — you are here', time: '12:03', lat: -33.913707, lng: 151.167192, current: true },
+      { name: 'Sydenham - you are here', time: '12:03', lat: -33.913707, lng: 151.167192, current: true },
       { name: 'Waterloo', time: '12:06', lat: -33.897528, lng: 151.200212 },
       { name: 'Central', time: '12:09', lat: -33.884117, lng: 151.206381 },
       { name: 'Gadigal', time: '12:11', lat: -33.873814, lng: 151.208121 },
@@ -595,7 +595,7 @@ export const busRoutes: Record<string, BusRoute> = {
       { name: 'Bella Vista', time: '12:53', lat: -33.730719, lng: 150.944037 },
       { name: 'Kellyville', time: '12:56', lat: -33.713519, lng: 150.935227 },
       { name: 'Rouse Hill', time: '12:59', lat: -33.692016, lng: 150.924263 },
-      { name: 'Tallawong — last stop', time: '13:01', lat: -33.691705, lng: 150.905653, last: true },
+      { name: 'Tallawong - last stop', time: '13:01', lat: -33.691705, lng: 150.905653, last: true },
     ],
   },
 };
@@ -680,7 +680,7 @@ export interface Weather {
 }
 
 // Last fetched weather, cached at module scope so a KioskShell remount (screen
-// change) starts from the known value instead of flashing back to "—°".
+// change) starts from the known value instead of flashing back to "-°".
 let cachedWeather: Weather | null = null;
 
 /** Live Newtown weather from Open-Meteo (no API key). Fetches once, then hourly.

@@ -156,7 +156,7 @@
   border-radius: calc(var(--u) * 16);
   overflow: hidden;
   background: #E9E5DC;
-  pointer-events: none; /* preview only — clicks fall through to the tile's onNavigate */
+  pointer-events: none; /* preview only - clicks fall through to the tile's onNavigate */
 }
 
 .col5 {

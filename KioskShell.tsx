@@ -17,7 +17,7 @@ export default function KioskShell({
   const { now } = useClock();
   const weather = useWeather();
   const timeLabel = time ?? clock(now);
-  const tempLabel = temperature ?? (weather ? `${weather.tempC}°` : '—°');
+  const tempLabel = temperature ?? (weather ? `${weather.tempC}°` : '-°');
   return (
     <header className={styles.shell}>
       <div
