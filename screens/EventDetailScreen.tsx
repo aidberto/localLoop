@@ -28,7 +28,7 @@ export default function EventDetailScreen({ onNavigate, selectedId, largeText, o
             <div className={styles.text2}>{event.blurb}</div>
             <div className={styles.box}></div>
             <div className={styles.row3}>
-              <div className={styles.box2}><PhoneHandoff screen="eventDetail" selectedId={event.id} color="#2B2723" seed={7} /></div>
+              <div className={styles.box2}><PhoneHandoff screen="eventDetail" selectedId={event.id} color="#2B2723" /></div>
               <div><div className={styles.text3}>Take it with you</div><div className={styles.text4}>Scan to save this event and get a reminder on your phone.</div></div>
             </div>
           </div>

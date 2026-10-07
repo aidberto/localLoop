@@ -1,61 +1,33 @@
-import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
-import FakeQr from './FakeQr';
-import { PhoneApp } from './app';
+import { QRCodeSVG } from 'qrcode.react';
 import type { PhoneScreenId } from './app/types';
 import styles from './PhoneHandoff.module.css';
 
-/** Kiosk → phone handoff. The QR is the hub's pointer; activating it (a mid-fi
- *  stand-in for scanning) opens the matching phone page in a device overlay.
- *  Navigation lives in each phone screen's own top nav (Home / create).
- *  ponytail: click == scan until FakeQr becomes a real, camera-readable code. */
+/** Kiosk → phone handoff. Renders a real, camera-scannable QR that deep-links to
+ *  this deployment's phone view: `/?phone=<screen>&id=<selectedId>`. Scanning it
+ *  opens the matching page in the visitor's own phone browser (see main.tsx). */
 export default function PhoneHandoff({
   screen,
   selectedId,
-  color,
-  seed,
+  color = '#2B2723',
 }: {
   screen: PhoneScreenId;
   selectedId?: string;
   color?: string;
-  seed?: number;
 }) {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open]);
+  const params = new URLSearchParams({ phone: screen });
+  if (selectedId) params.set('id', selectedId);
+  const url = `${window.location.origin}/?${params}`;
 
   return (
-    <>
-      <div
-        className={styles.qr}
-        onClick={() => setOpen(true)}
-        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setOpen(true)}
-        role="button"
-        tabIndex={0}
+    <div className={styles.qr}>
+      <QRCodeSVG
+        value={url}
+        fgColor={color}
+        bgColor="transparent"
+        level="M"
+        style={{ width: '100%', height: '100%', display: 'block' }}
         aria-label="Scan to open this on your phone"
-      >
-        <FakeQr color={color} seed={seed} />
-      </div>
-      {open &&
-        createPortal(
-          <div className={styles.scrim} onClick={() => setOpen(false)}>
-            <div className={styles.caption}>Scanned ✓ - now on your phone</div>
-            <div className={styles.frame} onClick={(e) => e.stopPropagation()}>
-              <div className={`${styles.viewport} llPhoneFrame`}>
-                <PhoneApp initialScreen={screen} initialSelectedId={selectedId} />
-              </div>
-            </div>
-            <button className={styles.close} onClick={() => setOpen(false)}>
-              Close
-            </button>
-          </div>,
-          document.body,
-        )}
-    </>
+      />
+    </div>
   );
 }

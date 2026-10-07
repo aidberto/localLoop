@@ -40,7 +40,7 @@ export default function AddEventScreen({ onNavigate, largeText, onLargeText }: K
           <div className={styles.card3}>
             <div className={styles.heading3}>Scan to start</div>
             <div className={styles.card4}>
-              <PhoneHandoff screen="newEvent" color="#6E4708" seed={23} />
+              <PhoneHandoff screen="newEvent" color="#6E4708" />
             </div>
             <div className={styles.box4}><div className={styles.heading4}>Kiosk NW-04 · King St library</div><div className={styles.text3}>Or type localloop.au/host in your browser</div></div>
           </div>

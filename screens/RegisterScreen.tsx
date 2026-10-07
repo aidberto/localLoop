@@ -66,7 +66,7 @@ export default function RegisterScreen({
           <div className={styles.card3}>
             <div className={styles.heading3}>Scan to start</div>
             <div className={styles.card4}>
-              {qrCode ?? <PhoneHandoff screen="newMember" color="#2B2723" seed={11} />}
+              {qrCode ?? <PhoneHandoff screen="newMember" color="#2B2723" />}
             </div>
             <div className={styles.box4}><div className={styles.heading4}>{kioskId}</div><div className={styles.text3}>Or type {signupUrl} in your browser</div></div>
             <div className={styles.chip}><div className={styles.avatar2}></div><div className={styles.text4}>Code refreshes in {mmss(left)}</div></div>
