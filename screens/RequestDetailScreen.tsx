@@ -3,12 +3,11 @@ import PhoneHandoff from '../PhoneHandoff';
 import RouteMap from '../RouteMap';
 import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
-import { requests, findRequest } from '../data';
 import styles from './RequestDetailScreen.module.css';
 
 /** 1i · Request detail - 1920×1080 kiosk screen, fluid via --u. */
-export default function RequestDetailScreen({ onNavigate, selectedId, largeText, onLargeText }: KioskScreenProps) {
-  const request = findRequest(selectedId);
+export default function RequestDetailScreen({ onNavigate, selectedId, largeText, onLargeText, requests }: KioskScreenProps) {
+  const request = requests.find((r) => r.id === selectedId) ?? requests[0];
   const more = requests.filter((r) => r.id !== request.id).slice(0, 2);
   return (
     <div className={styles.screen} data-screen-label="Request detail">

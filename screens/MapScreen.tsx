@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import KioskShell from '../KioskShell';
 import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
-import { mapCenter, mapPoints, bbqMapPoint, type MapKind } from '../data';
+import { mapCenter, mapPoints, type MapKind } from '../data';
 import styles from './MapScreen.module.css';
 
 const COLORS: Record<MapKind, string> = {
@@ -37,7 +37,7 @@ function pinIcon(kind: MapKind, label: string) {
 }
 
 /** 1j · Map - OpenStreetMap with data pins, working layer filters + zoom. */
-export default function MapScreen({ onNavigate, largeText, onLargeText, published }: KioskScreenProps) {
+export default function MapScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
   const [active, setActive] = useState<Set<MapKind>>(
     () => new Set<MapKind>(['event', 'stop', 'request', 'park']),
   );
@@ -98,24 +98,13 @@ export default function MapScreen({ onNavigate, largeText, onLargeText, publishe
     }
   }, [active]);
 
-  // The BBQ pin appears once the request is posted (and respects the Requests filter).
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || !published || !active.has('request')) return;
-    const marker = L.marker([bbqMapPoint.lat, bbqMapPoint.lng], { icon: pinIcon('request', bbqMapPoint.label) });
-    marker.on('click', () => onNavigate(bbqMapPoint.target!.screen, bbqMapPoint.target!.id));
-    marker.addTo(map);
-    return () => { marker.remove(); };
-  }, [published, active, onNavigate]);
-
   const toggle = (kind: MapKind) =>
     setActive((prev) => {
       const next = new Set(prev);
       next.has(kind) ? next.delete(kind) : next.add(kind);
       return next;
     });
-  const count = (kind: MapKind) =>
-    mapPoints.filter((p) => p.kind === kind).length + (kind === 'request' && published ? 1 : 0);
+  const count = (kind: MapKind) => mapPoints.filter((p) => p.kind === kind).length;
 
   return (
     <div className={styles.screen} data-screen-label="Map">

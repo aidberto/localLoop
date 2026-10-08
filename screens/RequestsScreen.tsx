@@ -3,7 +3,6 @@ import KioskShell from '../KioskShell';
 import PhoneHandoff from '../PhoneHandoff';
 import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
-import { requests, bbqRequest } from '../data';
 import styles from './RequestsScreen.module.css';
 
 // ponytail: filter pills map a label to the categories it matches; "full" = no open spots.
@@ -17,13 +16,12 @@ const FILTERS: { label: string; cats: string[] }[] = [
 const hasOpenSpots = (label: string) => !/full|waitlist/i.test(label);
 
 /** 1h · Requests - 1920×1080 kiosk screen, fluid via --u. */
-export default function RequestsScreen({ onNavigate, largeText, onLargeText, published }: KioskScreenProps) {
+export default function RequestsScreen({ onNavigate, largeText, onLargeText, requests }: KioskScreenProps) {
   const [active, setActive] = useState<string | null>(null);
   const [openOnly, setOpenOnly] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
 
-  // `published` (owned by KioskApp, toggled with "p") drops the handed-off BBQ onto the board.
-  const board = published ? [bbqRequest, ...requests] : requests;
+  const board = requests;
   const shown = useMemo(() => {
     const cats = FILTERS.find((f) => f.label === active)?.cats;
     return board.filter(
@@ -31,7 +29,7 @@ export default function RequestsScreen({ onNavigate, largeText, onLargeText, pub
         (!cats || cats.includes(r.category)) &&
         (!openOnly || hasOpenSpots(r.slotsLabel)),
     );
-  }, [active, openOnly, published]);
+  }, [active, openOnly, board]);
 
   return (
     <div className={styles.screen} data-screen-label="Requests">

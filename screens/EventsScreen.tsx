@@ -1,11 +1,11 @@
 import KioskShell from '../KioskShell';
 import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
-import { events, formatIn, minutesLeft, useClock } from '../data';
+import { formatIn, minutesLeft, useClock } from '../data';
 import styles from './EventsScreen.module.css';
 
 /** 1d · Events - 1920×1080 kiosk screen, fluid via --u. */
-export default function EventsScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
+export default function EventsScreen({ onNavigate, largeText, onLargeText, events }: KioskScreenProps) {
   const { now, mountedAt } = useClock();
   return (
     <div className={styles.screen} data-screen-label="Events">
@@ -46,7 +46,7 @@ export default function EventsScreen({ onNavigate, largeText, onLargeText }: Kio
                 <div className={styles.text3}>{e.blurb}</div>
               </div>
               <div className={styles.col4}>
-                <div className={styles.pill4}>{e.distanceM} m away</div>
+                <div className={styles.pill4}>{e.distanceM ? `${e.distanceM} m away` : 'Nearby'}</div>
                 <div className={styles.heading2}>→</div>
               </div>
             </div>

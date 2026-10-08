@@ -17,13 +17,20 @@ export const PHONE_SCREEN_IDS = [
 
 export type PhoneScreenId = (typeof PHONE_SCREEN_IDS)[number];
 
+import type { EventItem, RequestItem } from '../seed';
+
 export interface PhoneScreenProps {
   /** Navigate to another phone screen, optionally selecting an event/request. */
   onNavigate: (screen: PhoneScreenId, selectedId?: string) => void;
   /** Which event/request to show on detail screens (from the kiosk handoff). */
   selectedId?: string;
-  /** Demo: whether the visitor has posted their request this session. */
-  published?: boolean;
-  /** Demo: mark the request as posted (shows it on the phone board). */
-  onPublish?: () => void;
+  /** Live board, fetched + polled by PhoneApp (see useBoard). */
+  events: EventItem[];
+  requests: RequestItem[];
+  /** Create a new event/request (used by the new-event / new-request forms). */
+  createEvent: (item: EventItem) => void;
+  createRequest: (item: RequestItem) => void;
+  /** Remove an event/request (used by the detail screens). */
+  deleteEvent: (id: string) => void;
+  deleteRequest: (id: string) => void;
 }

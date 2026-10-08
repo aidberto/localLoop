@@ -1,9 +1,11 @@
 import type { PhoneScreenProps } from '../types';
-import { bbqRequest } from '../../data';
 import styles from './PhoneRequestsScreen.module.css';
 
-/** 2o · App requests board · 390×844 phone screen, fluid via --pu. */
-export default function PhoneRequestsScreen({ onNavigate, published }: PhoneScreenProps) {
+const isFull = (label: string) => /full|waitlist/i.test(label);
+
+/** 2o · App requests board · 390×844 phone screen, fluid via --pu.
+ *  Data-driven from the shared `requests` feed - same source as the kiosk. */
+export default function PhoneRequestsScreen({ onNavigate, requests }: PhoneScreenProps) {
   return (
     <div className={styles.screen} data-screen-label="App requests board">
       <div className={styles.row}>
@@ -12,7 +14,7 @@ export default function PhoneRequestsScreen({ onNavigate, published }: PhoneScre
         <div className={styles.pill2} onClick={() => onNavigate('newRequest')} role="button" tabIndex={0}>＋ Post</div>
       </div>
       <div className={styles.row2}>
-        <div className={styles.chip}>All · {published ? 7 : 6}</div>
+        <div className={styles.chip}>All · {requests.length}</div>
         <div className={styles.chip2}>Sport &amp; fitness</div>
         <div className={styles.chip2}>Music</div>
         <div className={styles.chip2}>Garden</div>
@@ -21,34 +23,18 @@ export default function PhoneRequestsScreen({ onNavigate, published }: PhoneScre
         <div className={styles.chip3}>Sort: Soonest ↓</div>
       </div>
       <div className={styles.col}>
-        {published && (
-          <div className={styles.card} onClick={() => onNavigate('requestDetail', bbqRequest.id)} role="button" tabIndex={0}>
-            <div className={styles.avatar}>{bbqRequest.author.charAt(0)}</div>
-            <div className={styles.box}><div className={styles.heading2}>{bbqRequest.title}</div><div className={styles.meta}>{bbqRequest.author} · {bbqRequest.whenLabel} · {bbqRequest.venue}</div><div className={styles.meta2}>{bbqRequest.blurb}</div></div>
-            <div className={styles.chip4}>{bbqRequest.slotsLabel}</div>
+        {requests.map((r) => (
+          <div key={r.id} className={styles.card} onClick={() => onNavigate('requestDetail', r.id)} role="button" tabIndex={0}>
+            <div className={styles.avatar}>{r.author.charAt(0)}</div>
+            <div className={styles.box}>
+              <div className={styles.heading2}>{r.title}</div>
+              <div className={styles.meta}>{r.author} · {r.whenLabel} · {r.venue}</div>
+              <div className={styles.meta2}>{r.blurb}</div>
+            </div>
+            <div className={isFull(r.slotsLabel) ? styles.chip5 : styles.chip4}>{r.slotsLabel}</div>
           </div>
-        )}
-        <div className={styles.card} onClick={() => onNavigate('requestDetail')} role="button" tabIndex={0}>
-          <div className={styles.avatar}>A</div>
-          <div className={styles.box}><div className={styles.heading2}>Two more for 5-a-side</div><div className={styles.meta}>Aiden · Sat 16:00 · Camperdown Oval</div><div className={styles.meta2}>Casual game, all levels. Bring a dark shirt.</div></div>
-          <div className={styles.chip4}>2 spots</div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('requestDetail')} role="button" tabIndex={0}>
-          <div className={styles.avatar}>T</div>
-          <div className={styles.box}><div className={styles.heading2}>Bass player for Sunday jam</div><div className={styles.meta}>Tien · Sun 14:00 · The Yard</div><div className={styles.meta2}>Blues and soul covers, amp provided.</div></div>
-          <div className={styles.chip4}>1 spot</div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('requestDetail')} role="button" tabIndex={0}>
-          <div className={styles.avatar}>J</div>
-          <div className={styles.box}><div className={styles.heading2}>Help lifting garden beds</div><div className={styles.meta}>Josh · Sat 9:00 · Hollis Park</div><div className={styles.meta2}>One hour, four pairs of hands needed.</div></div>
-          <div className={styles.chip4}>4 spots</div>
-        </div>
-        <div className={styles.card} onClick={() => onNavigate('requestDetail')} role="button" tabIndex={0}>
-          <div className={styles.avatar}>P</div>
-          <div className={styles.box}><div className={styles.heading2}>Chess at the library, weekly</div><div className={styles.meta}>Peter · Wed 18:00 · Newtown Library</div><div className={styles.meta2}>Beginners very welcome, boards supplied.</div></div>
-          <div className={styles.chip5}>Full</div>
-        </div>
-        <div className={styles.meta3}>Showing 4 of 6 · scroll for more</div>
+        ))}
+        <div className={styles.meta3}>Showing {requests.length} · scroll for more</div>
       </div>
     </div>
   );

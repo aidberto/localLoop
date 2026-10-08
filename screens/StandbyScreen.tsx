@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import type { KioskScreenProps } from '../types';
 import {
   fetchDepartures,
-  events,
   formatIn,
   minutesLeft,
   modeColors,
-  requests,
   suburb,
   useClock,
   useWeather,
@@ -27,7 +25,7 @@ const dateLabel = (ms: number) =>
 /** Idle standby / screensaver. One glanceable page - events, live transport and
  *  the community board at once - over rotating outdoor photography. Any input
  *  returns the kiosk to home (handled in KioskApp). */
-export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
+export default function StandbyScreen({ onNavigate, events, requests }: KioskScreenProps) {
   const { now, mountedAt } = useClock();
   const weather = useWeather();
   const [bg, setBg] = useState(0);
@@ -55,8 +53,8 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
     return () => { alive = false; clearInterval(id); };
   }, []);
 
-  const event = events[card % events.length];
-  const request = requests[card % requests.length];
+  const event = events.length ? events[card % events.length] : undefined;
+  const request = requests.length ? requests[card % requests.length] : undefined;
 
   const soonest = [...departures]
     .sort((a, b) => (a.dueAt ?? 0) - (b.dueAt ?? 0))
@@ -97,14 +95,16 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
         <div className={styles.grid}>
           <div className={`${styles.panel} ${styles.panelWide} ${styles.panelEvents}`}>
             <div className={styles.panelTitle}>Happening in {suburb}</div>
-            <div key={event.id} className={styles.feature}>
-              <div className={styles.photo} style={{ backgroundImage: `url(${event.image})`, backgroundColor: event.tint }}>
-                <div className={styles.photoBadge}>{formatIn(minutesLeft(event.dueInMin, mountedAt, now))}</div>
+            {event && (
+              <div key={event.id} className={styles.feature}>
+                <div className={styles.photo} style={{ backgroundImage: `url(${event.image})`, backgroundColor: event.tint }}>
+                  <div className={styles.photoBadge}>{formatIn(minutesLeft(event.dueInMin, mountedAt, now))}</div>
+                </div>
+                <div className={styles.featureTitle}>{event.title}</div>
+                <div className={styles.featureMeta}>{event.whenLabel}</div>
+                <div className={styles.featureBlurb}>{event.blurb}</div>
               </div>
-              <div className={styles.featureTitle}>{event.title}</div>
-              <div className={styles.featureMeta}>{event.whenLabel}</div>
-              <div className={styles.featureBlurb}>{event.blurb}</div>
-            </div>
+            )}
           </div>
 
           <div className={`${styles.panel} ${styles.panelTransport}`}>
@@ -130,16 +130,18 @@ export default function StandbyScreen({ onNavigate }: KioskScreenProps) {
 
           <div className={`${styles.panel} ${styles.panelRequests}`}>
             <div className={styles.panelTitle}>On the board</div>
-            <div key={request.id} className={styles.feature}>
-              <div className={styles.chip}>{request.category}</div>
-              <div className={styles.featureTitle}>{request.title}</div>
-              <div className={styles.featureMeta}>{request.author} · posted {request.postedAt}</div>
-              <div className={styles.featureBlurb}>{request.blurb}</div>
-              <div className={styles.requestFoot}>
-                <div className={styles.badgeSm}>{request.slotsLabel}</div>
-                <div className={styles.badgeSm}>{request.whenLabel}</div>
+            {request && (
+              <div key={request.id} className={styles.feature}>
+                <div className={styles.chip}>{request.category}</div>
+                <div className={styles.featureTitle}>{request.title}</div>
+                <div className={styles.featureMeta}>{request.author} · posted {request.postedAt}</div>
+                <div className={styles.featureBlurb}>{request.blurb}</div>
+                <div className={styles.requestFoot}>
+                  <div className={styles.badgeSm}>{request.slotsLabel}</div>
+                  <div className={styles.badgeSm}>{request.whenLabel}</div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 

@@ -1,10 +1,10 @@
 import type { PhoneScreenProps } from '../types';
-import { events, formatIn, minutesLeft, useClock } from '../../data';
+import { formatIn, minutesLeft, useClock } from '../../data';
 import styles from './PhoneEventsScreen.module.css';
 
 /** 2i · App events list · 390×844 phone screen, fluid via --pu.
  *  Data-driven from the shared `events` feed - same source as the kiosk. */
-export default function PhoneEventsScreen({ onNavigate }: PhoneScreenProps) {
+export default function PhoneEventsScreen({ onNavigate, events }: PhoneScreenProps) {
   const { now, mountedAt } = useClock();
   return (
     <div className={styles.screen} data-screen-label="App events list">
@@ -28,13 +28,13 @@ export default function PhoneEventsScreen({ onNavigate }: PhoneScreenProps) {
             />
             <div className={styles.col2}>
               <div className={styles.heading2}>{e.title}</div>
-              <div className={styles.meta}>{formatIn(minutesLeft(e.dueInMin, mountedAt, now))} · {e.distanceM} m</div>
+              <div className={styles.meta}>{formatIn(minutesLeft(e.dueInMin, mountedAt, now))}{e.distanceM ? ` · ${e.distanceM} m` : ''}</div>
               <div className={styles.meta2}>{e.blurb}</div>
               <b className={styles.box}>See more</b>
             </div>
           </div>
         ))}
-        <div className={styles.meta3}>Showing {events.length} of 11 · scroll for more</div>
+        <div className={styles.meta3}>Showing {events.length} · scroll for more</div>
       </div>
     </div>
   );

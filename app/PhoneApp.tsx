@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import type { ComponentType } from 'react';
 import type { PhoneScreenId, PhoneScreenProps } from './types';
+import { useBoard } from '../data';
 import PhoneSplashScreen from './screens/PhoneSplashScreen';
 import PhoneScanKioskScreen from './screens/PhoneScanKioskScreen';
 import PhoneNewMemberScreen from './screens/PhoneNewMemberScreen';
@@ -49,18 +50,26 @@ export interface PhoneAppProps {
 export default function PhoneApp({ initialScreen = 'splash', initialSelectedId }: PhoneAppProps) {
   const [screen, setScreen] = useState<PhoneScreenId>(initialScreen);
   const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId);
-  // Demo: starts false on every load/fresh scan, so each take begins clean.
-  const [published, setPublished] = useState(false);
+  // Live board (events + requests) + create/delete, shared with the kiosk via /api/board.
+  const { events, requests, createEvent, createRequest, deleteEvent, deleteRequest } = useBoard();
   const onNavigate = useCallback((next: PhoneScreenId, id?: string) => {
     setScreen(next);
     if (id !== undefined) setSelectedId(id);
   }, []);
-  const onPublish = useCallback(() => setPublished(true), []);
   const Screen = SCREENS[screen];
   return (
     <div className={styles.root}>
       <div className={styles.body}>
-        <Screen onNavigate={onNavigate} selectedId={selectedId} published={published} onPublish={onPublish} />
+        <Screen
+          onNavigate={onNavigate}
+          selectedId={selectedId}
+          events={events}
+          requests={requests}
+          createEvent={createEvent}
+          createRequest={createRequest}
+          deleteEvent={deleteEvent}
+          deleteRequest={deleteRequest}
+        />
       </div>
       {!NAV_HIDDEN.includes(screen) && <PhoneNav screen={screen} onNavigate={onNavigate} />}
     </div>

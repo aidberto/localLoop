@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { ComponentType } from 'react';
 import type { KioskScreenProps, ScreenId } from './types';
+import { useBoard } from './data';
 import HomeScreen from './screens/HomeScreen';
 import EventsScreen from './screens/EventsScreen';
 import EventDetailScreen from './screens/EventDetailScreen';
@@ -40,9 +41,8 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
   const [screen, setScreen] = useState<ScreenId>(initialScreen);
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [largeText, setLargeText] = useState(false);
-  // Demo: "p" toggles the handed-off BBQ request onto the board + map (and off again
-  // for re-takes). Shared here so the Requests and Map screens stay in sync.
-  const [published, setPublished] = useState(false);
+  // Live board (events + requests) - polled so phone-side posts show up here.
+  const { events, requests } = useBoard();
   const onNavigate = useCallback((next: ScreenId, id?: string) => {
     setScreen(next);
     setSelectedId(id);
@@ -62,7 +62,6 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
         e.preventDefault();
         setScreen('standby');
       }
-      if (e.key === 'p' || e.key === 'P') setPublished((v) => !v);
       reset();
     };
     // Note: no pointermove - passive mouse motion must not wake the kiosk.
@@ -86,7 +85,8 @@ export default function KioskApp({ initialScreen = 'home' }: KioskAppProps) {
         selectedId={selectedId}
         largeText={largeText}
         onLargeText={setLargeText}
-        published={published}
+        events={events}
+        requests={requests}
       />
     </div>
   );

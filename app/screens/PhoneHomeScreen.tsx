@@ -1,11 +1,11 @@
 import type { PhoneScreenProps } from '../types';
-import { events, requests, suburb } from '../../data';
+import { suburb } from '../../data';
 import styles from './PhoneHomeScreen.module.css';
 
 /** 2e · App home · 390×844 phone screen, fluid via --pu.
  *  Deliberately unlike the kiosk: personal greeting + a "you're going" hero and
  *  a scrollable feed, rather than the kiosk's public 2×2 dashboard grid. */
-export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
+export default function PhoneHomeScreen({ onNavigate, events, requests }: PhoneScreenProps) {
   const upNext = requests[0];
   const feedEvents = events.slice(0, 2);
   const feedRequests = requests.slice(1, 3);
@@ -20,20 +20,22 @@ export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
       </div>
 
       <div className={styles.body}>
-        <div
-          className={styles.upNext}
-          onClick={() => onNavigate('requestDetail', upNext.id)}
-          role="button"
-          tabIndex={0}
-        >
-          <div className={styles.upTag}>UP NEXT · YOU'RE GOING</div>
-          <div className={styles.upTitle}>{upNext.title}</div>
-          <div className={styles.upMeta}>{upNext.whenLabel} · {upNext.venue}</div>
-          <div className={styles.upFoot}>
-            <div className={styles.upChip}>{upNext.walkLabel}</div>
-            <div className={styles.upGo}>View →</div>
+        {upNext && (
+          <div
+            className={styles.upNext}
+            onClick={() => onNavigate('requestDetail', upNext.id)}
+            role="button"
+            tabIndex={0}
+          >
+            <div className={styles.upTag}>UP NEXT · YOU'RE GOING</div>
+            <div className={styles.upTitle}>{upNext.title}</div>
+            <div className={styles.upMeta}>{upNext.whenLabel} · {upNext.venue}</div>
+            <div className={styles.upFoot}>
+              <div className={styles.upChip}>{upNext.walkLabel}</div>
+              <div className={styles.upGo}>View →</div>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className={styles.feedHead}>
           <div className={styles.feedTitle}>Happening near you</div>
@@ -56,7 +58,7 @@ export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
               <div className={styles.cardBody}>
                 <div className={styles.kindEvent}>EVENT</div>
                 <div className={styles.cardTitle}>{e.title}</div>
-                <div className={styles.cardMeta}>{e.distanceM} m · {e.tags.join(' · ')}</div>
+                <div className={styles.cardMeta}>{e.distanceM ? `${e.distanceM} m · ` : ''}{e.tags.join(' · ')}</div>
               </div>
             </div>
           ))}

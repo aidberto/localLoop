@@ -1,3 +1,5 @@
+import type { EventItem, RequestItem } from './seed';
+
 export type ScreenId =
   | 'home'
   | 'events'
@@ -20,8 +22,9 @@ export interface KioskScreenProps {
   largeText?: boolean;
   /** Toggle large-text mode. */
   onLargeText?: (value: boolean) => void;
-  /** Demo: whether the handed-off BBQ request has been posted (toggled with "p"). */
-  published?: boolean;
+  /** Live board, fetched + polled by KioskApp (see useBoard). */
+  events: EventItem[];
+  requests: RequestItem[];
 }
 
 export interface KioskShellProps {
