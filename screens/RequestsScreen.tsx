@@ -21,7 +21,7 @@ export default function RequestsScreen({ onNavigate, largeText, onLargeText }: K
   const [active, setActive] = useState<string | null>(null);
   const [openOnly, setOpenOnly] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
-  // Demo: press "p" to toggle the handed-off BBQ request onto the board — this is how
+  // Demo: press "p" to toggle the handed-off BBQ request onto the board. This is how
   // the board "receives" the post on camera, and pressing again reverts it for re-takes.
   const [published, setPublished] = useState(false);
   useEffect(() => {
@@ -117,7 +117,7 @@ export default function RequestsScreen({ onNavigate, largeText, onLargeText }: K
         <div className={styles.overlay} onClick={() => setQrOpen(false)} role="button" tabIndex={0}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalTitle}>Post your own request</div>
-            <div className={styles.modalText}>Scan this with your phone camera to open the form and post to the board — the kiosk never asks for your details.</div>
+            <div className={styles.modalText}>Scan this with your phone camera to open the form and post to the board. The kiosk never asks for your details.</div>
             <div className={styles.modalQr}><PhoneHandoff screen="newRequest" color="#0C4B5C" /></div>
             <div className={styles.modalClose} onClick={() => setQrOpen(false)} role="button" tabIndex={0}>Close</div>
           </div>
