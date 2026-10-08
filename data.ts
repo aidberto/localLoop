@@ -222,12 +222,12 @@ export const events: EventItem[] = [
 export const bbqRequest: RequestItem = {
   id: 'backyard-bbq',
   category: 'FOOD',
-  author: 'Mara',
+  author: 'Tom',
   postedAt: 'just now',
-  title: 'Hands for a Saturday backyard BBQ',
+  title: 'Backyard BBQ to meet the neighbours',
   blurb:
-    'Bringing the neighbours together for an outdoor barbecue — looking for a few people to help set up, grill and share a plate. Bring a salad or a drink if you can.',
-  slotsLabel: '4 slots left',
+    "I'm hosting a relaxed outdoor BBQ because I'd love to meet new people in the area. Everyone is welcome, come say hi and bring a drink or a plate to share if you like.",
+  slotsLabel: 'Open to all',
   whenLabel: 'Sat 12:00',
   venue: 'Hollis Park lawn',
   walkLabel: '6 min walk · step-free',

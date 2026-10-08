@@ -53,10 +53,10 @@ export default function PhoneNewRequestScreen({ onNavigate, onPublish }: PhoneSc
         </div>
         <div className={styles.col2}><div className={styles.text}>Date &amp; time</div><div className={styles.heading3}>Sat 12 Oct · 12:00<span className={styles.heading4}>🗓</span></div></div>
         <div className={styles.col2}><div className={styles.text}>Where</div><div className={styles.heading3}>{bbqRequest.venue}<span className={styles.heading5}>📍</span></div></div>
-        <div className={styles.col2}><div className={styles.text}>How many people do you need?</div>
+        <div className={styles.col2}><div className={styles.text}>How many people can come?</div>
           <div className={styles.row3}>
             <div className={styles.heading6}>−</div>
-            <div className={styles.heading7}>4 people</div>
+            <div className={styles.heading7}>Open to all</div>
             <div className={styles.heading8}>＋</div>
           </div>
         </div>
