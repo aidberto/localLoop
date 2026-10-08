@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { KioskApp, demo } from './index';
 import { PhoneApp } from './app';
 import { PHONE_SCREEN_IDS, type PhoneScreenId } from './app/types';
+import { bbqRequest } from './data';
 
 /** A QR deep-link (`/?phone=<screen>&id=<id>`) switches the kiosk SPA into the
  *  phone view. Validate the screen param (untrusted URL input); fall back to the
@@ -18,6 +19,8 @@ if (import.meta.env.DEV) {
   console.assert(resolvePhoneScreen('bogus') === 'splash', 'bad screen → splash');
   console.assert(resolvePhoneScreen('map') === 'map', 'good screen passes through');
   console.assert(resolvePhoneScreen(null) === 'splash', 'missing screen → splash');
+  console.assert(resolvePhoneScreen('newRequest') === 'newRequest', 'QR deep-link opens the new-request form');
+  console.assert(bbqRequest.category === 'FOOD', 'BBQ shows under the kiosk Food filter');
 }
 
 const params = new URLSearchParams(window.location.search);

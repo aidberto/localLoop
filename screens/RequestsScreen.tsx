@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import KioskShell from '../KioskShell';
+import PhoneHandoff from '../PhoneHandoff';
 import TextSizeToggle from '../TextSizeToggle';
 import type { KioskScreenProps } from '../types';
-import { requests } from '../data';
+import { requests, bbqRequest } from '../data';
 import styles from './RequestsScreen.module.css';
 
 // ponytail: filter pills map a label to the categories it matches; "full" = no open spots.
@@ -19,15 +20,27 @@ const hasOpenSpots = (label: string) => !/full|waitlist/i.test(label);
 export default function RequestsScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
   const [active, setActive] = useState<string | null>(null);
   const [openOnly, setOpenOnly] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
+  // Demo: press "p" to toggle the handed-off BBQ request onto the board — this is how
+  // the board "receives" the post on camera, and pressing again reverts it for re-takes.
+  const [published, setPublished] = useState(false);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'p' || e.key === 'P') setPublished((v) => !v);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
+  const board = published ? [bbqRequest, ...requests] : requests;
   const shown = useMemo(() => {
     const cats = FILTERS.find((f) => f.label === active)?.cats;
-    return requests.filter(
+    return board.filter(
       (r) =>
         (!cats || cats.includes(r.category)) &&
         (!openOnly || hasOpenSpots(r.slotsLabel)),
     );
-  }, [active, openOnly]);
+  }, [active, openOnly, published]);
 
   return (
     <div className={styles.screen} data-screen-label="Requests">
@@ -38,7 +51,7 @@ export default function RequestsScreen({ onNavigate, largeText, onLargeText }: K
           <div className={styles.title}>Newtown's board</div>
           <div className={styles.text}>Neighbours looking for people to join in</div>
           <div className={styles.box2}></div>
-          <div className={styles.pill}>Post via the app</div>
+          <div className={styles.pill} onClick={() => setQrOpen(true)} role="button" tabIndex={0}>＋ Post via the app</div>
         </div>
         <div className={styles.row2}>
           <div
@@ -47,7 +60,7 @@ export default function RequestsScreen({ onNavigate, largeText, onLargeText }: K
             role="button"
             tabIndex={0}
           >
-            All · {requests.length}
+            All · {board.length}
           </div>
           {FILTERS.map((f) => (
             <div
@@ -100,6 +113,16 @@ export default function RequestsScreen({ onNavigate, largeText, onLargeText }: K
         <div className={styles.box2}></div>
         <TextSizeToggle largeText={largeText} onLargeText={onLargeText} />
       </div>
+      {qrOpen && (
+        <div className={styles.overlay} onClick={() => setQrOpen(false)} role="button" tabIndex={0}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalTitle}>Post your own request</div>
+            <div className={styles.modalText}>Scan this with your phone camera to open the form and post to the board — the kiosk never asks for your details.</div>
+            <div className={styles.modalQr}><PhoneHandoff screen="newRequest" color="#0C4B5C" /></div>
+            <div className={styles.modalClose} onClick={() => setQrOpen(false)} role="button" tabIndex={0}>Close</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
