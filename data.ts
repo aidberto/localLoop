@@ -231,6 +231,22 @@ export const bbqRequest: RequestItem = {
   whenLabel: 'Sat 12:00',
   venue: 'Hollis Park lawn',
   walkLabel: '6 min walk · step-free',
+  route: [
+    { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
+    { name: 'King St at Church St', time: '2 min', lat: -33.897500, lng: 151.176800 },
+    { name: 'Wilson St', time: '4 min', lat: -33.896700, lng: 151.175200 },
+    { name: 'Hollis Park lawn - last stop', time: '6 min', lat: -33.8961, lng: 151.1743, last: true },
+  ],
+};
+
+/** Map pin for the demo BBQ post, shown on the interactive map once it's posted. */
+export const bbqMapPoint: MapPoint = {
+  id: 'mp-bbq',
+  kind: 'request',
+  label: 'Backyard BBQ',
+  lat: -33.8961,
+  lng: 151.1743,
+  target: { screen: 'requestDetail', id: bbqRequest.id },
 };
 
 /** Look up a request by id, including the demo BBQ post (which isn't in `requests`). */

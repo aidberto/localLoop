@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import KioskShell from '../KioskShell';
 import PhoneHandoff from '../PhoneHandoff';
 import TextSizeToggle from '../TextSizeToggle';
@@ -17,21 +17,12 @@ const FILTERS: { label: string; cats: string[] }[] = [
 const hasOpenSpots = (label: string) => !/full|waitlist/i.test(label);
 
 /** 1h · Requests - 1920×1080 kiosk screen, fluid via --u. */
-export default function RequestsScreen({ onNavigate, largeText, onLargeText }: KioskScreenProps) {
+export default function RequestsScreen({ onNavigate, largeText, onLargeText, published }: KioskScreenProps) {
   const [active, setActive] = useState<string | null>(null);
   const [openOnly, setOpenOnly] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
-  // Demo: press "p" to toggle the handed-off BBQ request onto the board. This is how
-  // the board "receives" the post on camera, and pressing again reverts it for re-takes.
-  const [published, setPublished] = useState(false);
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'p' || e.key === 'P') setPublished((v) => !v);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
 
+  // `published` (owned by KioskApp, toggled with "p") drops the handed-off BBQ onto the board.
   const board = published ? [bbqRequest, ...requests] : requests;
   const shown = useMemo(() => {
     const cats = FILTERS.find((f) => f.label === active)?.cats;

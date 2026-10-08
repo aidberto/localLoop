@@ -20,6 +20,8 @@ export interface KioskScreenProps {
   largeText?: boolean;
   /** Toggle large-text mode. */
   onLargeText?: (value: boolean) => void;
+  /** Demo: whether the handed-off BBQ request has been posted (toggled with "p"). */
+  published?: boolean;
 }
 
 export interface KioskShellProps {
