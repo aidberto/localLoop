@@ -1,8 +1,9 @@
 import type { PhoneScreenProps } from '../types';
+import { bbqRequest } from '../../data';
 import styles from './PhoneRequestsScreen.module.css';
 
 /** 2o · App requests board · 390×844 phone screen, fluid via --pu. */
-export default function PhoneRequestsScreen({ onNavigate }: PhoneScreenProps) {
+export default function PhoneRequestsScreen({ onNavigate, published }: PhoneScreenProps) {
   return (
     <div className={styles.screen} data-screen-label="App requests board">
       <div className={styles.row}>
@@ -11,7 +12,7 @@ export default function PhoneRequestsScreen({ onNavigate }: PhoneScreenProps) {
         <div className={styles.pill2} onClick={() => onNavigate('newRequest')} role="button" tabIndex={0}>＋ Post</div>
       </div>
       <div className={styles.row2}>
-        <div className={styles.chip}>All · 6</div>
+        <div className={styles.chip}>All · {published ? 7 : 6}</div>
         <div className={styles.chip2}>Sport &amp; fitness</div>
         <div className={styles.chip2}>Music</div>
         <div className={styles.chip2}>Garden</div>
@@ -20,6 +21,13 @@ export default function PhoneRequestsScreen({ onNavigate }: PhoneScreenProps) {
         <div className={styles.chip3}>Sort: Soonest ↓</div>
       </div>
       <div className={styles.col}>
+        {published && (
+          <div className={styles.card} onClick={() => onNavigate('requestDetail', bbqRequest.id)} role="button" tabIndex={0}>
+            <div className={styles.avatar}>{bbqRequest.author.charAt(0)}</div>
+            <div className={styles.box}><div className={styles.heading2}>{bbqRequest.title}</div><div className={styles.meta}>{bbqRequest.author} · {bbqRequest.whenLabel} · {bbqRequest.venue}</div><div className={styles.meta2}>{bbqRequest.blurb}</div></div>
+            <div className={styles.chip4}>{bbqRequest.slotsLabel}</div>
+          </div>
+        )}
         <div className={styles.card} onClick={() => onNavigate('requestDetail')} role="button" tabIndex={0}>
           <div className={styles.avatar}>A</div>
           <div className={styles.box}><div className={styles.heading2}>Two more for 5-a-side</div><div className={styles.meta}>Aiden · Sat 16:00 · Camperdown Oval</div><div className={styles.meta2}>Casual game, all levels. Bring a dark shirt.</div></div>

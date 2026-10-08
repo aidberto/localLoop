@@ -224,3 +224,48 @@
   color: #6B6459;
   text-align: center;
 }
+
+/* Multi-line variant of .text2 for the pre-filled blurb (auto height, real copy). */
+.text2b {
+  min-height: calc(var(--pu) * 56);
+  border-radius: calc(var(--pu) * 12);
+  border: 2px solid #E9E5DC;
+  background: #FFFFFF;
+  padding: calc(var(--pu) * 12) calc(var(--pu) * 14);
+  font-size: calc(var(--pu) * 16);
+  font-weight: 600;
+  line-height: 1.4;
+  box-sizing: border-box;
+  color: #2B2723;
+}
+
+/* Preview step: read-only card of the request as it'll be seen. */
+.previewCard {
+  background: #FFFFFF;
+  border: 1px solid #EDE9E0;
+  border-radius: calc(var(--pu) * 18);
+  padding: calc(var(--pu) * 16);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pu) * 10);
+  box-shadow: 0 2px 6px rgba(60,50,30,0.05);
+}
+
+.heading2b {
+  font-size: calc(var(--pu) * 20);
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.previewMeta {
+  font-size: calc(var(--pu) * 14);
+  font-weight: 800;
+  color: #16697F;
+}
+
+.previewBlurb {
+  font-size: calc(var(--pu) * 15);
+  font-weight: 600;
+  line-height: 1.4;
+  color: #6B6459;
+}

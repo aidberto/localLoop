@@ -22,4 +22,8 @@ export interface PhoneScreenProps {
   onNavigate: (screen: PhoneScreenId, selectedId?: string) => void;
   /** Which event/request to show on detail screens (from the kiosk handoff). */
   selectedId?: string;
+  /** Demo: whether the visitor has posted their request this session. */
+  published?: boolean;
+  /** Demo: mark the request as posted (shows it on the phone board). */
+  onPublish?: () => void;
 }

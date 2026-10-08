@@ -216,6 +216,27 @@ export const events: EventItem[] = [
   },
 ];
 
+// The canned request posted via the kiosk→phone handoff demo. Both the kiosk board
+// and the phone board render this same object so they stay identical. category 'FOOD'
+// matches an existing kiosk filter pill so it shows under "Food".
+export const bbqRequest: RequestItem = {
+  id: 'backyard-bbq',
+  category: 'FOOD',
+  author: 'Mara',
+  postedAt: 'just now',
+  title: 'Hands for a Saturday backyard BBQ',
+  blurb:
+    'Bringing the neighbours together for an outdoor barbecue — looking for a few people to help set up, grill and share a plate. Bring a salad or a drink if you can.',
+  slotsLabel: '4 slots left',
+  whenLabel: 'Sat 12:00',
+  venue: 'Hollis Park lawn',
+  walkLabel: '6 min walk · step-free',
+};
+
+/** Look up a request by id, including the demo BBQ post (which isn't in `requests`). */
+export const findRequest = (id?: string): RequestItem =>
+  [bbqRequest, ...requests].find((r) => r.id === id) ?? requests[0];
+
 export const requests: RequestItem[] = [
   {
     id: 'sat-basketball',

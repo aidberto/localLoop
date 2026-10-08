@@ -11,7 +11,7 @@ export default function PhoneNewEventScreen({ onNavigate }: PhoneScreenProps) {
         <div className={styles.box}></div>
       </div>
       <div className={styles.col}>
-        <div className={styles.col2}><div className={styles.text}>Event name</div><div className={styles.heading2}>Street library book swap</div></div>
+        <div className={styles.col2}><div className={styles.text}>Event name</div><div className={styles.heading2} contentEditable suppressContentEditableWarning>Street library book swap</div></div>
         <div className={styles.col2}><div className={styles.text}>Date &amp; time</div><div className={styles.heading3}>Sat 30 Aug · 10:00<span className={styles.heading4}>🗓</span></div><div className={styles.meta}>Picked from a calendar, no typing, no typos.</div></div>
         <div className={styles.col2}><div className={styles.text}>Location</div><div className={styles.heading3}>Camperdown Rest Park<span className={styles.heading5}>📍</span></div></div>
         <div className={styles.col2}><div className={styles.text}>Photo</div>
@@ -20,7 +20,7 @@ export default function PhoneNewEventScreen({ onNavigate }: PhoneScreenProps) {
         <div className={styles.col2}><div className={styles.text}>Price</div>
           <div className={styles.row2}><div className={styles.pill2}>Free</div><div className={styles.pill3}>Paid…</div></div>
         </div>
-        <div className={styles.col2}><div className={styles.text}>Description <span className={styles.box2}>(one short paragraph)</span></div><div className={styles.text2}>Bring a book, take a book. Kids' picture books especially welcome.</div></div>
+        <div className={styles.col2}><div className={styles.text}>Description <span className={styles.box2}>(one short paragraph)</span></div><div className={styles.text2} contentEditable suppressContentEditableWarning>Bring a book, take a book. Kids' picture books especially welcome.</div></div>
         <div className={styles.meta2}>Events appear on the public Newtown kiosk. Keep it local and family-friendly. See posting guidelines.</div>
       </div>
       <div className={styles.col3}>

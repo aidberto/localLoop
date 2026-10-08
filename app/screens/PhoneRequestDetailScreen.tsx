@@ -1,11 +1,11 @@
 import type { PhoneScreenProps } from '../types';
 import RouteMap from '../../RouteMap';
-import { requests } from '../../data';
+import { findRequest } from '../../data';
 import styles from './PhoneRequestDetailScreen.module.css';
 
 /** 2p · App request detail · 390×844 phone screen, fluid via --pu. */
 export default function PhoneRequestDetailScreen({ onNavigate, selectedId }: PhoneScreenProps) {
-  const request = requests.find((r) => r.id === selectedId) ?? requests[0];
+  const request = findRequest(selectedId);
   return (
     <div className={styles.screen} data-screen-label="App request detail">
       <div className={styles.row}>

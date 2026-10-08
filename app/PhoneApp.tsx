@@ -49,15 +49,18 @@ export interface PhoneAppProps {
 export default function PhoneApp({ initialScreen = 'splash', initialSelectedId }: PhoneAppProps) {
   const [screen, setScreen] = useState<PhoneScreenId>(initialScreen);
   const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId);
+  // Demo: starts false on every load/fresh scan, so each take begins clean.
+  const [published, setPublished] = useState(false);
   const onNavigate = useCallback((next: PhoneScreenId, id?: string) => {
     setScreen(next);
     if (id !== undefined) setSelectedId(id);
   }, []);
+  const onPublish = useCallback(() => setPublished(true), []);
   const Screen = SCREENS[screen];
   return (
     <div className={styles.root}>
       <div className={styles.body}>
-        <Screen onNavigate={onNavigate} selectedId={selectedId} />
+        <Screen onNavigate={onNavigate} selectedId={selectedId} published={published} onPublish={onPublish} />
       </div>
       {!NAV_HIDDEN.includes(screen) && <PhoneNav screen={screen} onNavigate={onNavigate} />}
     </div>
