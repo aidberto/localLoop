@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { PhoneScreenProps, PhoneScreenId } from '../types';
-import { mapCenter, mapPoints, type MapKind } from '../../data';
+import { mapCenter, mapPoints, bbqMapPoint, type MapKind } from '../../data';
 import styles from './PhoneMapScreen.module.css';
 
 const COLORS: Record<MapKind, string> = {
@@ -35,7 +35,7 @@ function pinIcon(kind: MapKind, label: string) {
 }
 
 /** 2l · App map · OpenStreetMap with data pins, layer filters + zoom. */
-export default function PhoneMapScreen({ onNavigate }: PhoneScreenProps) {
+export default function PhoneMapScreen({ onNavigate, published }: PhoneScreenProps) {
   const [active, setActive] = useState<Set<MapKind>>(
     () => new Set<MapKind>(['event', 'stop', 'request', 'park']),
   );
@@ -95,6 +95,16 @@ export default function PhoneMapScreen({ onNavigate }: PhoneScreenProps) {
       }
     }
   }, [active]);
+
+  // The BBQ pin appears once the request is posted (and respects the Requests filter).
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !published || !active.has('request')) return;
+    const marker = L.marker([bbqMapPoint.lat, bbqMapPoint.lng], { icon: pinIcon('request', bbqMapPoint.label) });
+    marker.on('click', () => onNavigate(bbqMapPoint.target!.screen as PhoneScreenId, bbqMapPoint.target!.id));
+    marker.addTo(map);
+    return () => { marker.remove(); };
+  }, [published, active, onNavigate]);
 
   const toggle = (kind: MapKind) =>
     setActive((prev) => {
