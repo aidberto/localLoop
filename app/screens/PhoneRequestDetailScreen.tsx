@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import type { PhoneScreenProps } from '../types';
 import RouteMap from '../../RouteMap';
 import { findRequest } from '../../data';
 import styles from './PhoneRequestDetailScreen.module.css';
 
 /** 2p · App request detail · 390×844 phone screen, fluid via --pu. */
-export default function PhoneRequestDetailScreen({ onNavigate, selectedId }: PhoneScreenProps) {
+export default function PhoneRequestDetailScreen({ onNavigate, selectedId, onJoin }: PhoneScreenProps) {
   const request = findRequest(selectedId);
+  const [reported, setReported] = useState(false);
   return (
     <div className={styles.screen} data-screen-label="App request detail">
       <div className={styles.row}>
@@ -47,10 +49,11 @@ export default function PhoneRequestDetailScreen({ onNavigate, selectedId }: Pho
           <div className={styles.box}><div className={styles.text4}>Bus from King St · 5 min away</div><div className={styles.meta3}>3 stops · get off at Australia St</div></div>
           <div className={styles.heading4}>→</div>
         </div>
-        <div className={styles.meta4}>Joining shares your first name with {request.author} and the others going. Nothing else. Report this listing</div>
+        <div className={styles.meta4}>Joining shares your first name with {request.author} and the others going. Nothing else.</div>
+        <div className={styles.report} onClick={() => setReported(true)} role="button" tabIndex={0}>{reported ? '✓ Reported — thanks' : '⚑ Report this listing'}</div>
       </div>
       <div className={styles.row6}>
-        <div className={styles.pill2}>Join · {request.slotsLabel}</div>
+        <div className={styles.pill2} onClick={() => onJoin?.(request.title)} role="button" tabIndex={0}>Join · {request.slotsLabel}</div>
       </div>
     </div>
   );

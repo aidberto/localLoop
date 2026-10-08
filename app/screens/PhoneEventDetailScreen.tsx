@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import type { PhoneScreenProps } from '../types';
 import RouteMap from '../../RouteMap';
 import { events } from '../../data';
 import styles from './PhoneEventDetailScreen.module.css';
 
 /** 2j · App event detail · 390×844 phone screen, fluid via --pu. */
-export default function PhoneEventDetailScreen({ onNavigate, selectedId }: PhoneScreenProps) {
+export default function PhoneEventDetailScreen({ onNavigate, selectedId, onJoin }: PhoneScreenProps) {
   const event = events.find((e) => e.id === selectedId) ?? events[0];
+  const [reported, setReported] = useState(false);
   return (
     <div className={styles.screen} data-screen-label="App event detail">
       <div className={styles.row}>
@@ -30,10 +32,11 @@ export default function PhoneEventDetailScreen({ onNavigate, selectedId }: Phone
           <div className={styles.box}><div className={styles.text2}>Bus from King St · 3 min away</div><div className={styles.meta}>2 stops · get off at Newtown Bridge</div></div>
           <div className={styles.heading4}>→</div>
         </div>
-        <div className={styles.meta2}>Hosted by Newtown Makers Collective · Report this listing</div>
+        <div className={styles.meta2}>Hosted by Newtown Makers Collective</div>
+        <div className={styles.report} onClick={() => setReported(true)} role="button" tabIndex={0}>{reported ? '✓ Reported — thanks' : '⚑ Report this listing'}</div>
       </div>
       <div className={styles.row3}>
-        <div className={styles.pill2}>Save to calendar</div>
+        <div className={styles.pill2} onClick={() => onJoin?.(event.title)} role="button" tabIndex={0}>Join event</div>
         <div className={styles.pill3}>Directions</div>
       </div>
     </div>

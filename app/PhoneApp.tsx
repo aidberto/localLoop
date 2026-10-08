@@ -51,16 +51,23 @@ export default function PhoneApp({ initialScreen = 'splash', initialSelectedId }
   const [selectedId, setSelectedId] = useState<string | undefined>(initialSelectedId);
   // Demo: starts false on every load/fresh scan, so each take begins clean.
   const [published, setPublished] = useState(false);
+  const [confirmedLabel, setConfirmedLabel] = useState<string | undefined>();
   const onNavigate = useCallback((next: PhoneScreenId, id?: string) => {
     setScreen(next);
     if (id !== undefined) setSelectedId(id);
+    // Leaving the confirmation screen clears the join variant for the next visit.
+    if (next !== 'confirmation') setConfirmedLabel(undefined);
   }, []);
   const onPublish = useCallback(() => setPublished(true), []);
+  const onJoin = useCallback((label: string) => {
+    setConfirmedLabel(label);
+    setScreen('confirmation');
+  }, []);
   const Screen = SCREENS[screen];
   return (
     <div className={styles.root}>
       <div className={styles.body}>
-        <Screen onNavigate={onNavigate} selectedId={selectedId} published={published} onPublish={onPublish} />
+        <Screen onNavigate={onNavigate} selectedId={selectedId} published={published} onPublish={onPublish} onJoin={onJoin} confirmedLabel={confirmedLabel} />
       </div>
       {!NAV_HIDDEN.includes(screen) && <PhoneNav screen={screen} onNavigate={onNavigate} />}
     </div>

@@ -26,4 +26,8 @@ export interface PhoneScreenProps {
   published?: boolean;
   /** Demo: mark the request as posted (shows it on the phone board). */
   onPublish?: () => void;
+  /** Join an event/request: records the label and opens the confirmation screen. */
+  onJoin?: (label: string) => void;
+  /** What the visitor just joined — drives the join variant of the confirmation screen. */
+  confirmedLabel?: string;
 }
