@@ -248,6 +248,21 @@
   color: #A8A196;
 }
 
+.report {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--pu) * 6);
+  padding: calc(var(--pu) * 8) calc(var(--pu) * 14);
+  border-radius: 999px;
+  border: 1px solid #EDE9E0;
+  background: #FFFFFF;
+  color: #A03A31;
+  font-size: calc(var(--pu) * 13);
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .row6 {
   flex: none;
   padding: calc(var(--pu) * 12) calc(var(--pu) * 20) calc(var(--pu) * 32);
