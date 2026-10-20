@@ -43,7 +43,7 @@
 .grid {
   flex: 1;
   display: grid;
-  grid-template-columns: 660px 1fr;
+  grid-template-columns: calc(var(--u) * 660) 1fr;
   gap: calc(var(--u) * 28);
   min-height: 0;
 }
