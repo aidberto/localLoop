@@ -146,7 +146,6 @@
 
 .col3 {
   display: flex;
-  flex-direction: column;
   gap: calc(var(--u) * 22);
   min-height: 0;
 }
@@ -188,7 +187,8 @@
 }
 
 .col4 {
-  flex: none;
+  flex: 1;
+  min-height: 0;
   background: #FFFFFF;
   border: 1px solid #EDE9E0;
   border-radius: calc(var(--u) * 26);
@@ -204,7 +204,10 @@
 }
 
 .row6 {
+  flex: 1;
+  min-height: 0;
   display: flex;
+  flex-direction: column;
   gap: calc(var(--u) * 18);
 }
 
