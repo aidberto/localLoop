@@ -20,7 +20,7 @@ if (import.meta.env.DEV) {
   console.assert(resolvePhoneScreen('map') === 'map', 'good screen passes through');
   console.assert(resolvePhoneScreen(null) === 'splash', 'missing screen → splash');
   console.assert(resolvePhoneScreen('newRequest') === 'newRequest', 'QR deep-link opens the new-request form');
-  console.assert(bbqRequest.category === 'FOOD', 'BBQ shows under the kiosk Food filter');
+  console.assert(bbqRequest.category === 'GAMES', 'chess handoff shows under the kiosk Games filter');
 }
 
 const params = new URLSearchParams(window.location.search);

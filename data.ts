@@ -217,35 +217,36 @@ export const events: EventItem[] = [
 ];
 
 // The canned request posted via the kiosk→phone handoff demo. Both the kiosk board
-// and the phone board render this same object so they stay identical. category 'FOOD'
-// matches an existing kiosk filter pill so it shows under "Food".
+// and the phone board render this same object so they stay identical. category 'GAMES'
+// matches an existing kiosk filter pill so it shows under "Games".
+// ponytail: keeps the stable id 'backyard-bbq' so the map/findRequest wiring is untouched;
+// the handoff now carries the chess post (swapped with the park-chess board entry below).
 export const bbqRequest: RequestItem = {
   id: 'backyard-bbq',
-  category: 'FOOD',
-  author: 'Tom',
-  postedAt: 'just now',
-  title: 'Backyard BBQ to meet the neighbours',
-  blurb:
-    "I'm hosting a relaxed outdoor BBQ because I'd love to meet new people in the area. Everyone is welcome, come say hi and bring a drink or a plate to share if you like.",
-  slotsLabel: 'Open to all',
-  whenLabel: 'Sat 12:00',
-  venue: 'Hollis Park lawn',
+  category: 'GAMES',
+  author: 'Jacob',
+  postedAt: '2 days ago',
+  title: 'Chess in Camperdown park',
+  blurb: 'Boards set up near the big fig every Saturday afternoon. All ages, all levels.',
+  slotsLabel: 'Drop in',
+  whenLabel: 'Sat 14:00',
+  venue: 'Camperdown Memorial Rest Park',
   walkLabel: '6 min walk · step-free',
   route: [
     { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
-    { name: 'King St at Church St', time: '2 min', lat: -33.897500, lng: 151.176800 },
-    { name: 'Wilson St', time: '4 min', lat: -33.896700, lng: 151.175200 },
-    { name: 'Hollis Park lawn - last stop', time: '6 min', lat: -33.8961, lng: 151.1743, last: true },
+    { name: 'King St at Church St', time: '2 min', lat: -33.897102, lng: 151.177204 },
+    { name: 'Australia St', time: '4 min', lat: -33.896214, lng: 151.175683 },
+    { name: 'Camperdown Memorial Rest Park - last stop', time: '6 min', lat: -33.895812, lng: 151.174512, last: true },
   ],
 };
 
-/** Map pin for the demo BBQ post, shown on the interactive map once it's posted. */
+/** Map pin for the demo handoff post, shown on the interactive map once it's posted. */
 export const bbqMapPoint: MapPoint = {
   id: 'mp-bbq',
   kind: 'request',
-  label: 'Backyard BBQ',
-  lat: -33.8961,
-  lng: 151.1743,
+  label: 'Park chess',
+  lat: -33.895812,
+  lng: 151.174512,
   target: { screen: 'requestDetail', id: bbqRequest.id },
 };
 
@@ -329,20 +330,21 @@ export const requests: RequestItem[] = [
   },
   {
     id: 'park-chess',
-    category: 'GAMES',
-    author: 'Jacob',
-    postedAt: '2 days ago',
-    title: 'Chess in Camperdown park',
-    blurb: 'Boards set up near the big fig every Saturday afternoon. All ages, all levels.',
-    slotsLabel: 'Drop in',
-    whenLabel: 'Sat 14:00',
-    venue: 'Camperdown Memorial Rest Park',
+    category: 'FOOD',
+    author: 'Tom',
+    postedAt: 'just now',
+    title: 'Backyard BBQ to meet the neighbours',
+    blurb:
+      "I'm hosting a relaxed outdoor BBQ because I'd love to meet new people in the area. Everyone is welcome, come say hi and bring a drink or a plate to share if you like.",
+    slotsLabel: 'Open to all',
+    whenLabel: 'Sat 12:00',
+    venue: 'Hollis Park lawn',
     walkLabel: '6 min walk · step-free',
     route: [
       { name: 'Newtown Station - you are here', time: 'now', lat: -33.898132, lng: 151.178491, current: true },
-      { name: 'King St at Church St', time: '2 min', lat: -33.897102, lng: 151.177204 },
-      { name: 'Australia St', time: '4 min', lat: -33.896214, lng: 151.175683 },
-      { name: 'Camperdown Memorial Rest Park - last stop', time: '6 min', lat: -33.895812, lng: 151.174512, last: true },
+      { name: 'King St at Church St', time: '2 min', lat: -33.897500, lng: 151.176800 },
+      { name: 'Wilson St', time: '4 min', lat: -33.896700, lng: 151.175200 },
+      { name: 'Hollis Park lawn - last stop', time: '6 min', lat: -33.8961, lng: 151.1743, last: true },
     ],
   },
   {
@@ -649,7 +651,7 @@ export const mapPoints: MapPoint[] = [
   { id: 'mp-basketball', kind: 'request', label: 'Sat basketball', lat: -33.9068, lng: 151.1732, target: { screen: 'requestDetail', id: 'sat-basketball' } },
   { id: 'mp-run', kind: 'request', label: 'Sunday run', lat: -33.9041, lng: 151.1712, target: { screen: 'requestDetail', id: 'sunday-run' } },
   { id: 'mp-jam', kind: 'request', label: 'Garage jam', lat: -33.8989, lng: 151.1796, target: { screen: 'requestDetail', id: 'garage-jam' } },
-  { id: 'mp-chess', kind: 'request', label: 'Park chess', lat: -33.8969, lng: 151.1773, target: { screen: 'requestDetail', id: 'park-chess' } },
+  { id: 'mp-chess', kind: 'request', label: 'Backyard BBQ', lat: -33.8961, lng: 151.1743, target: { screen: 'requestDetail', id: 'park-chess' } },
   { id: 'mp-lift', kind: 'request', label: 'Move mulch · Sun', lat: -33.8949, lng: 151.1815, target: { screen: 'requestDetail', id: 'mulch-move' } },
   { id: 'mp-cook', kind: 'request', label: 'Community dinner', lat: -33.9012, lng: 151.1762, target: { screen: 'requestDetail', id: 'dinner-cookup' } },
 
