@@ -12,9 +12,9 @@ export default function PhoneHomeScreen({ onNavigate }: PhoneScreenProps) {
   return (
     <div className={styles.screen} data-screen-label="App home">
       <div className={styles.header}>
-        <div className={styles.avatar}>S</div>
+        <div className={styles.avatar}>J</div>
         <div className={styles.hgroup}>
-          <div className={styles.hello}>Good afternoon, Five Man</div>
+          <div className={styles.hello}>Good afternoon, Jacob Mulberry</div>
           <div className={styles.place}>📍 {suburb}</div>
         </div>
       </div>
